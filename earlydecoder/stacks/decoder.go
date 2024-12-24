@@ -7,7 +7,7 @@ import (
 	"sort"
 
 	"github.com/hashicorp/hcl/v2"
-	"github.com/hashicorp/terraform-schema/stack"
+	"github.com/opentofu/opentofu-schema/stack"
 )
 
 func LoadStack(path string, files map[string]*hcl.File) (*stack.Meta, hcl.Diagnostics) {

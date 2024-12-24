@@ -6,8 +6,8 @@ package schema
 import (
 	"github.com/hashicorp/hcl-lang/lang"
 	"github.com/hashicorp/hcl-lang/schema"
-	"github.com/hashicorp/terraform-schema/internal/schema/refscope"
-	"github.com/hashicorp/terraform-schema/module"
+	"github.com/opentofu/opentofu-schema/internal/schema/refscope"
+	"github.com/opentofu/opentofu-schema/module"
 	"github.com/zclconf/go-cty/cty"
 )
 

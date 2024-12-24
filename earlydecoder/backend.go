@@ -5,7 +5,7 @@ package earlydecoder
 
 import (
 	"github.com/hashicorp/hcl/v2"
-	"github.com/hashicorp/terraform-schema/backend"
+	"github.com/opentofu/opentofu-schema/backend"
 	"github.com/zclconf/go-cty/cty"
 )
 

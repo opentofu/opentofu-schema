@@ -9,7 +9,7 @@ import (
 	"github.com/zclconf/go-cty/cty"
 	"github.com/zclconf/go-cty/cty/function"
 
-	funcs_v0_13 "github.com/hashicorp/terraform-schema/internal/funcs/0.13"
+	funcs_v0_13 "github.com/opentofu/opentofu-schema/internal/funcs/0.13"
 )
 
 func Functions(v *version.Version) map[string]schema.FunctionSignature {

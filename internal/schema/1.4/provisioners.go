@@ -9,7 +9,7 @@ import (
 	"github.com/hashicorp/hcl-lang/schema"
 	"github.com/zclconf/go-cty/cty"
 
-	v0_15_mod "github.com/hashicorp/terraform-schema/internal/schema/0.15"
+	v0_15_mod "github.com/opentofu/opentofu-schema/internal/schema/0.15"
 )
 
 var (

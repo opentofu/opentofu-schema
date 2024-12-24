@@ -9,7 +9,7 @@ import (
 	"github.com/hashicorp/hcl-lang/schema"
 	"github.com/zclconf/go-cty/cty"
 
-	v014_mod "github.com/hashicorp/terraform-schema/internal/schema/0.14"
+	v014_mod "github.com/opentofu/opentofu-schema/internal/schema/0.14"
 )
 
 func ConnectionDependentBodies(v *version.Version) map[schema.SchemaKey]*schema.BodySchema {

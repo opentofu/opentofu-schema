@@ -1,4 +1,4 @@
-module github.com/hashicorp/terraform-schema
+module github.com/opentofu/opentofu-schema
 
 go 1.21.0
 

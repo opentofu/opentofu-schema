@@ -8,7 +8,7 @@ import (
 
 	"github.com/hashicorp/go-version"
 	"github.com/hashicorp/hcl-lang/schema"
-	tfmod "github.com/hashicorp/terraform-schema/module"
+	tfmod "github.com/opentofu/opentofu-schema/module"
 )
 
 type FunctionsMerger struct {

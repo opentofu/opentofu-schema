@@ -7,7 +7,7 @@ import (
 	"github.com/hashicorp/go-version"
 	"github.com/hashicorp/hcl-lang/schema"
 
-	v014_mod "github.com/hashicorp/terraform-schema/internal/schema/0.14"
+	v014_mod "github.com/opentofu/opentofu-schema/internal/schema/0.14"
 )
 
 var (

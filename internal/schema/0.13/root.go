@@ -7,7 +7,7 @@ import (
 	"github.com/hashicorp/go-version"
 	"github.com/hashicorp/hcl-lang/schema"
 
-	v012_mod "github.com/hashicorp/terraform-schema/internal/schema/0.12"
+	v012_mod "github.com/opentofu/opentofu-schema/internal/schema/0.12"
 )
 
 var v0_13_4 = version.Must(version.NewVersion("0.13.4"))
