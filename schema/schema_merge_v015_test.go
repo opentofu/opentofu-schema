@@ -447,7 +447,7 @@ var moduleWithDependency = schema.BlockSchema{
 						},
 						Path: lang.Path{
 							Path:       "path",
-							LanguageID: "terraform",
+							LanguageID: "opentofu",
 						},
 						Constraints: schema.Constraints{
 							ScopeId: "variable",
@@ -535,7 +535,7 @@ var expectedRemoteModuleSchema = &schema.BlockSchema{
 						},
 						Path: lang.Path{
 							Path:       ".terraform/modules/remote-example",
-							LanguageID: "terraform",
+							LanguageID: "opentofu",
 						},
 						Constraints: schema.Constraints{
 							ScopeId: "variable",

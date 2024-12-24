@@ -4,6 +4,6 @@
 package schema
 
 const (
-	ModuleLanguageID    = "terraform"
-	VariablesLanguageID = "terraform-vars"
+	ModuleLanguageID    = "opentofu"
+	VariablesLanguageID = "opentofu-vars"
 )
