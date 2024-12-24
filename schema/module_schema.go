@@ -224,7 +224,7 @@ func schemaForDependentModuleBlock(module module.DeclaredModuleCall, modMeta *mo
 		bodySchema.Targets = &schema.Target{
 			Path: lang.Path{
 				Path:       modMeta.Path,
-				LanguageID: "terraform",
+				LanguageID: "opentofu",
 			},
 			Range: hcl.Range{
 				Filename: filename,

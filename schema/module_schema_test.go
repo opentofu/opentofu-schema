@@ -97,7 +97,7 @@ func TestSchemaForDependentModuleBlock_basic(t *testing.T) {
 					},
 					Path: lang.Path{
 						Path:       "./local",
-						LanguageID: "terraform",
+						LanguageID: "opentofu",
 					},
 					Constraints: schema.Constraints{
 						ScopeId: "variable",
@@ -115,7 +115,7 @@ func TestSchemaForDependentModuleBlock_basic(t *testing.T) {
 					},
 					Path: lang.Path{
 						Path:       "./local",
-						LanguageID: "terraform",
+						LanguageID: "opentofu",
 					},
 					Constraints: schema.Constraints{
 						ScopeId: "variable",
@@ -183,7 +183,7 @@ func TestSchemaForDependentModuleBlock_basic(t *testing.T) {
 					lang.RootStep{Name: "output"},
 					lang.AttrStep{Name: "first"},
 				},
-				Path:        lang.Path{Path: "./local", LanguageID: "terraform"},
+				Path:        lang.Path{Path: "./local", LanguageID: "opentofu"},
 				Constraints: schema.Constraints{ScopeId: "output"},
 			},
 			{
@@ -196,7 +196,7 @@ func TestSchemaForDependentModuleBlock_basic(t *testing.T) {
 					lang.RootStep{Name: "output"},
 					lang.AttrStep{Name: "second"},
 				},
-				Path:        lang.Path{Path: "./local", LanguageID: "terraform"},
+				Path:        lang.Path{Path: "./local", LanguageID: "opentofu"},
 				Constraints: schema.Constraints{ScopeId: "output"},
 			},
 		},
@@ -266,7 +266,7 @@ func TestSchemaForDependentModuleBlock_Target(t *testing.T) {
 					},
 				},
 				Targets: &schema.Target{
-					Path: lang.Path{Path: "./local", LanguageID: "terraform"},
+					Path: lang.Path{Path: "./local", LanguageID: "opentofu"},
 					Range: hcl.Range{
 						Filename: "a_file.tf",
 						Start:    hcl.InitialPos,
@@ -298,7 +298,7 @@ func TestSchemaForDependentModuleBlock_Target(t *testing.T) {
 					},
 				},
 				Targets: &schema.Target{
-					Path: lang.Path{Path: "./local", LanguageID: "terraform"},
+					Path: lang.Path{Path: "./local", LanguageID: "opentofu"},
 					Range: hcl.Range{
 						Filename: "main.tf",
 						Start:    hcl.InitialPos,
