@@ -10,8 +10,8 @@ import (
 	"testing"
 
 	"github.com/hashicorp/go-version"
-	"github.com/hashicorp/terraform-schema/backend"
-	"github.com/hashicorp/terraform-schema/internal/addr"
+	"github.com/opentofu/opentofu-schema/backend"
+	"github.com/opentofu/opentofu-schema/internal/addr"
 )
 
 func TestBackend_Equals(t *testing.T) {

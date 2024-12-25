@@ -8,7 +8,7 @@ package earlydecoder
 import (
 	"fmt"
 
-	"github.com/hashicorp/terraform-schema/module"
+	"github.com/opentofu/opentofu-schema/module"
 )
 
 type dataSource struct {

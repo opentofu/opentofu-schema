@@ -11,9 +11,9 @@ import (
 	"github.com/hashicorp/hcl-lang/lang"
 	"github.com/hashicorp/hcl-lang/schema"
 	tfaddr "github.com/hashicorp/terraform-registry-address"
-	"github.com/hashicorp/terraform-schema/internal/addr"
-	"github.com/hashicorp/terraform-schema/internal/schema/backends"
-	"github.com/hashicorp/terraform-schema/module"
+	"github.com/opentofu/opentofu-schema/internal/addr"
+	"github.com/opentofu/opentofu-schema/internal/schema/backends"
+	"github.com/opentofu/opentofu-schema/module"
 	"github.com/zclconf/go-cty/cty"
 )
 

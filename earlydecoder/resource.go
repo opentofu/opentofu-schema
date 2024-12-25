@@ -9,7 +9,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/hashicorp/terraform-schema/module"
+	"github.com/opentofu/opentofu-schema/module"
 )
 
 type resource struct {

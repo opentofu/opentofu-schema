@@ -10,10 +10,10 @@ import (
 	"github.com/hashicorp/hcl-lang/lang"
 	"github.com/hashicorp/hcl-lang/schema"
 
-	v012_mod "github.com/hashicorp/terraform-schema/internal/schema/0.12"
-	v1_3_mod "github.com/hashicorp/terraform-schema/internal/schema/1.3"
-	v1_4_mod "github.com/hashicorp/terraform-schema/internal/schema/1.4"
-	v1_8_mod "github.com/hashicorp/terraform-schema/internal/schema/1.8"
+	v012_mod "github.com/opentofu/opentofu-schema/internal/schema/0.12"
+	v1_3_mod "github.com/opentofu/opentofu-schema/internal/schema/1.3"
+	v1_4_mod "github.com/opentofu/opentofu-schema/internal/schema/1.4"
+	v1_8_mod "github.com/opentofu/opentofu-schema/internal/schema/1.8"
 )
 
 func ModuleSchema(v *version.Version) *schema.BodySchema {

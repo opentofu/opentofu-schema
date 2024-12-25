@@ -11,12 +11,12 @@ import (
 	"github.com/hashicorp/go-version"
 	"github.com/hashicorp/hcl-lang/schema"
 
-	funcs_v0_12 "github.com/hashicorp/terraform-schema/internal/funcs/0.12"
-	funcs_v0_13 "github.com/hashicorp/terraform-schema/internal/funcs/0.13"
-	funcs_v0_14 "github.com/hashicorp/terraform-schema/internal/funcs/0.14"
-	funcs_v0_15 "github.com/hashicorp/terraform-schema/internal/funcs/0.15"
-	funcs_v1_3 "github.com/hashicorp/terraform-schema/internal/funcs/1.3"
-	funcs_generated "github.com/hashicorp/terraform-schema/internal/funcs/generated"
+	funcs_v0_12 "github.com/opentofu/opentofu-schema/internal/funcs/0.12"
+	funcs_v0_13 "github.com/opentofu/opentofu-schema/internal/funcs/0.13"
+	funcs_v0_14 "github.com/opentofu/opentofu-schema/internal/funcs/0.14"
+	funcs_v0_15 "github.com/opentofu/opentofu-schema/internal/funcs/0.15"
+	funcs_v1_3 "github.com/opentofu/opentofu-schema/internal/funcs/1.3"
+	funcs_generated "github.com/opentofu/opentofu-schema/internal/funcs/generated"
 )
 
 func FunctionsForVersion(v *version.Version) (map[string]schema.FunctionSignature, error) {

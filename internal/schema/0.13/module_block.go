@@ -10,8 +10,8 @@ import (
 	"github.com/hashicorp/hcl-lang/schema"
 	"github.com/zclconf/go-cty/cty"
 
-	"github.com/hashicorp/terraform-schema/internal/schema/refscope"
-	"github.com/hashicorp/terraform-schema/internal/schema/tokmod"
+	"github.com/opentofu/opentofu-schema/internal/schema/refscope"
+	"github.com/opentofu/opentofu-schema/internal/schema/tokmod"
 )
 
 func moduleBlockSchema() *schema.BlockSchema {

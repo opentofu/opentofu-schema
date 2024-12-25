@@ -11,7 +11,7 @@ import (
 	"github.com/hashicorp/go-version"
 	"github.com/hashicorp/hcl/v2"
 	tfaddr "github.com/hashicorp/terraform-registry-address"
-	"github.com/hashicorp/terraform-schema/internal/detect"
+	"github.com/opentofu/opentofu-schema/internal/detect"
 )
 
 var moduleSourceLocalPrefixes = []string{

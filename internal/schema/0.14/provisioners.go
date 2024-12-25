@@ -9,7 +9,7 @@ import (
 	"github.com/hashicorp/go-version"
 	"github.com/hashicorp/hcl-lang/schema"
 
-	v013_mod "github.com/hashicorp/terraform-schema/internal/schema/0.13"
+	v013_mod "github.com/opentofu/opentofu-schema/internal/schema/0.13"
 )
 
 // See https://github.com/hashicorp/terraform/blob/v0.14.0/command/internal_plugin_list.go

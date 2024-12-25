@@ -12,8 +12,8 @@ import (
 	"github.com/hashicorp/go-version"
 	"github.com/hashicorp/hcl/v2"
 	tfaddr "github.com/hashicorp/terraform-registry-address"
-	"github.com/hashicorp/terraform-schema/internal/addr"
-	"github.com/hashicorp/terraform-schema/module"
+	"github.com/opentofu/opentofu-schema/internal/addr"
+	"github.com/opentofu/opentofu-schema/module"
 )
 
 func LoadModule(path string, files map[string]*hcl.File) (*module.Meta, hcl.Diagnostics) {

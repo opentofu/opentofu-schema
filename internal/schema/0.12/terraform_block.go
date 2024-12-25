@@ -9,9 +9,9 @@ import (
 	"github.com/hashicorp/go-version"
 	"github.com/hashicorp/hcl-lang/lang"
 	"github.com/hashicorp/hcl-lang/schema"
-	"github.com/hashicorp/terraform-schema/internal/schema/backends"
-	"github.com/hashicorp/terraform-schema/internal/schema/refscope"
-	"github.com/hashicorp/terraform-schema/internal/schema/tokmod"
+	"github.com/opentofu/opentofu-schema/internal/schema/backends"
+	"github.com/opentofu/opentofu-schema/internal/schema/refscope"
+	"github.com/opentofu/opentofu-schema/internal/schema/tokmod"
 	"github.com/zclconf/go-cty/cty"
 )
 

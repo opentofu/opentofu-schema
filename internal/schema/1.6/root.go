@@ -9,7 +9,7 @@ import (
 	"github.com/hashicorp/go-version"
 	"github.com/hashicorp/hcl-lang/schema"
 
-	v1_5_mod "github.com/hashicorp/terraform-schema/internal/schema/1.5"
+	v1_5_mod "github.com/opentofu/opentofu-schema/internal/schema/1.5"
 )
 
 func ModuleSchema(v *version.Version) *schema.BodySchema {
