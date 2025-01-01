@@ -1,4 +1,4 @@
-# OpenTofu-schema [WIP]
+# opentofu-schema [WIP]
 
 This library helps assembling a complete [`hcl-lang`](https://github.com/hashicorp/hcl-lang)
 schema for decoding OpenTofu config based on static OpenTofu core schema
