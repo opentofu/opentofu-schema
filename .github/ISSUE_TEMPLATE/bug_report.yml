@@ -35,7 +35,6 @@ body:
     attributes:
       label: OpenTofu Version
       description: Run `tofu version` to show the version, and paste the result below. If you are not running the latest version of OpenTofu, please try upgrading because your issue may have already been fixed.
-      render: shell
       placeholder: ...output of `tofu version`...
       value:
     validations:
@@ -45,7 +44,6 @@ body:
     attributes:
       label: OpenTofu Schema Library Version
       description: OpenTofu Schema version you are using. If you are not using the latest version, please try upgrading - your issue may have already been fixed.
-      render: shell
       placeholder: v1.0.0
       value:
     validations:
