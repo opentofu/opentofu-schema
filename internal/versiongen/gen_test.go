@@ -23,6 +23,9 @@ func TestGetTofuReleases(t *testing.T) {
 		t.Fatalf("expected >= %d releases, %d given", minExpectedLength, len(releases))
 	}
 
+	// The oldest release should really be 1.6.0-alpha1. We're however getting
+	// releases sorted by dates and those dates were backfilled as part
+	// of some older data migrations where the original dates were lost.
 	expectedOldestRelease := release{
 		Version: version.Must(version.NewVersion("1.6.0-alpha1")),
 	}

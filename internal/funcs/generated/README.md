@@ -1,6 +1,6 @@
-# Generated Terraform function signatures
+# Generated OpenTofu function signatures
 
-This package can generate function signature files for Terraform >= 1.4 automatically.
+This package can generate function signature files for OpeTofu >= 1.4 automatically.
 
 It is intended to run whenever HashiCorp releases a new Terraform version. If the Terraform version contains updated function signatures, it generates a new file for that version. When no changes are detected, one should commit the version bump in `gen/gen.go`.
 
