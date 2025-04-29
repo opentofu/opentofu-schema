@@ -22,12 +22,12 @@ import (
 	"github.com/hashicorp/hcl/v2"
 	"github.com/hashicorp/hcl/v2/hclsyntax"
 	tfjson "github.com/hashicorp/terraform-json"
-	tfaddr "github.com/opentofu/registry-address"
 	"github.com/opentofu/opentofu-schema/earlydecoder"
 	"github.com/opentofu/opentofu-schema/internal/addr"
 	"github.com/opentofu/opentofu-schema/internal/schema/tokmod"
 	"github.com/opentofu/opentofu-schema/module"
 	"github.com/opentofu/opentofu-schema/registry"
+	tfaddr "github.com/opentofu/registry-address"
 	"github.com/zclconf/go-cty-debug/ctydebug"
 	"github.com/zclconf/go-cty/cty"
 )
