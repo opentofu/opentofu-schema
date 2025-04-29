@@ -52,7 +52,7 @@ body:
     id: tofu-schema-usage
     attributes:
       label: Code Sample
-      description: Paste the relevant parts of your OpenTofu Schema usage between the ``` marks below. For examples involving multiple files, please make a GitHub repository that we can clone, rather than copy-pasting multiple files in here.
+      description: Paste the relevant parts of your OpenTofu Schema usage in the code block below. For examples involving multiple files, please make a GitHub repository that we can clone, rather than copy-pasting multiple files in here.
       placeholder:
       value: |
         ```go
@@ -64,7 +64,7 @@ body:
     id: tofu-config
     attributes:
       label: OpenTofu Configuration Files
-      description: Paste the relevant parts of your OpenTofu configuration between the ``` marks below. For OpenTofu configs larger than a few resources, or that involve multiple files, please make a GitHub repository that we can clone, rather than copy-pasting multiple files in here.
+      description: Paste the relevant parts of your OpenTofu configuration in the code block below. For OpenTofu configs larger than a few resources, please consider using another GitHub repository or a GitHub gist.
       placeholder:
       value: |
         ```hcl
@@ -95,7 +95,7 @@ body:
     attributes:
       label: Additional Context
       description: |
-        Are there anything atypical about your situation that we should know?
+        Is there anything atypical about your situation that we should know?
       placeholder: Additional context...
       value:
     validations:
