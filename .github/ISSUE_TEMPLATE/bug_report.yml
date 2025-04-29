@@ -1,0 +1,120 @@
+# Copyright (c) The OpenTofu Authors
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
+name: Bug Report
+description: Let us know about an unexpected error, or an incorrect behavior.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # Thank you for opening an issue.
+
+        The [OpenTofu Schema](https://github.com/opentofu/opentofu-schema) issue tracker is reserved for bug reports relating to the core OpenTofu schema repository.
+
+        ## Filing a bug report
+
+        To fix problems, we need clear reproduction cases - we need to be able to see it happen locally. A reproduction case is ideally something any engineer can git-clone or copy-paste and run immediately, without inventing any details or context.
+
+        * A short example can be directly copy-pasteable; longer examples should be in separate git repositories, especially if multiple files are needed
+        * Please include all needed context. For example, if you figured out that an expression can cause a crash, put the expression in a variable definition or a resource
+        * Set defaults on (or omit) any variables. The person reproducing it should not need to invent variable settings
+        * Omit any unneeded complexity: remove variables, conditional statements, functions, etc. that are not needed to trigger the bug
+  - type: textarea
+    id: community-note
+    attributes:
+      label: Community note
+      description: Please leave this note unchanged.
+      value: |
+        > [!TIP]
+        > 👋 Hi there, OpenTofu community! The OpenTofu team prioritizes issues based on upvotes. Please make sure to upvote this issue and describe how it affects you in detail in the comments to show your support.
+  - type: input
+    id: tofu-version
+    attributes:
+      label: OpenTofu Version
+      description: Run `tofu version` to show the version, and paste the result below. If you are not running the latest version of OpenTofu, please try upgrading because your issue may have already been fixed.
+      placeholder: ...output of `tofu version`...
+      value:
+    validations:
+      required: true
+  - type: input
+    id: tofu-schema-version
+    attributes:
+      label: OpenTofu Schema Library Version
+      description: OpenTofu Schema version you are using. If you are not using the latest version, please try upgrading - your issue may have already been fixed.
+      placeholder: v1.0.0
+      value:
+    validations:
+      required: true
+  - type: textarea
+    id: tofu-schema-usage
+    attributes:
+      label: Code Sample
+      description: Paste the relevant parts of your OpenTofu Schema usage in the code block below. For examples involving multiple files, please make a GitHub repository that we can clone, rather than copy-pasting multiple files in here.
+      placeholder:
+      value: |
+        ```go
+        ...code...
+        ```
+    validations:
+      required:
+  - type: textarea
+    id: tofu-config
+    attributes:
+      label: OpenTofu Configuration Files
+      description: Paste the relevant parts of your OpenTofu configuration in the code block below. For OpenTofu configs larger than a few resources, please consider using another GitHub repository or a GitHub gist.
+      placeholder:
+      value: |
+        ```hcl
+        ...tofu config...
+        ```
+    validations:
+      required:
+  - type: textarea
+    id: tofu-expected
+    attributes:
+      label: Expected Behavior
+      description: What should have happened?
+      placeholder: What should have happened?
+      value:
+    validations:
+      required: true
+  - type: textarea
+    id: tofu-actual
+    attributes:
+      label: Actual Behavior
+      description: What actually happened?
+      placeholder: What actually happened?
+      value:
+    validations:
+      required: true
+  - type: textarea
+    id: tofu-add-context
+    attributes:
+      label: Additional Context
+      description: |
+        Is there anything atypical about your situation that we should know?
+      placeholder: Additional context...
+      value:
+    validations:
+      required: false
+  - type: textarea
+    id: tofu-references
+    attributes:
+      label: References
+      description: |
+        Are there any other GitHub issues (open or closed) or Pull Requests that should be linked here? For example:
+        ```
+          - #1
+        ```
+      placeholder:
+      value:
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        **Note:** If the submit button is disabled and you have filled out all required fields, please check that you did not forget a **Title** for the issue.
