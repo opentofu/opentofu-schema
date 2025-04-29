@@ -9,23 +9,25 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"log"
 	"net/url"
 	"os"
 	"sort"
 	"text/template"
-	"time"
 
 	"github.com/hashicorp/go-cleanhttp"
 	"github.com/hashicorp/go-version"
 )
 
-var baseURL = "https://api.releases.hashicorp.com/v1"
+var baseURL = "https://get.opentofu.org"
 
 type release struct {
-	Version *version.Version `json:"version"`
-	Created *time.Time       `json:"timestamp_created"`
+	Version *version.Version `json:"id"`
+}
+
+type versionsAPI struct {
+	Versions []release
 }
 
 func main() {
@@ -42,7 +44,7 @@ func main() {
 		output = f
 	}
 
-	releases, err := GetTerraformReleases()
+	releases, err := GetTofuReleases()
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -109,38 +111,23 @@ func firstStableVersion(releases []release) (*version.Version, error) {
 	return nil, fmt.Errorf("unable to find stable version in %d given releases", len(releases))
 }
 
-func GetTerraformReleases() ([]release, error) {
+func GetTofuReleases() ([]release, error) {
 	releases := make([]release, 0)
 
-	var after *time.Time
-	for {
-		r, err := getTerraformReleasesAfter(after)
-		if err != nil {
-			return releases, err
-		}
-		if len(r) == 0 {
-			break
-		}
-
-		releases = append(releases, r...)
-		after = r[len(r)-1].Created
+	r, err := getTofuReleases()
+	if err != nil {
+		return nil, err
 	}
+	releases = append(releases, r...)
 
 	return releases, nil
 }
 
-func getTerraformReleasesAfter(after *time.Time) ([]release, error) {
-	u, err := url.Parse(fmt.Sprintf("%s/releases/%s", baseURL, "terraform"))
+func getTofuReleases() ([]release, error) {
+	u, err := url.Parse(fmt.Sprintf("%s/tofu/api.json", baseURL))
 	if err != nil {
 		return nil, err
 	}
-
-	params := u.Query()
-	params.Set("limit", "20")
-	if after != nil {
-		params.Set("after", after.Format(time.RFC3339))
-	}
-	u.RawQuery = params.Encode()
 
 	client := cleanhttp.DefaultClient()
 	log.Printf("calling %q", u.String())
@@ -153,16 +140,16 @@ func getTerraformReleasesAfter(after *time.Time) ([]release, error) {
 		return nil, fmt.Errorf("server returned %q", resp.Status)
 	}
 
-	b, err := ioutil.ReadAll(resp.Body)
+	b, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
 
-	var releases []release
-	err = json.Unmarshal(b, &releases)
+	var versions versionsAPI
+	err = json.Unmarshal(b, &versions)
 	if err != nil {
 		return nil, err
 	}
 
-	return releases, nil
+	return versions.Versions, nil
 }
