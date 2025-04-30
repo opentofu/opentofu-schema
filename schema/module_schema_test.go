@@ -422,7 +422,7 @@ func TestSchemaForDependentModuleBlock_DocsLink(t *testing.T) {
 				},
 				ImpliedOrigins: schema.ImpliedOrigins{},
 				DocsLink: &schema.DocsLink{
-					URL: "https://search.opentofu.org/module/terraform-aws-modules/vpc/aws/1.33.7",
+					URL: "https://search.opentofu.org/module/terraform-aws-modules/vpc/aws/v1.33.7",
 				},
 			},
 		},
@@ -561,7 +561,7 @@ func TestSchemaForDeclaredDependentModuleBlock_basic(t *testing.T) {
 			},
 		},
 		DocsLink: &schema.DocsLink{
-			URL: "https://search.opentofu.org/module/terraform-aws-modules/eks/aws/1.0.0",
+			URL: "https://search.opentofu.org/module/terraform-aws-modules/eks/aws/v1.0.0",
 		},
 	}
 	if diff := cmp.Diff(expectedDepSchema, depSchema, ctydebug.CmpOptions); diff != "" {
