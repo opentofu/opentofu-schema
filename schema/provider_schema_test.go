@@ -55,16 +55,16 @@ func TestProviderSchema_SetProviderVersion(t *testing.T) {
 	}
 	expectedSchema := &ProviderSchema{
 		Provider: &schema.BodySchema{
-			Detail:   "hashicorp/aws 1.2.5",
-			HoverURL: "https://search.opentofu.org/provider/hashicorp/aws/1.2.5/",
+			Detail:   "hashicorp/aws 3.76.1",
+			HoverURL: "https://search.opentofu.org/provider/hashicorp/aws/v3.76.1/",
 			DocsLink: &schema.DocsLink{
-				URL:     "https://search.opentofu.org/provider/hashicorp/aws/1.2.5/",
+				URL:     "https://search.opentofu.org/provider/hashicorp/aws/v3.76.1/",
 				Tooltip: "hashicorp/aws Documentation",
 			},
 		},
 		Resources: map[string]*schema.BodySchema{
 			"foo": {
-				Detail: "hashicorp/aws 1.2.5",
+				Detail: "hashicorp/aws 3.76.1",
 				Attributes: map[string]*schema.AttributeSchema{
 					"str": {
 						Constraint: schema.LiteralType{Type: cty.String},
@@ -75,7 +75,7 @@ func TestProviderSchema_SetProviderVersion(t *testing.T) {
 		},
 		DataSources: map[string]*schema.BodySchema{
 			"bar": {
-				Detail: "hashicorp/aws 1.2.5",
+				Detail: "hashicorp/aws 3.76.1",
 				Attributes: map[string]*schema.AttributeSchema{
 					"num": {
 						Constraint: schema.LiteralType{Type: cty.Number},
@@ -87,7 +87,7 @@ func TestProviderSchema_SetProviderVersion(t *testing.T) {
 		Functions: map[string]*schema.FunctionSignature{
 			"baz": {
 				Description: "baz",
-				Detail:      "hashicorp/aws 1.2.5",
+				Detail:      "hashicorp/aws 3.76.1",
 				Params: []function.Parameter{
 					{Name: "a", Type: cty.String, Description: "first parameter"},
 				},
@@ -100,7 +100,7 @@ func TestProviderSchema_SetProviderVersion(t *testing.T) {
 		Namespace: "hashicorp",
 		Type:      "aws",
 	}
-	pv := version.Must(version.NewVersion("1.2.5"))
+	pv := version.Must(version.NewVersion("3.76.1"))
 
 	ps.SetProviderVersion(pAddr, pv)
 
