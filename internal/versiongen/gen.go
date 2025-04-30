@@ -27,7 +27,7 @@ type release struct {
 }
 
 type versionsAPI struct {
-	Versions []release
+	Versions []release `json:"versions"`
 }
 
 func main() {

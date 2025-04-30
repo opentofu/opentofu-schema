@@ -1,6 +1,6 @@
 # Generated OpenTofu function signatures
 
-This package can generate function signature files for OpeTofu >= 1.6 automatically.
+This package can generate function signature files for OpenTofu >= 1.6 automatically.
 
 It is intended to run whenever OpenTofu releases a new OpenTofu version. If the OpenTofu version contains updated function signatures, it generates a new file for that version. When no changes are detected, one should commit the version bump in `gen/gen.go`.
 
