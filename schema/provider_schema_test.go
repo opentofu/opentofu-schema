@@ -56,9 +56,9 @@ func TestProviderSchema_SetProviderVersion(t *testing.T) {
 	expectedSchema := &ProviderSchema{
 		Provider: &schema.BodySchema{
 			Detail:   "hashicorp/aws 1.2.5",
-			HoverURL: "https://registry.terraform.io/providers/hashicorp/aws/1.2.5/docs",
+			HoverURL: "https://search.opentofu.org/provider/hashicorp/aws/1.2.5/",
 			DocsLink: &schema.DocsLink{
-				URL:     "https://registry.terraform.io/providers/hashicorp/aws/1.2.5/docs",
+				URL:     "https://search.opentofu.org/provider/hashicorp/aws/1.2.5/",
 				Tooltip: "hashicorp/aws Documentation",
 			},
 		},

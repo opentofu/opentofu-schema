@@ -13,9 +13,9 @@ import (
 	"github.com/hashicorp/go-version"
 	"github.com/hashicorp/hcl-lang/schema"
 	tfjson "github.com/hashicorp/terraform-json"
-	tfaddr "github.com/opentofu/registry-address"
 	"github.com/opentofu/opentofu-schema/internal/addr"
 	tfmod "github.com/opentofu/opentofu-schema/module"
+	tfaddr "github.com/opentofu/registry-address"
 	"github.com/zclconf/go-cty-debug/ctydebug"
 	"github.com/zclconf/go-cty/cty"
 	"github.com/zclconf/go-cty/cty/function"
@@ -60,7 +60,7 @@ func TestFunctionsMerger_FunctionsForModule_noMeta(t *testing.T) {
 }
 
 var providerSchemaWithFunctions = map[string]*tfjson.ProviderSchema{
-	"registry.terraform.io/hashicorp/test": {
+	"registry.opentofu.org/hashicorp/test": {
 		ConfigSchema:      &tfjson.Schema{},
 		DataSourceSchemas: map[string]*tfjson.Schema{},
 		ResourceSchemas:   map[string]*tfjson.Schema{},

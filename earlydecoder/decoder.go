@@ -11,9 +11,9 @@ import (
 
 	"github.com/hashicorp/go-version"
 	"github.com/hashicorp/hcl/v2"
-	tfaddr "github.com/opentofu/registry-address"
 	"github.com/opentofu/opentofu-schema/internal/addr"
 	"github.com/opentofu/opentofu-schema/module"
+	tfaddr "github.com/opentofu/registry-address"
 )
 
 func LoadModule(path string, files map[string]*hcl.File) (*module.Meta, hcl.Diagnostics) {

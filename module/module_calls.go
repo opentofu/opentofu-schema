@@ -10,8 +10,8 @@ import (
 
 	"github.com/hashicorp/go-version"
 	"github.com/hashicorp/hcl/v2"
-	tfaddr "github.com/opentofu/registry-address"
 	"github.com/opentofu/opentofu-schema/internal/detect"
+	tfaddr "github.com/opentofu/registry-address"
 )
 
 var moduleSourceLocalPrefixes = []string{

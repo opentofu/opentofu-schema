@@ -35,7 +35,7 @@ var expectedMergedSchema_v015_aliased = &schema.BodySchema{
 				},
 			},
 			DependentBody: map[schema.SchemaKey]*schema.BodySchema{
-				`{"labels":[{"index":0,"value":"hashicup_test"}],"attrs":[{"name":"provider","expr":{"addr":"hcc"}}]}`: {
+				`{"labels":[{"index":0,"value":"hashicups_test"}],"attrs":[{"name":"provider","expr":{"addr":"hcc"}}]}`: {
 					Blocks: map[string]*schema.BlockSchema{},
 					Attributes: map[string]*schema.AttributeSchema{
 						"backend": {
@@ -172,7 +172,7 @@ var expectedMergedSchema_v015_aliased = &schema.BodySchema{
 							Constraint: schema.AnyExpression{OfType: cty.String},
 						},
 					},
-					Detail: "hashicorp/hashicup",
+					Detail: "hashicorp/hashicups",
 				},
 			},
 		},
@@ -196,12 +196,12 @@ var expectedMergedSchema_v015_aliased = &schema.BodySchema{
 				`{"labels":[{"index":0,"value":"hcc"}]}`: {
 					Blocks:     map[string]*schema.BlockSchema{},
 					Attributes: map[string]*schema.AttributeSchema{},
-					Detail:     "hashicorp/hashicup",
-					HoverURL:   "https://registry.terraform.io/providers/hashicorp/hashicup/latest/docs",
+					Detail:     "hashicorp/hashicups",
 					DocsLink: &schema.DocsLink{
-						URL:     "https://registry.terraform.io/providers/hashicorp/hashicup/latest/docs",
-						Tooltip: "hashicorp/hashicup Documentation",
+						URL:     "https://search.opentofu.org/provider/hashicorp/hashicups/latest/",
+						Tooltip: "hashicorp/hashicups Documentation",
 					},
+					HoverURL: "https://search.opentofu.org/provider/hashicorp/hashicups/latest/",
 				},
 			},
 		},

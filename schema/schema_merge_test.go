@@ -22,12 +22,12 @@ import (
 	"github.com/hashicorp/hcl/v2"
 	"github.com/hashicorp/hcl/v2/hclsyntax"
 	tfjson "github.com/hashicorp/terraform-json"
-	tfaddr "github.com/opentofu/registry-address"
 	"github.com/opentofu/opentofu-schema/earlydecoder"
 	"github.com/opentofu/opentofu-schema/internal/addr"
 	"github.com/opentofu/opentofu-schema/internal/schema/tokmod"
 	"github.com/opentofu/opentofu-schema/module"
 	"github.com/opentofu/opentofu-schema/registry"
+	tfaddr "github.com/opentofu/registry-address"
 	"github.com/zclconf/go-cty-debug/ctydebug"
 	"github.com/zclconf/go-cty/cty"
 )
@@ -174,7 +174,7 @@ func TestSchemaMerger_SchemaForModule_providerNameMatch(t *testing.T) {
 		ps: &tfjson.ProviderSchemas{
 			FormatVersion: "1.0",
 			Schemas: map[string]*tfjson.ProviderSchema{
-				"registry.terraform.io/hashicorp/data": {
+				"registry.opentofu.org/hashicorp/data": {
 					ConfigSchema: &tfjson.Schema{},
 					DataSourceSchemas: map[string]*tfjson.Schema{
 						"data": {
@@ -221,10 +221,10 @@ func TestSchemaMerger_SchemaForModule_providerNameMatch(t *testing.T) {
 						Attributes: map[string]*schema.AttributeSchema{},
 						Detail:     "hashicorp/data",
 						DocsLink: &schema.DocsLink{
-							URL:     "https://registry.terraform.io/providers/hashicorp/data/latest/docs",
+							URL:     "https://search.opentofu.org/provider/hashicorp/data/latest/",
 							Tooltip: "hashicorp/data Documentation",
 						},
-						HoverURL: "https://registry.terraform.io/providers/hashicorp/data/latest/docs",
+						HoverURL: "https://search.opentofu.org/provider/hashicorp/data/latest/",
 					},
 				},
 			},
@@ -235,7 +235,10 @@ func TestSchemaMerger_SchemaForModule_providerNameMatch(t *testing.T) {
 				},
 				Body: &schema.BodySchema{
 					Attributes: map[string]*schema.AttributeSchema{
-						"count": {Constraint: schema.LiteralType{Type: cty.Number}, IsOptional: true},
+						"count": {
+							Constraint: schema.LiteralType{Type: cty.Number},
+							IsOptional: true,
+						},
 					},
 				},
 				DependentBody: map[schema.SchemaKey]*schema.BodySchema{},
@@ -402,10 +405,10 @@ func TestSchemaMerger_SchemaForModule_twiceMerged(t *testing.T) {
 	mergedSchema, err := sm.SchemaForModule(&module.Meta{
 		Path: "testdata",
 		ProviderReferences: map[module.ProviderRef]tfaddr.Provider{
-			{LocalName: "hashicup"}: addr.NewDefaultProvider("hashicup"),
+			{LocalName: "hashicups"}: addr.NewDefaultProvider("hashicups"),
 		},
 		ProviderRequirements: map[tfaddr.Provider]version.Constraints{
-			addr.NewDefaultProvider("hashicup"): vc,
+			addr.NewDefaultProvider("hashicups"): vc,
 		},
 	})
 	if err != nil {
@@ -413,16 +416,16 @@ func TestSchemaMerger_SchemaForModule_twiceMerged(t *testing.T) {
 	}
 
 	if diff := cmp.Diff(expectedMergedSchema_v015, mergedSchema, ctydebug.CmpOptions); diff != "" {
-		t.Fatalf("schema differs: %s", diff)
+		t.Fatalf("schema differs on first merge: %s", diff)
 	}
 
 	newMergedSchema, err := sm.SchemaForModule(&module.Meta{
 		Path: "testdata",
 		ProviderReferences: map[module.ProviderRef]tfaddr.Provider{
-			{LocalName: "hcc"}: addr.NewDefaultProvider("hashicup"),
+			{LocalName: "hcc"}: addr.NewDefaultProvider("hashicups"),
 		},
 		ProviderRequirements: map[tfaddr.Provider]version.Constraints{
-			addr.NewDefaultProvider("hashicup"): vc,
+			addr.NewDefaultProvider("hashicups"): vc,
 		},
 	})
 	if err != nil {
@@ -430,7 +433,7 @@ func TestSchemaMerger_SchemaForModule_twiceMerged(t *testing.T) {
 	}
 
 	if diff := cmp.Diff(expectedMergedSchema_v015_aliased, newMergedSchema, ctydebug.CmpOptions); diff != "" {
-		t.Fatalf("schema differs: %s", diff)
+		t.Fatalf("schema differs on second merge: %s", diff)
 	}
 }
 
@@ -731,7 +734,7 @@ func (m *testRegistryModuleReaderStruct) DeclaredModuleCalls(modPath string) (ma
 		"remote-example": {
 			LocalName:     "remote-example",
 			RawSourceAddr: "namespace/foo/bar",
-			SourceAddr:    tfaddr.MustParseModuleSource("registry.terraform.io/namespace/foo/bar"),
+			SourceAddr:    tfaddr.MustParseModuleSource("registry.opentofu.org/namespace/foo/bar"),
 		},
 	}, nil
 }
@@ -752,7 +755,7 @@ func (m *testRegistryModuleReaderStruct) LocalModuleMeta(modPath string) (*modul
 }
 
 func (m *testRegistryModuleReaderStruct) InstalledModulePath(rootPath string, normalizedSource string) (string, bool) {
-	if normalizedSource == "registry.terraform.io/namespace/foo/bar" {
+	if normalizedSource == "registry.opentofu.org/namespace/foo/bar" {
 		return filepath.Join(".terraform", "modules", "remote-example"), true
 	}
 	return "", false

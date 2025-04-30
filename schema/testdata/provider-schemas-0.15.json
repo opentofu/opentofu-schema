@@ -1,7 +1,7 @@
 {
     "format_version": "0.1",
     "provider_schemas": {
-        "registry.terraform.io/hashicorp/hashicup": {
+        "registry.opentofu.org/hashicorp/hashicups": {
             "provider": {
                 "version": 0,
                 "block": {
@@ -10,7 +10,7 @@
                 }
             },
             "data_source_schemas": {
-                "hashicup_test": {
+                "hashicups_test": {
                     "version": 0,
                     "block": {
                         "attributes": {
