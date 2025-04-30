@@ -325,6 +325,7 @@ func TestSchemaForDependentModuleBlock_Target(t *testing.T) {
 }
 
 func TestSchemaForDependentModuleBlock_DocsLink(t *testing.T) {
+	t.Parallel()
 	type testCase struct {
 		name           string
 		meta           *module.Meta
@@ -457,13 +458,15 @@ func TestSchemaForDependentModuleBlock_DocsLink(t *testing.T) {
 	}
 
 	for _, tc := range testCases {
-		depSchema, err := schemaForDependentModuleBlock(tc.module, tc.meta)
-		if err != nil {
-			t.Fatal(err)
-		}
-		if diff := cmp.Diff(tc.expectedSchema, depSchema, ctydebug.CmpOptions); diff != "" {
-			t.Fatalf("schema mismatch: %s", diff)
-		}
+		t.Run(tc.name, func(t *testing.T) {
+			depSchema, err := schemaForDependentModuleBlock(tc.module, tc.meta)
+			if err != nil {
+				t.Fatal(err)
+			}
+			if diff := cmp.Diff(tc.expectedSchema, depSchema, ctydebug.CmpOptions); diff != "" {
+				t.Fatalf("schema mismatch: %s", diff)
+			}
+		})
 	}
 }
 
