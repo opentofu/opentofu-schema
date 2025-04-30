@@ -13,7 +13,7 @@ import (
 	"github.com/hashicorp/go-version"
 	"github.com/hashicorp/hcl-lang/schema"
 	tfjson "github.com/hashicorp/terraform-json"
-	tfaddr "github.com/hashicorp/terraform-registry-address"
+	tfaddr "github.com/opentofu/registry-address"
 	"github.com/opentofu/opentofu-schema/internal/addr"
 	tfmod "github.com/opentofu/opentofu-schema/module"
 	"github.com/zclconf/go-cty-debug/ctydebug"

@@ -6,7 +6,7 @@
 package addr
 
 import (
-	tfaddr "github.com/hashicorp/terraform-registry-address"
+	tfaddr "github.com/opentofu/registry-address"
 )
 
 // NewLegacyProvider returns a mock address for a provider.

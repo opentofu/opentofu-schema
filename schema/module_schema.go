@@ -12,7 +12,7 @@ import (
 	"github.com/hashicorp/hcl-lang/lang"
 	"github.com/hashicorp/hcl-lang/schema"
 	"github.com/hashicorp/hcl/v2"
-	tfaddr "github.com/hashicorp/terraform-registry-address"
+	tfaddr "github.com/opentofu/registry-address"
 	"github.com/opentofu/opentofu-schema/internal/schema/refscope"
 	"github.com/opentofu/opentofu-schema/module"
 	"github.com/opentofu/opentofu-schema/registry"
