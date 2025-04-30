@@ -20,7 +20,7 @@ import (
 	"github.com/hashicorp/go-version"
 )
 
-var baseURL = "https://get.opentofu.org"
+const releasesURL = "https://get.opentofu.org/tofu/api.json"
 
 type release struct {
 	Version *version.Version `json:"id"`
@@ -124,7 +124,7 @@ func GetTofuReleases() ([]release, error) {
 }
 
 func getTofuReleases() ([]release, error) {
-	u, err := url.Parse(fmt.Sprintf("%s/tofu/api.json", baseURL))
+	u, err := url.Parse(releasesURL)
 	if err != nil {
 		return nil, err
 	}

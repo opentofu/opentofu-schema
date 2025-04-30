@@ -74,7 +74,7 @@ func main() {
 func signaturesFromTofu(ctx context.Context) (*tfjson.MetadataFunctions, error) {
 	// find or install Tofu
 	log.Println("ensuring tofu is installed")
-	installDir, err := os.MkdirTemp("", "hcinstall")
+	installDir, err := os.MkdirTemp("", "tofuinstall")
 	if err != nil {
 		return nil, err
 	}
@@ -95,7 +95,7 @@ func signaturesFromTofu(ctx context.Context) (*tfjson.MetadataFunctions, error) 
 	}
 
 	// Write out the tofu binary to the disk:
-	file := "tofu"
+	file := filepath.Join(installDir, "tofu")
 	if runtime.GOOS == "windows" {
 		file += ".exe"
 	}
@@ -103,8 +103,7 @@ func signaturesFromTofu(ctx context.Context) (*tfjson.MetadataFunctions, error) 
 		return nil, err
 	}
 
-	// out, err := exec.Command("./"+file, "metadata", "functions", "-json").Output()
-	out, err := exec.Command("/Users/diogenesaherminio/workspace/opentofu/opentofu/tofu", "metadata", "functions", "-json").Output()
+	out, err := exec.Command(file, "metadata", "functions", "-json").Output()
 	if err != nil {
 		return nil, err
 	}
