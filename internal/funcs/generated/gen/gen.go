@@ -28,7 +28,8 @@ import (
 
 var (
 	// No new functions were released on 1.8 or 1.9, that's why the last generated file is on 1.7
-	tofuVersion = version.Must(version.NewVersion("1.10.0"))
+	// TODO: This argument should be bumped after 1.10 release
+	tofuVersion = version.Must(version.NewVersion("1.9.0"))
 )
 
 const (
@@ -89,6 +90,7 @@ func signaturesFromTofu(ctx context.Context) (*tfjson.MetadataFunctions, error) 
 	// Download the same version being generated for the file
 	// for the current architecture and platform:
 	opts := tofudl.DownloadOptVersion(tofudl.Version(tofuVersion.String()))
+	log.Printf("downloading tofudl version %s", tofuVersion.String())
 	binary, err := dl.Download(context.TODO(), opts)
 	if err != nil {
 		return nil, err
@@ -103,10 +105,12 @@ func signaturesFromTofu(ctx context.Context) (*tfjson.MetadataFunctions, error) 
 		return nil, err
 	}
 
+	log.Println("executing metadata functions")
 	out, err := exec.Command(file, "metadata", "functions", "-json").Output()
 	if err != nil {
 		return nil, err
 	}
+
 	var functions *tfjson.MetadataFunctions
 	if err = json.Unmarshal(out, &functions); err != nil {
 		return nil, err
