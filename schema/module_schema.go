@@ -92,7 +92,7 @@ func schemaForDependentRegistryModuleBlock(module module.DeclaredModuleCall, mod
 		if modMeta.Version == nil {
 			versionStr = "latest"
 		} else {
-			versionStr = modMeta.Version.String()
+			versionStr = fmt.Sprintf("v%s", modMeta.Version.String())
 		}
 
 		bodySchema.DocsLink = &schema.DocsLink{
@@ -240,7 +240,7 @@ func schemaForDependentModuleBlock(module module.DeclaredModuleCall, modMeta *mo
 		if module.Version == nil {
 			versionStr = "latest"
 		} else {
-			versionStr = module.Version.String()
+			versionStr = fmt.Sprintf("v%s", module.Version.String())
 		}
 
 		bodySchema.DocsLink = &schema.DocsLink{

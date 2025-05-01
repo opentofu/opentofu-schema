@@ -364,7 +364,7 @@ func urlForProvider(addr tfaddr.Provider, v *version.Version) string {
 
 	ver := "latest"
 	if v != nil {
-		ver = v.String()
+		ver = fmt.Sprintf("v%s", v.String())
 	}
 
 	return fmt.Sprintf("https://search.opentofu.org/provider/%s/%s/%s/",
