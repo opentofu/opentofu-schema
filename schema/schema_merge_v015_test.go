@@ -45,7 +45,7 @@ var data = schema.BlockSchema{
 		},
 	},
 	DependentBody: map[schema.SchemaKey]*schema.BodySchema{
-		`{"labels":[{"index":0,"value":"hashicup_test"}],"attrs":[{"name":"provider","expr":{"addr":"hashicup"}}]}`: {
+		`{"labels":[{"index":0,"value":"hashicups_test"}],"attrs":[{"name":"provider","expr":{"addr":"hashicups"}}]}`: {
 			Blocks: map[string]*schema.BlockSchema{},
 			Attributes: map[string]*schema.AttributeSchema{
 				"backend": {
@@ -182,9 +182,9 @@ var data = schema.BlockSchema{
 					Constraint: schema.AnyExpression{OfType: cty.String},
 				},
 			},
-			Detail: "hashicorp/hashicup",
+			Detail: "hashicorp/hashicups",
 		},
-		`{"labels":[{"index":0,"value":"hashicup_test"}]}`: {
+		`{"labels":[{"index":0,"value":"hashicups_test"}]}`: {
 			Blocks: map[string]*schema.BlockSchema{},
 			Attributes: map[string]*schema.AttributeSchema{
 				"backend": {
@@ -321,7 +321,7 @@ var data = schema.BlockSchema{
 					Constraint: schema.AnyExpression{OfType: cty.String},
 				},
 			},
-			Detail: "hashicorp/hashicup",
+			Detail: "hashicorp/hashicups",
 		},
 	},
 }
@@ -340,14 +340,14 @@ var provider = schema.BlockSchema{
 		},
 	},
 	DependentBody: map[schema.SchemaKey]*schema.BodySchema{
-		`{"labels":[{"index":0,"value":"hashicup"}]}`: {
+		`{"labels":[{"index":0,"value":"hashicups"}]}`: {
 			Blocks:     map[string]*schema.BlockSchema{},
 			Attributes: map[string]*schema.AttributeSchema{},
-			Detail:     "hashicorp/hashicup",
-			HoverURL:   "https://registry.terraform.io/providers/hashicorp/hashicup/latest/docs",
+			Detail:     "hashicorp/hashicups",
+			HoverURL:   "https://search.opentofu.org/provider/hashicorp/hashicups/latest/",
 			DocsLink: &schema.DocsLink{
-				URL:     "https://registry.terraform.io/providers/hashicorp/hashicup/latest/docs",
-				Tooltip: "hashicorp/hashicup Documentation",
+				URL:     "https://search.opentofu.org/provider/hashicorp/hashicups/latest/",
+				Tooltip: "hashicorp/hashicups Documentation",
 			},
 		},
 	},
@@ -512,6 +512,9 @@ var expectedRemoteModuleSchema = &schema.BlockSchema{
 					},
 				},
 			}}): {
+			DocsLink: &schema.DocsLink{
+				URL: "https://search.opentofu.org/module/namespace/foo/bar/latest",
+			},
 			TargetableAs: []*schema.Targetable{
 				{
 					Address: lang.Address{
@@ -524,7 +527,6 @@ var expectedRemoteModuleSchema = &schema.BlockSchema{
 				},
 			},
 			ImpliedOrigins: schema.ImpliedOrigins{},
-			DocsLink:       &schema.DocsLink{URL: "https://registry.terraform.io/modules/namespace/foo/bar/latest"},
 			Attributes: map[string]*schema.AttributeSchema{
 				"test": {
 					Description: lang.PlainText("test var"),

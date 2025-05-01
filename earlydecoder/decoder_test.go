@@ -14,10 +14,10 @@ import (
 	"github.com/hashicorp/hcl/v2"
 	"github.com/hashicorp/hcl/v2/ext/typeexpr"
 	"github.com/hashicorp/hcl/v2/hclsyntax"
-	tfaddr "github.com/hashicorp/terraform-registry-address"
 	"github.com/opentofu/opentofu-schema/backend"
 	"github.com/opentofu/opentofu-schema/internal/addr"
 	"github.com/opentofu/opentofu-schema/module"
+	tfaddr "github.com/opentofu/registry-address"
 	"github.com/zclconf/go-cty-debug/ctydebug"
 	"github.com/zclconf/go-cty/cty"
 )
@@ -1377,7 +1377,7 @@ module "name" {
 			"modules with source",
 			`
 module "name" {
-	source = "registry.terraform.io/terraform-aws-modules/vpc/aws"
+	source = "registry.opentofu.org/terraform-aws-modules/vpc/aws"
 }`,
 			&module.Meta{
 				Path:                 path,
@@ -1389,8 +1389,8 @@ module "name" {
 				ModuleCalls: map[string]module.DeclaredModuleCall{
 					"name": {
 						LocalName:     "name",
-						RawSourceAddr: "registry.terraform.io/terraform-aws-modules/vpc/aws",
-						SourceAddr:    tfaddr.MustParseModuleSource("registry.terraform.io/terraform-aws-modules/vpc/aws"),
+						RawSourceAddr: "registry.opentofu.org/terraform-aws-modules/vpc/aws",
+						SourceAddr:    tfaddr.MustParseModuleSource("registry.opentofu.org/terraform-aws-modules/vpc/aws"),
 						InputNames:    []string{},
 						RangePtr: &hcl.Range{
 							Filename: "test.tf",

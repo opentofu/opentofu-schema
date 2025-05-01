@@ -7,8 +7,8 @@ package module
 
 import (
 	"github.com/hashicorp/go-version"
-	tfaddr "github.com/hashicorp/terraform-registry-address"
 	"github.com/opentofu/opentofu-schema/backend"
+	tfaddr "github.com/opentofu/registry-address"
 )
 
 type Meta struct {

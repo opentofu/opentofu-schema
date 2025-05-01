@@ -12,10 +12,10 @@ import (
 	"github.com/hashicorp/hcl-lang/lang"
 	"github.com/hashicorp/hcl-lang/schema"
 	"github.com/hashicorp/hcl/v2"
-	tfaddr "github.com/hashicorp/terraform-registry-address"
 	"github.com/opentofu/opentofu-schema/internal/schema/refscope"
 	"github.com/opentofu/opentofu-schema/module"
 	"github.com/opentofu/opentofu-schema/registry"
+	tfaddr "github.com/opentofu/registry-address"
 	"github.com/zclconf/go-cty/cty"
 )
 
@@ -87,7 +87,7 @@ func schemaForDependentRegistryModuleBlock(module module.DeclaredModuleCall, mod
 	})
 
 	sourceAddr, ok := module.SourceAddr.(tfaddr.Module)
-	if ok && sourceAddr.Package.Host == "registry.terraform.io" {
+	if ok && sourceAddr.Package.Host == "registry.opentofu.org" {
 		versionStr := ""
 		if modMeta.Version == nil {
 			versionStr = "latest"
@@ -97,7 +97,7 @@ func schemaForDependentRegistryModuleBlock(module module.DeclaredModuleCall, mod
 
 		bodySchema.DocsLink = &schema.DocsLink{
 			URL: fmt.Sprintf(
-				`https://registry.terraform.io/modules/%s/%s`,
+				`https://search.opentofu.org/module/%s/%s`,
 				sourceAddr.Package.ForRegistryProtocol(),
 				versionStr,
 			),
@@ -235,7 +235,7 @@ func schemaForDependentModuleBlock(module module.DeclaredModuleCall, modMeta *mo
 	}
 
 	registryAddr, ok := module.SourceAddr.(tfaddr.Module)
-	if ok && registryAddr.Package.Host == "registry.terraform.io" {
+	if ok && registryAddr.Package.Host == "registry.opentofu.org" {
 		versionStr := ""
 		if module.Version == nil {
 			versionStr = "latest"
@@ -245,7 +245,7 @@ func schemaForDependentModuleBlock(module module.DeclaredModuleCall, modMeta *mo
 
 		bodySchema.DocsLink = &schema.DocsLink{
 			URL: fmt.Sprintf(
-				`https://registry.terraform.io/modules/%s/%s`,
+				`https://search.opentofu.org/module/%s/%s`,
 				registryAddr.Package.ForRegistryProtocol(),
 				versionStr,
 			),

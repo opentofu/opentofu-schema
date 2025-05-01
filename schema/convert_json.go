@@ -12,7 +12,7 @@ import (
 	"github.com/hashicorp/hcl-lang/lang"
 	"github.com/hashicorp/hcl-lang/schema"
 	tfjson "github.com/hashicorp/terraform-json"
-	tfaddr "github.com/hashicorp/terraform-registry-address"
+	tfaddr "github.com/opentofu/registry-address"
 	"github.com/zclconf/go-cty/cty"
 	"github.com/zclconf/go-cty/cty/function"
 )
@@ -367,7 +367,7 @@ func urlForProvider(addr tfaddr.Provider, v *version.Version) string {
 		ver = v.String()
 	}
 
-	return fmt.Sprintf("https://registry.terraform.io/providers/%s/%s/%s/docs",
+	return fmt.Sprintf("https://search.opentofu.org/provider/%s/%s/%s/",
 		addr.Namespace, addr.Type, ver)
 }
 
@@ -383,10 +383,11 @@ func providerHasDocs(addr tfaddr.Provider) bool {
 		return false
 	}
 
-	if addr.Hostname != "registry.terraform.io" {
+	if addr.Hostname != "registry.opentofu.org" {
 		// docs URLs outside of the official Registry aren't standardized yet
 		return false
 	}
+
 	return true
 }
 

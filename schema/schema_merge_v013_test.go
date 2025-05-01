@@ -33,13 +33,13 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 			},
 			DependentBody: map[schema.SchemaKey]*schema.BodySchema{
 				`{"labels":[{"index":0,"value":"grafana"}]}`: {
-					Detail:   "grafana/grafana",
-					HoverURL: "https://registry.terraform.io/providers/grafana/grafana/latest/docs",
+					Detail: "grafana/grafana",
 					DocsLink: &schema.DocsLink{
-						URL:     "https://registry.terraform.io/providers/grafana/grafana/latest/docs",
+						URL:     "https://search.opentofu.org/provider/grafana/grafana/latest/",
 						Tooltip: "grafana/grafana Documentation",
 					},
-					Blocks: map[string]*schema.BlockSchema{},
+					HoverURL: "https://search.opentofu.org/provider/grafana/grafana/latest/",
+					Blocks:   map[string]*schema.BlockSchema{},
 					Attributes: map[string]*schema.AttributeSchema{
 						"auth": {
 							Description: lang.MarkupContent{
@@ -62,9 +62,9 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 				},
 				`{"labels":[{"index":0,"value":"null"}]}`: {
 					Detail:   "hashicorp/null",
-					HoverURL: "https://registry.terraform.io/providers/hashicorp/null/latest/docs",
+					HoverURL: "https://search.opentofu.org/provider/hashicorp/null/latest/",
 					DocsLink: &schema.DocsLink{
-						URL:     "https://registry.terraform.io/providers/hashicorp/null/latest/docs",
+						URL:     "https://search.opentofu.org/provider/hashicorp/null/latest/",
 						Tooltip: "hashicorp/null Documentation",
 					},
 					Blocks:     map[string]*schema.BlockSchema{},
@@ -72,9 +72,9 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 				},
 				`{"labels":[{"index":0,"value":"rand"}]}`: {
 					Detail:   "hashicorp/random",
-					HoverURL: "https://registry.terraform.io/providers/hashicorp/random/latest/docs",
+					HoverURL: "https://search.opentofu.org/provider/hashicorp/random/latest/",
 					DocsLink: &schema.DocsLink{
-						URL:     "https://registry.terraform.io/providers/hashicorp/random/latest/docs",
+						URL:     "https://search.opentofu.org/provider/hashicorp/random/latest/",
 						Tooltip: "hashicorp/random Documentation",
 					},
 					Blocks:     map[string]*schema.BlockSchema{},

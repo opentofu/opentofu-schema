@@ -11,7 +11,7 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"github.com/hashicorp/go-version"
 	"github.com/hashicorp/hcl-lang/schema"
-	tfaddr "github.com/hashicorp/terraform-registry-address"
+	tfaddr "github.com/opentofu/registry-address"
 	"github.com/zclconf/go-cty-debug/ctydebug"
 	"github.com/zclconf/go-cty/cty"
 	"github.com/zclconf/go-cty/cty/function"
@@ -56,9 +56,9 @@ func TestProviderSchema_SetProviderVersion(t *testing.T) {
 	expectedSchema := &ProviderSchema{
 		Provider: &schema.BodySchema{
 			Detail:   "hashicorp/aws 1.2.5",
-			HoverURL: "https://registry.terraform.io/providers/hashicorp/aws/1.2.5/docs",
+			HoverURL: "https://search.opentofu.org/provider/hashicorp/aws/1.2.5/",
 			DocsLink: &schema.DocsLink{
-				URL:     "https://registry.terraform.io/providers/hashicorp/aws/1.2.5/docs",
+				URL:     "https://search.opentofu.org/provider/hashicorp/aws/1.2.5/",
 				Tooltip: "hashicorp/aws Documentation",
 			},
 		},

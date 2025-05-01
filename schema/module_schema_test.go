@@ -14,10 +14,10 @@ import (
 	"github.com/hashicorp/hcl-lang/lang"
 	"github.com/hashicorp/hcl-lang/schema"
 	"github.com/hashicorp/hcl/v2"
-	tfaddr "github.com/hashicorp/terraform-registry-address"
 	"github.com/opentofu/opentofu-schema/internal/schema/refscope"
 	"github.com/opentofu/opentofu-schema/module"
 	"github.com/opentofu/opentofu-schema/registry"
+	tfaddr "github.com/opentofu/registry-address"
 	"github.com/zclconf/go-cty-debug/ctydebug"
 	"github.com/zclconf/go-cty/cty"
 )
@@ -365,14 +365,14 @@ func TestSchemaForDependentModuleBlock_DocsLink(t *testing.T) {
 		{
 			"remote module",
 			&module.Meta{
-				Path:      "registry.terraform.io/terraform-aws-modules/vpc/aws",
+				Path:      "registry.opentofu.org/terraform-aws-modules/vpc/aws",
 				Variables: map[string]module.Variable{},
 				Outputs:   map[string]module.Output{},
 				Filenames: nil,
 			},
 			module.DeclaredModuleCall{
 				LocalName:  "vpc",
-				SourceAddr: tfaddr.MustParseModuleSource("registry.terraform.io/terraform-aws-modules/vpc/aws"),
+				SourceAddr: tfaddr.MustParseModuleSource("registry.opentofu.org/terraform-aws-modules/vpc/aws"),
 			},
 			&schema.BodySchema{
 				Attributes: map[string]*schema.AttributeSchema{},
@@ -389,21 +389,21 @@ func TestSchemaForDependentModuleBlock_DocsLink(t *testing.T) {
 				},
 				ImpliedOrigins: schema.ImpliedOrigins{},
 				DocsLink: &schema.DocsLink{
-					URL: "https://registry.terraform.io/modules/terraform-aws-modules/vpc/aws/latest",
+					URL: "https://search.opentofu.org/module/terraform-aws-modules/vpc/aws/latest",
 				},
 			},
 		},
 		{
 			"remote module with version",
 			&module.Meta{
-				Path:      "registry.terraform.io/terraform-aws-modules/vpc/aws",
+				Path:      "registry.opentofu.org/terraform-aws-modules/vpc/aws",
 				Variables: map[string]module.Variable{},
 				Outputs:   map[string]module.Output{},
 				Filenames: nil,
 			},
 			module.DeclaredModuleCall{
 				LocalName:  "vpc",
-				SourceAddr: tfaddr.MustParseModuleSource("registry.terraform.io/terraform-aws-modules/vpc/aws"),
+				SourceAddr: tfaddr.MustParseModuleSource("registry.opentofu.org/terraform-aws-modules/vpc/aws"),
 				Version:    version.MustConstraints(version.NewConstraint("1.33.7")),
 			},
 			&schema.BodySchema{
@@ -421,7 +421,7 @@ func TestSchemaForDependentModuleBlock_DocsLink(t *testing.T) {
 				},
 				ImpliedOrigins: schema.ImpliedOrigins{},
 				DocsLink: &schema.DocsLink{
-					URL: "https://registry.terraform.io/modules/terraform-aws-modules/vpc/aws/1.33.7",
+					URL: "https://search.opentofu.org/module/terraform-aws-modules/vpc/aws/1.33.7",
 				},
 			},
 		},
@@ -558,7 +558,7 @@ func TestSchemaForDeclaredDependentModuleBlock_basic(t *testing.T) {
 			},
 		},
 		DocsLink: &schema.DocsLink{
-			URL: "https://registry.terraform.io/modules/terraform-aws-modules/eks/aws/1.0.0",
+			URL: "https://search.opentofu.org/module/terraform-aws-modules/eks/aws/1.0.0",
 		},
 	}
 	if diff := cmp.Diff(expectedDepSchema, depSchema, ctydebug.CmpOptions); diff != "" {
