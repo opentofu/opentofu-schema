@@ -7,18 +7,18 @@ import (
 )
 
 var (
-	v1_9_0 = version.Must(version.NewVersion("1.9.0"))
-	v1_8_0 = version.Must(version.NewVersion("1.8.0"))
+	v1_7_0 = version.Must(version.NewVersion("1.7.0"))
+	v1_6_0 = version.Must(version.NewVersion("1.6.0"))
 	v1_5_0 = version.Must(version.NewVersion("1.5.0"))
 	v1_4_0 = version.Must(version.NewVersion("1.4.0"))
 )
 
 func Functions(v *version.Version) map[string]schema.FunctionSignature {
-	if v.GreaterThanOrEqual(v1_9_0) {
-		return v1_9_0_Functions()
+	if v.GreaterThanOrEqual(v1_7_0) {
+		return v1_7_0_Functions()
 	}
-	if v.GreaterThanOrEqual(v1_8_0) {
-		return v1_8_0_Functions()
+	if v.GreaterThanOrEqual(v1_6_0) {
+		return v1_6_0_Functions()
 	}
 	if v.GreaterThanOrEqual(v1_5_0) {
 		return v1_5_0_Functions()

@@ -7,7 +7,7 @@ import (
 	"github.com/zclconf/go-cty/cty/function"
 )
 
-func v1_8_0_Functions() map[string]schema.FunctionSignature {
+func v1_6_0_Functions() map[string]schema.FunctionSignature {
 	return map[string]schema.FunctionSignature{
 		"abs": {
 			Params: []function.Parameter{
@@ -539,16 +539,6 @@ func v1_8_0_Functions() map[string]schema.FunctionSignature {
 			ReturnType:  cty.DynamicPseudoType,
 			Description: "`index` finds the element index for a given value in a list.",
 		},
-		"issensitive": {
-			Params: []function.Parameter{
-				{
-					Name: "value",
-					Type: cty.DynamicPseudoType,
-				},
-			},
-			ReturnType:  cty.Bool,
-			Description: "`issensitive` takes a value and returns a boolean indicating if the value is sensitive.",
-		},
 		"join": {
 			Params: []function.Parameter{
 				{
@@ -853,7 +843,7 @@ func v1_8_0_Functions() map[string]schema.FunctionSignature {
 				},
 			},
 			ReturnType:  cty.DynamicPseudoType,
-			Description: "`sensitive` takes any value and returns a copy of it marked so that Terraform will treat it as sensitive, with the same meaning and behavior as for [sensitive input variables](/terraform/language/values/variables#suppressing-values-in-cli-output).",
+			Description: "`sensitive` takes any value and returns a copy of it marked so that OpenTofu will treat it as sensitive, with the same meaning and behavior as for [sensitive input variables](/language/values/variables#suppressing-values-in-cli-output).",
 		},
 		"setintersection": {
 			Params: []function.Parameter{
@@ -1096,7 +1086,7 @@ func v1_8_0_Functions() map[string]schema.FunctionSignature {
 				},
 			},
 			ReturnType:  cty.String,
-			Description: "`textencodebase64` encodes the unicode characters in a given string using a specified character encoding, returning the result base64 encoded because Terraform language strings are always sequences of unicode characters.",
+			Description: "`textencodebase64` encodes the unicode characters in a given string using a specified character encoding, returning the result base64 encoded because OpenTofu language strings are always sequences of unicode characters.",
 		},
 		"timeadd": {
 			Params: []function.Parameter{

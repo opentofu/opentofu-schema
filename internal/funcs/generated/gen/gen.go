@@ -14,22 +14,22 @@ import (
 	"go/format"
 	"log"
 	"os"
+	"os/exec"
 	"path/filepath"
+	"runtime"
 	"sort"
 	"strings"
 	"text/template"
 
 	"github.com/hashicorp/go-version"
-	hcinstall "github.com/hashicorp/hc-install"
-	"github.com/hashicorp/hc-install/product"
-	"github.com/hashicorp/hc-install/releases"
-	"github.com/hashicorp/hc-install/src"
-	"github.com/hashicorp/terraform-exec/tfexec"
 	tfjson "github.com/hashicorp/terraform-json"
+	"github.com/opentofu/tofudl"
 )
 
 var (
-	terraformVersion = version.Must(version.NewVersion("1.9.0-rc1"))
+	// No new functions were released on 1.8 or 1.9, that's why the last generated file is on 1.7
+	// TODO: This argument should be bumped after 1.10 release
+	tofuVersion = version.Must(version.NewVersion("1.9.0"))
 )
 
 const (
@@ -39,21 +39,9 @@ const (
 func main() {
 	ctx := context.Background()
 
-	functions, err := signaturesFromTerraform(ctx)
+	functions, err := signaturesFromTofu(ctx)
 	if err != nil {
 		log.Fatal(err)
-	}
-
-	// Starting in v1.8.0, Terraform returns all functions twice: once with the prefix "core::" and once without
-	// It is a better UX right now to only suggest the ones without the prefix, so we filter them here before it becomes available to terraform-ls
-	if terraformVersion.GreaterThanOrEqual(version.Must(version.NewVersion("1.8.0-rc1"))) {
-		filteredFunctions := make(map[string]*tfjson.FunctionSignature)
-		for name, sig := range functions.Signatures {
-			if !strings.HasPrefix(name, "core::") {
-				filteredFunctions[name] = sig
-			}
-		}
-		functions.Signatures = filteredFunctions
 	}
 
 	newSignatureHash, err := signatureHash(functions)
@@ -65,7 +53,7 @@ func main() {
 		return
 	}
 	log.Printf("generating new signatures for %q\n", newSignatureHash)
-	functionsFile := fmt.Sprintf("%s.go", terraformVersion.Core().String())
+	functionsFile := fmt.Sprintf("%s.go", tofuVersion.Core().String())
 	err = writeFunctions(functionsFile, functions)
 	if err != nil {
 		log.Fatal(err)
@@ -82,41 +70,53 @@ func main() {
 	}
 }
 
-// signaturesFromTerraform gets the function signatures for the specified
-// Terraform version.
-func signaturesFromTerraform(ctx context.Context) (*tfjson.MetadataFunctions, error) {
-	// find or install Terraform
-	log.Println("ensuring terraform is installed")
-	installDir, err := os.MkdirTemp("", "hcinstall")
+// signaturesFromTofu gets the function signatures for the specified
+// Tofu version.
+func signaturesFromTofu(ctx context.Context) (*tfjson.MetadataFunctions, error) {
+	// find or install Tofu
+	log.Println("ensuring tofu is installed")
+	installDir, err := os.MkdirTemp("", "tofuinstall")
 	if err != nil {
 		return nil, err
 	}
 	defer os.RemoveAll(installDir)
-	i := hcinstall.NewInstaller()
-	execPath, err := i.Ensure(ctx, []src.Source{
-		&releases.ExactVersion{
-			Product:    product.Terraform,
-			InstallDir: installDir,
-			Version:    terraformVersion,
-		},
-	})
-	if err != nil {
-		return nil, err
-	}
-	defer i.Remove(ctx)
 
-	// log version
-	tf, err := tfexec.NewTerraform(installDir, execPath)
+	// Initialize the downloader:
+	dl, err := tofudl.New()
 	if err != nil {
 		return nil, err
 	}
-	coreVersion, _, err := tf.Version(ctx, true)
-	if err != nil {
-		return nil, err
-	}
-	log.Printf("using Terraform %s (%s)", coreVersion, execPath)
 
-	return tf.MetadataFunctions(ctx)
+	// Download the same version being generated for the file
+	// for the current architecture and platform:
+	opts := tofudl.DownloadOptVersion(tofudl.Version(tofuVersion.String()))
+	log.Printf("downloading tofudl version %s", tofuVersion.String())
+	binary, err := dl.Download(context.TODO(), opts)
+	if err != nil {
+		return nil, err
+	}
+
+	// Write out the tofu binary to the disk:
+	file := filepath.Join(installDir, "tofu")
+	if runtime.GOOS == "windows" {
+		file += ".exe"
+	}
+	if err := os.WriteFile(file, binary, 0755); err != nil {
+		return nil, err
+	}
+
+	log.Println("executing metadata functions")
+	out, err := exec.Command(file, "metadata", "functions", "-json").Output()
+	if err != nil {
+		return nil, err
+	}
+
+	var functions *tfjson.MetadataFunctions
+	if err = json.Unmarshal(out, &functions); err != nil {
+		return nil, err
+	}
+
+	return functions, nil
 }
 
 // signatureHash calculates the SHA256 checksum for the given function
@@ -189,7 +189,7 @@ func {{ .FunctionName }}() map[string]schema.FunctionSignature {
 
 	var buf bytes.Buffer
 	err = tpl.Execute(&buf, data{
-		FunctionName: fmt.Sprintf("v%s_Functions", escapeVersion(terraformVersion.Core().String())),
+		FunctionName: fmt.Sprintf("v%s_Functions", escapeVersion(tofuVersion.Core().String())),
 		Signatures:   functions.Signatures,
 	})
 	if err != nil {
