@@ -45,7 +45,7 @@ func Functions(v *version.Version) map[string]schema.FunctionSignature {
 			},
 		},
 		ReturnType:  cty.DynamicPseudoType,
-		Description: "`sensitive` takes any value and returns a copy of it marked so that Terraform will treat it as sensitive, with the same meaning and behavior as for [sensitive input variables](/language/values/variables#suppressing-values-in-cli-output).",
+		Description: "`sensitive` takes any value and returns a copy of it marked so that OpenTofu will treat it as sensitive, with the same meaning and behavior as for [sensitive input variables](/language/values/variables#suppressing-values-in-cli-output).",
 	}
 
 	delete(f, "list") // list was removed in 0.15

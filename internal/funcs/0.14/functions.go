@@ -63,7 +63,7 @@ func Functions(v *version.Version) map[string]schema.FunctionSignature {
 			},
 		},
 		ReturnType:  cty.String,
-		Description: "`textencodebase64` encodes the unicode characters in a given string using a specified character encoding, returning the result base64 encoded because Terraform language strings are always sequences of unicode characters.",
+		Description: "`textencodebase64` encodes the unicode characters in a given string using a specified character encoding, returning the result base64 encoded because HCL language strings are always sequences of unicode characters.",
 	}
 
 	return f

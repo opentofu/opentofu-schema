@@ -35,7 +35,7 @@ func LoadModule(path string, files map[string]*hcl.File) (*module.Meta, hcl.Diag
 		if err != nil {
 			diags = append(diags, &hcl.Diagnostic{
 				Severity: hcl.DiagError,
-				Summary:  "Unable to parse terraform requirements",
+				Summary:  "Unable to parse tofu requirements",
 				Detail:   fmt.Sprintf("Constraint %q is not a valid constraint: %s", rc, err),
 			})
 			continue
