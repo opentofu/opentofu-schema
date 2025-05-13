@@ -15,7 +15,13 @@ import (
 func etcdv2Backend(v *version.Version) *schema.BodySchema {
 	// https://github.com/hashicorp/terraform/blob/v0.12.0/backend/remote-state/etcdv2/backend.go
 	// https://github.com/hashicorp/terraform/blob/v1.0.0/internal/backend/remote-state/etcdv2/backend.go
-	docsUrl := "https://www.terraform.io/docs/language/settings/backends/etcd.html"
+	if v.GreaterThanOrEqual(v1_2_0) {
+		return &schema.BodySchema{
+			IsDeprecated: true,
+			Description:  lang.Markdown("etcdv2 backend is deprecated since v1.2.0."),
+		}
+	}
+	docsUrl := "https://www.terraform.io/docs/language/settings/backends/etcd.html" //We do not have a page for this, leaving it here
 	bodySchema := &schema.BodySchema{
 		Description: lang.Markdown("etcd v2.x"),
 		HoverURL:    docsUrl,

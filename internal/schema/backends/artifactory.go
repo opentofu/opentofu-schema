@@ -23,7 +23,7 @@ func artifactoryBackend(v *version.Version) *schema.BodySchema {
 			Description:  lang.Markdown("Artifactory backend is deprecated since v1.3.0."),
 		}
 	}
-	docsUrl := "https://www.terraform.io/docs/language/settings/backends/artifactory.html"
+	docsUrl := "https://www.terraform.io/docs/language/settings/backends/artifactory.html" //We do not have a page for this, leaving it here
 	return &schema.BodySchema{
 		Description: lang.Markdown("Artifactory"),
 		HoverURL:    docsUrl,

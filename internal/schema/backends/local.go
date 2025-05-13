@@ -13,7 +13,7 @@ import (
 )
 
 func localBackend(v *version.Version) *schema.BodySchema {
-	docsUrl := "https://www.terraform.io/docs/language/settings/backends/local.html"
+	docsUrl := "https://opentofu.org/docs/language/settings/backends/local/"
 	return &schema.BodySchema{
 		Description: lang.Markdown("Local (filesystem) backend, locks state using system APIs"),
 		HoverURL:    docsUrl,

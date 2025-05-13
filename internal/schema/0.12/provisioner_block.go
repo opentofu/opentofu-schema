@@ -31,7 +31,7 @@ func ProvisionerBlock(v *version.Version) *schema.BlockSchema {
 				DynamicBlocks: true,
 				SelfRefs:      true,
 			},
-			HoverURL: "https://www.terraform.io/docs/language/resources/provisioners/syntax.html",
+			HoverURL: "https://opentofu.org/docs/language/resources/provisioners/syntax/",
 			Attributes: map[string]*schema.AttributeSchema{
 				"when": {
 					Constraint: schema.OneOf{

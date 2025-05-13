@@ -14,7 +14,7 @@ import (
 
 func azureRmBackend(v *version.Version) *schema.BodySchema {
 	// https://github.com/hashicorp/terraform/blob/v0.12.0/backend/remote-state/azure/backend.go
-	docsUrl := "https://www.terraform.io/docs/language/settings/backends/azurerm.html"
+	docsUrl := "https://opentofu.org/docs/language/settings/backends/azurerm/"
 	bodySchema := &schema.BodySchema{
 		Description: lang.Markdown("Azure Blob Storage"),
 		HoverURL:    docsUrl,

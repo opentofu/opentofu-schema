@@ -14,7 +14,7 @@ import (
 var movedBlockSchema = &schema.BlockSchema{
 	Description: lang.Markdown("Refactoring declaration to specify what address to move where"),
 	Body: &schema.BodySchema{
-		HoverURL: "https://www.terraform.io/language/modules/develop/refactoring#moved-block-syntax",
+		HoverURL: "https://opentofu.org/docs/language/modules/develop/refactoring/#moved-block-syntax",
 		Attributes: map[string]*schema.AttributeSchema{
 			"from": {
 				Constraint: schema.OneOf{

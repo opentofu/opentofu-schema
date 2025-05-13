@@ -13,7 +13,7 @@ import (
 )
 
 func remoteBackend(v *version.Version) *schema.BodySchema {
-	docsUrl := "https://www.terraform.io/docs/language/settings/backends/remote.html"
+	docsUrl := "https://opentofu.org/docs/language/settings/backends/remote/"
 	return &schema.BodySchema{
 		Description: lang.Markdown("Remote backend to store state and run operations in HCP Terraform."),
 		HoverURL:    docsUrl,
@@ -24,7 +24,7 @@ func remoteBackend(v *version.Version) *schema.BodySchema {
 			"hostname": {
 				Constraint:  schema.LiteralType{Type: cty.String},
 				IsOptional:  true,
-				Description: lang.Markdown("The remote backend hostname to connect to (defaults to `app.terraform.io`)."),
+				Description: lang.Markdown("The remote backend hostname to connect to."),
 			},
 			"organization": {
 				Constraint:  schema.LiteralType{Type: cty.String},

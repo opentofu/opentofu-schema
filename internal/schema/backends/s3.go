@@ -14,7 +14,7 @@ import (
 
 func s3Backend(v *version.Version) *schema.BodySchema {
 	// https://github.com/hashicorp/terraform/blob/v0.12.0/backend/remote-state/s3/backend.go
-	docsUrl := "https://www.terraform.io/docs/language/settings/backends/s3.html"
+	docsUrl := "https://opentofu.org/docs/language/settings/backends/s3/"
 	bodySchema := &schema.BodySchema{
 		Description: lang.Markdown("Amazon S3 (with locking via DynamoDB)"),
 		HoverURL:    docsUrl,

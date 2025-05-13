@@ -22,7 +22,7 @@ func ConnectionBlock(v *version.Version) *schema.BlockSchema {
 			Extensions: &schema.BodyExtensions{
 				SelfRefs: true,
 			},
-			HoverURL: "https://www.terraform.io/docs/language/resources/provisioners/connection.html",
+			HoverURL: "https://opentofu.org/docs/language/resources/provisioners/connection/#connection-block",
 			Attributes: map[string]*schema.AttributeSchema{
 				"type": {
 					Constraint: schema.OneOf{

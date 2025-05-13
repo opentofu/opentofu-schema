@@ -14,7 +14,7 @@ import (
 
 func httpBackend(v *version.Version) *schema.BodySchema {
 	// https://github.com/hashicorp/terraform/blob/v0.12.0/backend/remote-state/http/backend.go
-	docsUrl := "https://www.terraform.io/docs/language/settings/backends/http.html"
+	docsUrl := "https://opentofu.org/docs/language/settings/backends/http/"
 	bodySchema := &schema.BodySchema{
 		Description: lang.Markdown("HTTP (REST)"),
 		HoverURL:    docsUrl,
