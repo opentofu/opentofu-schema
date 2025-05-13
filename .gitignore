@@ -1,2 +1,4 @@
 go.work*
 .tool-versions
+
+.idea
