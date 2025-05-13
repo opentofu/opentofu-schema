@@ -17,6 +17,12 @@ func artifactoryBackend(v *version.Version) *schema.BodySchema {
 	// https://github.com/hashicorp/terraform/blob/v1.0.0/internal/backend/remote-state/artifactory/backend.go
 	// Docs:
 	// https://github.com/hashicorp/terraform/blob/v1.0.0/website/docs/language/settings/backends/artifactory.html.md
+	if v.GreaterThanOrEqual(v1_3_0) {
+		return &schema.BodySchema{
+			IsDeprecated: true,
+			Description:  lang.Markdown("Artifactory backend is deprecated since v1.3.0."),
+		}
+	}
 	docsUrl := "https://www.terraform.io/docs/language/settings/backends/artifactory.html"
 	return &schema.BodySchema{
 		Description: lang.Markdown("Artifactory"),

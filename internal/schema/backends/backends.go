@@ -99,19 +99,19 @@ func backendBodySchemas(v *version.Version) map[string]*schema.BodySchema {
 		"remote": remoteBackend(v),
 
 		// Remote State backends
-		"artifactory": artifactoryBackend(v),
-		"azurerm":     azureRmBackend(v),
-		"consul":      consulBackend(v),
-		"etcd":        etcdv2Backend(v),
-		"etcdv3":      etcdv3Backend(v),
-		"gcs":         gcsBackend(v),
-		"http":        httpBackend(v),
-		"manta":       mantaBackend(v),
-		"pg":          pgBackend(v),
-		"s3":          s3Backend(v),
-		"swift":       swiftBackend(v),
+		"azurerm": azureRmBackend(v),
+		"consul":  consulBackend(v),
+		"etcd":    etcdv2Backend(v),
+		"etcdv3":  etcdv3Backend(v),
+		"gcs":     gcsBackend(v),
+		"http":    httpBackend(v),
+		"manta":   mantaBackend(v),
+		"pg":      pgBackend(v),
+		"s3":      s3Backend(v),
+		"swift":   swiftBackend(v),
 
 		// Deprecated backends
+		"artifactory": artifactoryBackend(v),
 		"atlas": {
 			IsDeprecated: true,
 			Description:  lang.Markdown("`atlas` backend is **DEPRECATED**, please use `remote` instead"),
