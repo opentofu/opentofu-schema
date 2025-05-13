@@ -1100,14 +1100,14 @@ terraform {
 			`
 terraform {
   backend "remote" {
-  	hostname = "app.terraform.io"
+  	hostname = "app.example.io"
   }
 }`,
 			&module.Meta{
 				Path: path,
 				Backend: &module.Backend{
 					Type: "remote",
-					Data: &backend.Remote{Hostname: "app.terraform.io"},
+					Data: &backend.Remote{Hostname: "app.example.io"},
 				},
 				ProviderReferences:   map[module.ProviderRef]tfaddr.Provider{},
 				ProviderRequirements: map[tfaddr.Provider]version.Constraints{},
@@ -1123,7 +1123,7 @@ terraform {
 			`
 terraform {
   backend "remote" {
-    hostname = "app.terraform.io"
+    hostname = "app.example.io"
     organization = "test"
 
     workspaces {
@@ -1135,7 +1135,7 @@ terraform {
 				Path: path,
 				Backend: &module.Backend{
 					Type: "remote",
-					Data: &backend.Remote{Hostname: "app.terraform.io"},
+					Data: &backend.Remote{Hostname: "app.example.io"},
 				},
 				ProviderReferences:   map[module.ProviderRef]tfaddr.Provider{},
 				ProviderRequirements: map[tfaddr.Provider]version.Constraints{},
@@ -1160,7 +1160,7 @@ func TestLoadModule_cloud(t *testing.T) {
 			`
 terraform {
 	cloud {
-		hostname = "app.terraform.io"
+		hostname = "app.example.io"
 		organization = "example_corp"
 	}
 }`,
@@ -1168,7 +1168,7 @@ terraform {
 				Path:    path,
 				Backend: nil,
 				Cloud: &backend.Cloud{
-					Hostname: "app.terraform.io",
+					Hostname: "app.example.io",
 				},
 				ProviderReferences:   map[module.ProviderRef]tfaddr.Provider{},
 				ProviderRequirements: map[tfaddr.Provider]version.Constraints{},
