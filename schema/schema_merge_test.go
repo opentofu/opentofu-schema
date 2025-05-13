@@ -441,7 +441,7 @@ func TestMergeWithJsonProviderSchemas_v012(t *testing.T) {
 	sm := NewSchemaMerger(testCoreSchema())
 	sr := testSchemaReader(t, filepath.Join("testdata", "provider-schemas-0.12.json"), true, false)
 	sm.SetStateReader(sr)
-	sm.SetTerraformVersion(v0_12_0)
+	sm.SetTofuVersion(v0_12_0)
 	meta := testModuleMeta(t, "testdata/test-config-0.12.tf")
 	mergedSchema, err := sm.SchemaForModule(meta)
 	if err != nil {
@@ -457,7 +457,7 @@ func TestMergeWithJsonProviderSchemas_v013(t *testing.T) {
 	sm := NewSchemaMerger(testCoreSchema())
 	sr := testSchemaReader(t, filepath.Join("testdata", "provider-schemas-0.13.json"), false, false)
 	sm.SetStateReader(sr)
-	sm.SetTerraformVersion(v0_13_0)
+	sm.SetTofuVersion(v0_13_0)
 	meta := testModuleMeta(t, "testdata/test-config-0.13.tf")
 	mergedSchema, err := sm.SchemaForModule(meta)
 	if err != nil {
@@ -499,7 +499,7 @@ func TestMergeWithJsonProviderSchemas_concurrencyBug(t *testing.T) {
 		defer wg.Done()
 		sm := NewSchemaMerger(testCoreSchema())
 		sm.SetStateReader(&exactSchemaReader{ps: ps})
-		sm.SetTerraformVersion(v0_15_0)
+		sm.SetTofuVersion(v0_15_0)
 		_, err := sm.SchemaForModule(meta)
 		if err != nil {
 			t.Error(err)
@@ -509,7 +509,7 @@ func TestMergeWithJsonProviderSchemas_concurrencyBug(t *testing.T) {
 		defer wg.Done()
 		sm := NewSchemaMerger(testCoreSchema())
 		sm.SetStateReader(&exactSchemaReader{ps: ps})
-		sm.SetTerraformVersion(v0_15_0)
+		sm.SetTofuVersion(v0_15_0)
 		_, err := sm.SchemaForModule(meta)
 		if err != nil {
 			t.Error(err)
@@ -550,7 +550,7 @@ func TestMergeWithJsonProviderSchemas_v015(t *testing.T) {
 	sm := NewSchemaMerger(testCoreSchema())
 	sr := testSchemaReader(t, filepath.Join("testdata", "provider-schemas-0.15.json"), false, false)
 	sm.SetStateReader(sr)
-	sm.SetTerraformVersion(v0_15_0)
+	sm.SetTofuVersion(v0_15_0)
 	meta := testModuleMeta(t, "testdata/test-config-0.15.tf")
 	mergedSchema, err := sm.SchemaForModule(meta)
 	if err != nil {
@@ -566,7 +566,7 @@ func TestMergeWithJsonProviderSchemasAndModuleVariables_v015(t *testing.T) {
 	sm := NewSchemaMerger(testCoreSchema())
 	sr := testSchemaReader(t, filepath.Join("testdata", "provider-schemas-0.15.json"), false, true)
 	sm.SetStateReader(sr)
-	sm.SetTerraformVersion(v0_15_0)
+	sm.SetTofuVersion(v0_15_0)
 	meta := testModuleMeta(t, "testdata/test-config-0.15.tf")
 	mergedSchema, err := sm.SchemaForModule(meta)
 	if err != nil {
@@ -581,7 +581,7 @@ func TestMergeWithJsonProviderSchemasAndModuleVariables_v015(t *testing.T) {
 func TestMergeWithJsonProviderSchemasAndModuleVariables_registryModule(t *testing.T) {
 	sm := NewSchemaMerger(testCoreSchema())
 	sm.SetStateReader(testRegistryStateReader())
-	sm.SetTerraformVersion(v0_15_0)
+	sm.SetTofuVersion(v0_15_0)
 	meta := testModuleMeta(t, "testdata/test-config-remote-module.tf")
 	mergedSchema, err := sm.SchemaForModule(meta)
 	if err != nil {

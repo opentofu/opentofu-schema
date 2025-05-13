@@ -28,7 +28,7 @@ func isRemoteStateDataSource(pAddr tfaddr.Provider, dsName string) bool {
 
 func (sm *SchemaMerger) dependentBodyForRemoteStateDataSource(originalBodySchema *schema.BodySchema, providerAddr lang.Address, localRef module.ProviderRef) map[schema.SchemaKey]*schema.BodySchema {
 	m := make(map[schema.SchemaKey]*schema.BodySchema, 0)
-	backendsAsCons := backends.ConfigsAsObjectConstraint(sm.terraformVersion)
+	backendsAsCons := backends.ConfigsAsObjectConstraint(sm.tofuVersion)
 
 	for backendType, objConstraint := range backendsAsCons {
 		depKeys := schema.DependencyKeys{
@@ -53,7 +53,7 @@ func (sm *SchemaMerger) dependentBodyForRemoteStateDataSource(originalBodySchema
 
 		dsSchema := originalBodySchema.Copy()
 		dsSchema.Attributes["backend"] = &schema.AttributeSchema{
-			Constraint:             backends.BackendTypesAsOneOfConstraint(sm.terraformVersion),
+			Constraint:             backends.BackendTypesAsOneOfConstraint(sm.tofuVersion),
 			IsRequired:             true,
 			SemanticTokenModifiers: lang.SemanticTokenModifiers{lang.TokenModifierDependent},
 		}

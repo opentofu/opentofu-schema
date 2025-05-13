@@ -20,9 +20,9 @@ import (
 )
 
 type SchemaMerger struct {
-	coreSchema       *schema.BodySchema
-	terraformVersion *version.Version
-	stateReader      StateReader
+	coreSchema  *schema.BodySchema
+	tofuVersion *version.Version
+	stateReader StateReader
 }
 
 // StateReader exposes a set of methods to read data from the internal language server state
@@ -58,8 +58,8 @@ func (m *SchemaMerger) SetStateReader(mr StateReader) {
 	m.stateReader = mr
 }
 
-func (m *SchemaMerger) SetTerraformVersion(v *version.Version) {
-	m.terraformVersion = v
+func (m *SchemaMerger) SetTofuVersion(v *version.Version) {
+	m.tofuVersion = v
 }
 
 func (m *SchemaMerger) SchemaForModule(meta *tfmod.Meta) (*schema.BodySchema, error) {
@@ -167,7 +167,7 @@ func (m *SchemaMerger) SchemaForModule(meta *tfmod.Meta) (*schema.BodySchema, er
 
 					remoteStateDs.Attributes["backend"].IsDepKey = true
 					remoteStateDs.Attributes["backend"].SemanticTokenModifiers = lang.SemanticTokenModifiers{lang.TokenModifierDependent}
-					remoteStateDs.Attributes["backend"].Constraint = backends.BackendTypesAsOneOfConstraint(m.terraformVersion)
+					remoteStateDs.Attributes["backend"].Constraint = backends.BackendTypesAsOneOfConstraint(m.tofuVersion)
 					delete(remoteStateDs.Attributes, "config")
 
 					depBodies := m.dependentBodyForRemoteStateDataSource(remoteStateDs, providerAddr, localRef)

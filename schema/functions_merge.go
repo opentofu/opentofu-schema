@@ -14,9 +14,9 @@ import (
 )
 
 type FunctionsMerger struct {
-	coreFunctions    map[string]schema.FunctionSignature
-	terraformVersion *version.Version
-	stateReader      StateReader
+	coreFunctions map[string]schema.FunctionSignature
+	tofuVersion   *version.Version
+	stateReader   StateReader
 }
 
 func NewFunctionsMerger(coreFunctions map[string]schema.FunctionSignature) *FunctionsMerger {
@@ -29,8 +29,8 @@ func (m *FunctionsMerger) SetStateReader(mr StateReader) {
 	m.stateReader = mr
 }
 
-func (m *FunctionsMerger) SetTerraformVersion(v *version.Version) {
-	m.terraformVersion = v
+func (m *FunctionsMerger) SetTofuVersion(v *version.Version) {
+	m.tofuVersion = v
 }
 
 func (m *FunctionsMerger) FunctionsForModule(meta *tfmod.Meta) (map[string]schema.FunctionSignature, error) {
@@ -46,7 +46,7 @@ func (m *FunctionsMerger) FunctionsForModule(meta *tfmod.Meta) (map[string]schem
 		return m.coreFunctions, nil
 	}
 
-	if m.terraformVersion.LessThan(v1_8) {
+	if m.tofuVersion.LessThan(v1_8) {
 		return m.coreFunctions, nil
 	}
 
