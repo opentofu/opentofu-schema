@@ -101,7 +101,7 @@ func TestFunctionsMerger_FunctionsForModule_18(t *testing.T) {
 			Schemas:       providerSchemaWithFunctions,
 		},
 	})
-	fm.SetTerraformVersion(version.Must(version.NewVersion("1.8")))
+	fm.SetTofuVersion(version.Must(version.NewVersion("1.8")))
 
 	testProvider := addr.NewDefaultProvider("test")
 	versionConstraints := version.MustConstraints(version.NewConstraint("1.0.0"))
@@ -158,7 +158,7 @@ func TestFunctionsMerger_FunctionsForModule_17(t *testing.T) {
 			Schemas:       providerSchemaWithFunctions,
 		},
 	})
-	fm.SetTerraformVersion(version.Must(version.NewVersion("1.7")))
+	fm.SetTofuVersion(version.Must(version.NewVersion("1.7")))
 
 	testProvider := addr.NewDefaultProvider("test")
 	versionConstraints := version.MustConstraints(version.NewConstraint("1.0.0"))

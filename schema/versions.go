@@ -27,7 +27,7 @@ func ResolveVersion(tfVersion *version.Version, tfCons version.Constraints) *ver
 			// the version comparisons downstream (we don't care
 			// about differences between individual pre-releases
 			// of the same patch version).
-			for _, v := range terraformVersions {
+			for _, v := range tofuVersions {
 				if tfVersion.Equal(v) {
 					return coreVersion
 				}
@@ -39,7 +39,7 @@ func ResolveVersion(tfVersion *version.Version, tfCons version.Constraints) *ver
 		}
 	}
 
-	for _, v := range terraformVersions {
+	for _, v := range tofuVersions {
 		if len(tfCons) > 0 && tfCons.Check(v) && v.LessThan(OldestAvailableVersion) {
 			return OldestAvailableVersion
 		}

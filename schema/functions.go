@@ -42,7 +42,7 @@ func FunctionsForVersion(v *version.Version) (map[string]schema.FunctionSignatur
 }
 
 func FunctionsForConstraint(vc version.Constraints) (map[string]schema.FunctionSignature, error) {
-	for _, v := range terraformVersions {
+	for _, v := range tofuVersions {
 		if vc.Check(v) {
 			return FunctionsForVersion(v)
 		}

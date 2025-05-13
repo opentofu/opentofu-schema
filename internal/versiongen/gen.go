@@ -64,7 +64,7 @@ var (
 	OldestAvailableVersion = version.Must(version.NewVersion("{{ .OldestVersion }}"))
 	LatestAvailableVersion = version.Must(version.NewVersion("{{ .LatestVersion }}"))
 
-	terraformVersions = version.Collection{
+	tofuVersions = version.Collection{
 {{- range .Releases }}
 		version.Must(version.NewVersion("{{ .Version }}")),
 {{- end }}
