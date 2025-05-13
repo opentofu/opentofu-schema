@@ -13,15 +13,14 @@ import (
 
 func patchTerraformBlockSchema(bs *schema.BlockSchema) *schema.BlockSchema {
 	bs.Body.Blocks["cloud"] = &schema.BlockSchema{
-		Description: lang.PlainText("HCP Terraform configuration"),
+		Description: lang.PlainText("Cloud configuration"),
 		MaxItems:    1,
 		Body: &schema.BodySchema{
 			Attributes: map[string]*schema.AttributeSchema{
 				"hostname": {
-					Constraint: schema.LiteralType{Type: cty.String},
-					IsOptional: true,
-					Description: lang.Markdown("The Terraform Enterprise hostname to connect to. " +
-						"This optional argument defaults to `app.terraform.io` for use with HCP Terraform."),
+					Constraint:  schema.LiteralType{Type: cty.String},
+					IsOptional:  true,
+					Description: lang.Markdown("The hostname to connect to"),
 				},
 				"organization": {
 					Constraint:  schema.LiteralType{Type: cty.String},
@@ -31,8 +30,8 @@ func patchTerraformBlockSchema(bs *schema.BlockSchema) *schema.BlockSchema {
 				"token": {
 					Constraint: schema.LiteralType{Type: cty.String},
 					IsOptional: true,
-					Description: lang.Markdown("The token used to authenticate with HCP Terraform/Terraform Enterprise. " +
-						"Typically this argument should not be set, and `terraform login` used instead; " +
+					Description: lang.Markdown("The token used to authenticate with the cloud platform. " +
+						"Typically this argument should not be set, and `tofu login` used instead; " +
 						"your credentials will then be fetched from your CLI configuration file " +
 						"or configured credential helper."),
 				},

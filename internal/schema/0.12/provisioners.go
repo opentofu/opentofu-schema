@@ -45,7 +45,7 @@ func labelKey(value string) schema.SchemaKey {
 var FileProvisioner = &schema.BodySchema{
 	Description: lang.Markdown("Provisioner used to copy files or directories from the machine executing Terraform" +
 		" to the newly created resource."),
-	HoverURL: "https://www.terraform.io/docs/language/resources/provisioners/file.html",
+	HoverURL: "https://opentofu.org/docs/language/resources/provisioners/file/",
 	Attributes: map[string]*schema.AttributeSchema{
 		"source": {
 			IsOptional: true,
@@ -73,7 +73,7 @@ var FileProvisioner = &schema.BodySchema{
 var LocalExecProvisioner = &schema.BodySchema{
 	Description: lang.Markdown("Invokes a local executable after a resource is created. " +
 		"This invokes a process on the machine running Terraform, not on the resource."),
-	HoverURL: "https://www.terraform.io/docs/language/resources/provisioners/local-exec.html",
+	HoverURL: "https://opentofu.org/docs/language/resources/provisioners/local-exec/",
 	Attributes: map[string]*schema.AttributeSchema{
 		"command": {
 			IsRequired: true,
@@ -115,7 +115,7 @@ var LocalExecProvisioner = &schema.BodySchema{
 var RemoteExecProvisioner = &schema.BodySchema{
 	Description: lang.Markdown("Invokes a script on a remote resource after it is created. " +
 		"This can be used to run a configuration management tool, bootstrap into a cluster, etc."),
-	HoverURL: "https://www.terraform.io/docs/language/resources/provisioners/remote-exec.html",
+	HoverURL: "https://opentofu.org/docs/language/resources/provisioners/remote-exec/",
 	Attributes: map[string]*schema.AttributeSchema{
 		"inline": {
 			IsOptional: true,

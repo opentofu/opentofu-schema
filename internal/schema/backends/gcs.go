@@ -14,7 +14,7 @@ import (
 
 func gcsBackend(v *version.Version) *schema.BodySchema {
 	// https://github.com/hashicorp/terraform/blob/v0.12.0/backend/remote-state/gcs/backend.go
-	docsUrl := "https://www.terraform.io/docs/language/settings/backends/gcs.html"
+	docsUrl := "https://opentofu.org/docs/language/settings/backends/gcs/"
 	bodySchema := &schema.BodySchema{
 		Description: lang.Markdown("Google Cloud Storage"),
 		HoverURL:    docsUrl,

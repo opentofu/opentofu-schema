@@ -14,7 +14,7 @@ import (
 
 func ossBackend(v *version.Version) *schema.BodySchema {
 	// https://github.com/hashicorp/terraform/blob/v0.12.2/backend/remote-state/oss/backend.go
-	docsUrl := "https://www.terraform.io/docs/language/settings/backends/oss.html"
+	docsUrl := "https://opentofu.org/docs/language/settings/backends/oss/"
 	bodySchema := &schema.BodySchema{
 		Description: lang.Markdown("Alibaba Cloud Object Storage Service"),
 		HoverURL:    docsUrl,

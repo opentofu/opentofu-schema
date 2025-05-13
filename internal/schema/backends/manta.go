@@ -17,7 +17,13 @@ func mantaBackend(v *version.Version) *schema.BodySchema {
 	// https://github.com/hashicorp/terraform/blob/v1.0.0/internal/backend/remote-state/manta/backend.go
 	// Docs:
 	// https://github.com/hashicorp/terraform/blob/v1.0.0/website/docs/language/settings/backends/manta.html.md
-	docsUrl := "https://www.terraform.io/docs/language/settings/backends/manta.html"
+	if v.GreaterThanOrEqual(v1_2_0) {
+		return &schema.BodySchema{
+			IsDeprecated: true,
+			Description:  lang.Markdown("etcdv2 backend is deprecated since v1.2.0."),
+		}
+	}
+	docsUrl := "https://www.terraform.io/docs/language/settings/backends/manta.html" //We do not have a page for this, leaving it here
 	bodySchema := &schema.BodySchema{
 		Description: lang.Markdown("Manta (Triton Object Storage)"),
 		HoverURL:    docsUrl,

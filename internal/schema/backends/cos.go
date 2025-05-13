@@ -14,7 +14,7 @@ import (
 
 func cosBackend(v *version.Version) *schema.BodySchema {
 	// https://github.com/hashicorp/terraform/blob/v0.13.0/backend/remote-state/cos/backend.go
-	docsUrl := "https://www.terraform.io/docs/language/settings/backends/cos.html"
+	docsUrl := "https://opentofu.org/docs/language/settings/backends/cos/"
 	bodySchema := &schema.BodySchema{
 		Description: lang.Markdown("Tencent Cloud Object Storage"),
 		HoverURL:    docsUrl,

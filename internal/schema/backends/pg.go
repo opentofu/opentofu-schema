@@ -14,7 +14,7 @@ import (
 
 func pgBackend(v *version.Version) *schema.BodySchema {
 	// https://github.com/hashicorp/terraform/blob/v0.12.0/backend/remote-state/pg/backend.go
-	docsUrl := "https://www.terraform.io/docs/language/settings/backends/pg.html"
+	docsUrl := "https://opentofu.org/docs/language/settings/backends/pg/"
 	bodySchema := &schema.BodySchema{
 		Description: lang.Markdown("PostgreSQL (v10+)"),
 		HoverURL:    docsUrl,
