@@ -91,7 +91,7 @@ func signaturesFromTofu(ctx context.Context) (*tfjson.MetadataFunctions, error) 
 	// for the current architecture and platform:
 	opts := tofudl.DownloadOptVersion(tofudl.Version(tofuVersion.String()))
 	log.Printf("downloading tofudl version %s", tofuVersion.String())
-	binary, err := dl.Download(context.TODO(), opts)
+	binary, err := dl.Download(ctx, opts)
 	if err != nil {
 		return nil, err
 	}
