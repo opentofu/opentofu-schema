@@ -13,7 +13,6 @@ import (
 )
 
 func ossBackend(v *version.Version) *schema.BodySchema {
-	// https://github.com/hashicorp/terraform/blob/v0.12.2/backend/remote-state/oss/backend.go
 	docsUrl := "https://opentofu.org/docs/language/settings/backends/oss/"
 	bodySchema := &schema.BodySchema{
 		Description: lang.Markdown("Alibaba Cloud Object Storage Service"),
@@ -95,7 +94,7 @@ func ossBackend(v *version.Version) *schema.BodySchema {
 	}
 
 	if v.GreaterThanOrEqual(v0_12_6) {
-		// https://github.com/hashicorp/terraform/commit/a490dfa4
+		// https://github.com/opentofu/opentofu/commit/a490dfa4
 		bodySchema.Attributes["assume_role"] = &schema.AttributeSchema{
 			IsOptional: true,
 			Constraint: schema.Object{
@@ -126,7 +125,7 @@ func ossBackend(v *version.Version) *schema.BodySchema {
 	}
 
 	if v.GreaterThanOrEqual(v0_12_8) {
-		// https://github.com/hashicorp/terraform/commit/b69c0b41
+		// https://github.com/opentofu/opentofu/commit/b69c0b41
 		bodySchema.Attributes["shared_credentials_file"] = &schema.AttributeSchema{
 			Constraint:  schema.LiteralType{Type: cty.String},
 			IsOptional:  true,
@@ -140,7 +139,7 @@ func ossBackend(v *version.Version) *schema.BodySchema {
 	}
 
 	if v.GreaterThanOrEqual(v0_12_14) {
-		// https://github.com/hashicorp/terraform/commit/bfae6271
+		// https://github.com/opentofu/opentofu/commit/bfae6271
 		bodySchema.Attributes["ecs_role_name"] = &schema.AttributeSchema{
 			Constraint:  schema.LiteralType{Type: cty.String},
 			IsOptional:  true,

@@ -92,7 +92,6 @@ func backendBodySchemas(v *version.Version) map[string]*schema.BodySchema {
 
 	v = v.Core()
 
-	// https://github.com/hashicorp/terraform/blob/v0.12.0/backend/init/init.go
 	backends := map[string]*schema.BodySchema{
 		// Enhanced backends
 		"local":  localBackend(v),
@@ -123,31 +122,31 @@ func backendBodySchemas(v *version.Version) map[string]*schema.BodySchema {
 	}
 
 	if v.GreaterThanOrEqual(v0_12_2) {
-		// https://github.com/hashicorp/terraform/commit/b887d447
+		// https://github.com/opentofu/opentofu/commit/b887d447
 		backends["oss"] = ossBackend(v)
 	}
 
 	if v.GreaterThanOrEqual(v0_13_0) {
-		// https://github.com/hashicorp/terraform/commit/76e5b446
+		// https://github.com/opentofu/opentofu/commit/76e5b446
 		backends["cos"] = cosBackend(v)
-		// https://github.com/hashicorp/terraform/commit/23fb8f6d
+		// https://github.com/opentofu/opentofu/commit/23fb8f6d
 		backends["kubernetes"] = kubernetesBackend(v)
 	}
 
 	if v.GreaterThanOrEqual(v0_15_0) {
-		// https://github.com/hashicorp/terraform/commit/b8e3b803
+		// https://github.com/opentofu/opentofu/commit/b8e3b803
 		delete(backends, "atlas")
 	}
 
 	if v.GreaterThanOrEqual(v1_3_0) {
-		// https://github.com/hashicorp/terraform/commit/aa48af6e
+		// https://github.com/opentofu/opentofu/commit/aa48af6e
 		delete(backends, "azure")
 		delete(backends, "artifactory")
 		delete(backends, "manta")
 		delete(backends, "swift")
-		// https://github.com/hashicorp/terraform/commit/799ab6c9
+		// https://github.com/opentofu/opentofu/commit/799ab6c9
 		delete(backends, "etcd")
-		// https://github.com/hashicorp/terraform/commit/d61d3e9f
+		// https://github.com/opentofu/opentofu/commit/d61d3e9f
 		delete(backends, "etcdv3")
 	}
 

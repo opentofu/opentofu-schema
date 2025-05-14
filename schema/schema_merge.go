@@ -299,8 +299,8 @@ func (m *SchemaMerger) SchemaForModule(meta *tfmod.Meta) (*schema.BodySchema, er
 // typeBelongsToProvider returns true if the given type
 // (resource or data source) name belongs to a particular provider.
 //
-// This reflects internal implementation in Terraform at
-// https://github.com/hashicorp/terraform/blob/488bbd80/internal/addrs/resource.go#L68-L77
+// This reflects internal implementation in OpenTofu at
+// https://github.com/opentofu/opentofu/blob/488bbd80/internal/addrs/resource.go#L68-L77
 func typeBelongsToProvider(typeName string, pRef tfmod.ProviderRef) bool {
 	return typeName == pRef.LocalName || strings.HasPrefix(typeName, pRef.LocalName+"_")
 }

@@ -13,7 +13,6 @@ import (
 )
 
 func gcsBackend(v *version.Version) *schema.BodySchema {
-	// https://github.com/hashicorp/terraform/blob/v0.12.0/backend/remote-state/gcs/backend.go
 	docsUrl := "https://opentofu.org/docs/language/settings/backends/gcs/"
 	bodySchema := &schema.BodySchema{
 		Description: lang.Markdown("Google Cloud Storage"),
@@ -56,7 +55,7 @@ func gcsBackend(v *version.Version) *schema.BodySchema {
 	}
 
 	if v.GreaterThanOrEqual(v0_12_10) {
-		// https://github.com/hashicorp/terraform/commit/f6c90c1d
+		// https://github.com/opentofu/opentofu/commit/f6c90c1d
 		bodySchema.Attributes["access_token"] = &schema.AttributeSchema{
 			Constraint:  schema.LiteralType{Type: cty.String},
 			IsOptional:  true,
@@ -65,7 +64,7 @@ func gcsBackend(v *version.Version) *schema.BodySchema {
 	}
 
 	if v.GreaterThanOrEqual(v0_14_0) {
-		// https://github.com/hashicorp/terraform/commit/c43731a0
+		// https://github.com/opentofu/opentofu/commit/c43731a0
 		bodySchema.Attributes["impersonate_service_account"] = &schema.AttributeSchema{
 			Constraint:  schema.LiteralType{Type: cty.String},
 			IsOptional:  true,
@@ -82,18 +81,18 @@ func gcsBackend(v *version.Version) *schema.BodySchema {
 	}
 
 	if v.GreaterThanOrEqual(v0_15_0) {
-		// https://github.com/hashicorp/terraform/commit/3b9c5e5b
+		// https://github.com/opentofu/opentofu/commit/3b9c5e5b
 		delete(bodySchema.Attributes, "path")
 	}
 
 	if v.GreaterThanOrEqual(v1_4_0) {
-		// https://github.com/hashicorp/terraform/commit/89ef27d3
+		// https://github.com/opentofu/opentofu/commit/89ef27d3
 		bodySchema.Attributes["storage_custom_endpoint"] = &schema.AttributeSchema{
 			Constraint:  schema.LiteralType{Type: cty.String},
 			IsOptional:  true,
 			Description: lang.Markdown("A URL containing three parts: the protocol, the DNS name pointing to a Private Service Connect endpoint, and the path for the Cloud Storage API (`/storage/v1/b`, [see here](https://cloud.google.com/storage/docs/json_api/v1/buckets/get#http-request))."),
 		}
-		// https://github.com/hashicorp/terraform/commit/d43ec0f30
+		// https://github.com/opentofu/opentofu/commit/d43ec0f30
 		bodySchema.Attributes["kms_encryption_key"] = &schema.AttributeSchema{
 			Constraint:  schema.LiteralType{Type: cty.String},
 			IsOptional:  true,

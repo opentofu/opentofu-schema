@@ -18,8 +18,6 @@ var (
 	RemoteExecProvisioner = v014_mod.RemoteExecProvisioner
 )
 
-// See https://github.com/hashicorp/terraform/tree/v0.15.0/builtin/provisioners
-
 func ProvisionerDependentBodies(v *version.Version) map[schema.SchemaKey]*schema.BodySchema {
 	return map[schema.SchemaKey]*schema.BodySchema{
 		labelKey("file"):        FileProvisioner,

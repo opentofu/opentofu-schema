@@ -16,7 +16,7 @@ func removedBlock() *schema.BlockSchema {
 	return &schema.BlockSchema{
 		Description: lang.Markdown("Declaration to specify what resource or module to remove from the state"),
 		Body: &schema.BodySchema{
-			HoverURL: "https://developer.hashicorp.com/terraform/language/resources/syntax#removing-resources",
+			HoverURL: "https://opentofu.org/docs/language/resources/syntax/#removing-resources",
 			Attributes: map[string]*schema.AttributeSchema{
 				"from": {
 					Constraint: schema.OneOf{
@@ -35,7 +35,7 @@ func removedBlock() *schema.BlockSchema {
 							"destroy": {
 								Constraint:  schema.LiteralType{Type: cty.Bool},
 								IsRequired:  true,
-								Description: lang.Markdown("Whether Terraform will attempt to destroy the objects (`true`) or not, i.e. just remove from state (`false`)."),
+								Description: lang.Markdown("Whether OpenTofu will attempt to destroy the objects (`true`) or not, i.e. just remove from state (`false`)."),
 							},
 						},
 					},

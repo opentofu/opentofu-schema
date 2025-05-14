@@ -1,4 +1,4 @@
-# terraform init && terraform providers schema -json
+# tofu init && tofu providers schema -json
 # with v0.12 generates relevant JSON file
 terraform {
   required_providers {

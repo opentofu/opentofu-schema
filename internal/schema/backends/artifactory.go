@@ -13,10 +13,6 @@ import (
 )
 
 func artifactoryBackend(v *version.Version) *schema.BodySchema {
-	// https://github.com/hashicorp/terraform/blob/v0.12.0/backend/remote-state/artifactory/backend.go
-	// https://github.com/hashicorp/terraform/blob/v1.0.0/internal/backend/remote-state/artifactory/backend.go
-	// Docs:
-	// https://github.com/hashicorp/terraform/blob/v1.0.0/website/docs/language/settings/backends/artifactory.html.md
 	if v.GreaterThanOrEqual(v1_3_0) {
 		return &schema.BodySchema{
 			IsDeprecated: true,

@@ -12,8 +12,6 @@ import (
 	v012_mod "github.com/opentofu/opentofu-schema/internal/schema/0.12"
 )
 
-// See https://github.com/hashicorp/terraform/blob/v0.13.0/command/internal_plugin_list.go
-
 var (
 	FileProvisioner       = v012_mod.FileProvisioner
 	LocalExecProvisioner  = v012_mod.LocalExecProvisioner
@@ -32,7 +30,6 @@ func ProvisionerDependentBodies(v *version.Version) map[schema.SchemaKey]*schema
 	}
 
 	// Vendor provisioners are deprecated in 0.13.4+
-	// See https://discuss.hashicorp.com/t/notice-terraform-to-begin-deprecation-of-vendor-tool-specific-provisioners-starting-in-terraform-0-13-4/13997
 	// Some of these provisioners have complex schemas
 	// but we can at least helpfully list their names
 	if v.GreaterThanOrEqual(v0_13_4) {

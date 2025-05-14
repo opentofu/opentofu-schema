@@ -125,10 +125,9 @@ func convertAttributesFromJson(attributes map[string]*tfjson.SchemaAttribute) ma
 }
 
 // convertibleAttributesToBlocks is responsible for mimicking
-// Terraform's builtin backwards-compatible logic where
+// OpenTofu's builtin backwards-compatible logic where
 // list(object) or set(object) attributes are also accessible
 // as blocks.
-// See https://github.com/hashicorp/terraform/blob/v1.0.3/internal/lang/blocktoattr/schema.go
 func convertibleAttributesToBlocks(attributes map[string]*tfjson.SchemaAttribute) map[string]*schema.BlockSchema {
 	blocks := make(map[string]*schema.BlockSchema, 0)
 

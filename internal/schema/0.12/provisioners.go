@@ -12,8 +12,6 @@ import (
 	"github.com/zclconf/go-cty/cty"
 )
 
-// See https://github.com/hashicorp/terraform/blob/v0.12.0/command/internal_plugin_list.go
-
 func ProvisionerDependentBodies(v *version.Version) map[schema.SchemaKey]*schema.BodySchema {
 	m := map[schema.SchemaKey]*schema.BodySchema{
 		labelKey("file"):        FileProvisioner,
@@ -22,14 +20,13 @@ func ProvisionerDependentBodies(v *version.Version) map[schema.SchemaKey]*schema
 	}
 
 	// Vendor provisioners are deprecated in 0.13.4+
-	// See https://discuss.hashicorp.com/t/notice-terraform-to-begin-deprecation-of-vendor-tool-specific-provisioners-starting-in-terraform-0-13-4/13997
 	// Some of these provisioners have complex schemas
 	// but we can at least helpfully list their names
 	m[labelKey("chef")] = &schema.BodySchema{}
 	m[labelKey("salt-masterless")] = &schema.BodySchema{}
 	m[labelKey("habitat")] = &schema.BodySchema{}
 	if v.GreaterThanOrEqual(v0_12_2) {
-		// See https://github.com/hashicorp/terraform/commit/615110e13
+		// See https://github.com/opentofu/opentofu/commit/615110e13
 		m[labelKey("puppet")] = &schema.BodySchema{}
 	}
 

@@ -13,7 +13,6 @@ import (
 )
 
 func pgBackend(v *version.Version) *schema.BodySchema {
-	// https://github.com/hashicorp/terraform/blob/v0.12.0/backend/remote-state/pg/backend.go
 	docsUrl := "https://opentofu.org/docs/language/settings/backends/pg/"
 	bodySchema := &schema.BodySchema{
 		Description: lang.Markdown("PostgreSQL (v10+)"),
@@ -37,26 +36,26 @@ func pgBackend(v *version.Version) *schema.BodySchema {
 	}
 
 	if v.GreaterThanOrEqual(v0_12_8) {
-		// https://github.com/hashicorp/terraform/commit/be5280e4
+		// https://github.com/opentofu/opentofu/commit/be5280e4
 		bodySchema.Attributes["skip_schema_creation"] = &schema.AttributeSchema{
 			Constraint:  schema.LiteralType{Type: cty.Bool},
 			IsOptional:  true,
-			Description: lang.Markdown("If set to `true`, Terraform won't try to create the Postgres schema"),
+			Description: lang.Markdown("If set to `true`, OpenTofu won't try to create the Postgres schema"),
 		}
 	}
 
 	if v.GreaterThanOrEqual(v0_14_0) {
-		// https://github.com/hashicorp/terraform/commit/12a0a21c
+		// https://github.com/opentofu/opentofu/commit/12a0a21c
 		bodySchema.Attributes["skip_table_creation"] = &schema.AttributeSchema{
 			Constraint:  schema.LiteralType{Type: cty.Bool},
 			IsOptional:  true,
-			Description: lang.Markdown("If set to `true`, Terraform won't try to create the Postgres table"),
+			Description: lang.Markdown("If set to `true`, OpenTofu won't try to create the Postgres table"),
 		}
 
 		bodySchema.Attributes["skip_index_creation"] = &schema.AttributeSchema{
 			Constraint:  schema.LiteralType{Type: cty.Bool},
 			IsOptional:  true,
-			Description: lang.Markdown("If set to `true`, Terraform won't try to create the Postgres index"),
+			Description: lang.Markdown("If set to `true`, OpenTofu won't try to create the Postgres index"),
 		}
 	}
 

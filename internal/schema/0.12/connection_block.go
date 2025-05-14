@@ -166,7 +166,7 @@ func ConnectionDependentBodies(v *version.Version) map[schema.SchemaKey]*schema.
 		},
 	}
 
-	// See https://github.com/hashicorp/terraform/commit/3031aca9
+	// See https://github.com/opentofu/opentofu/commit/3031aca9
 	if v.GreaterThanOrEqual(v0_12_7) {
 		m[ssh].Attributes["bastion_certificate"] = &schema.AttributeSchema{
 			Constraint: schema.AnyExpression{OfType: cty.String},
