@@ -24,7 +24,7 @@ func checkBlock() *schema.BlockSchema {
 		},
 		Description: lang.Markdown("Check customized infrastructure requirements to provide ongoing and continuous verification."),
 		Body: &schema.BodySchema{
-			HoverURL: "https://developer.hashicorp.com/terraform/language/checks",
+			HoverURL: "https://opentofu.org/docs/language/checks/",
 			Blocks: map[string]*schema.BlockSchema{
 				"data": scopedDataBlock(),
 				"assert": {
