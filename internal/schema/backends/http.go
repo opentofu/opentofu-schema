@@ -13,7 +13,6 @@ import (
 )
 
 func httpBackend(v *version.Version) *schema.BodySchema {
-	// https://github.com/hashicorp/terraform/blob/v0.12.0/backend/remote-state/http/backend.go
 	docsUrl := "https://opentofu.org/docs/language/settings/backends/http/"
 	bodySchema := &schema.BodySchema{
 		Description: lang.Markdown("HTTP (REST)"),
@@ -71,7 +70,7 @@ func httpBackend(v *version.Version) *schema.BodySchema {
 	}
 
 	if v.GreaterThanOrEqual(v0_12_2) {
-		// https://github.com/hashicorp/terraform/commit/5b6b1663
+		// https://github.com/opentofu/opentofu/commit/5b6b1663
 		bodySchema.Attributes["retry_max"] = &schema.AttributeSchema{
 			Constraint:  schema.LiteralType{Type: cty.Number},
 			IsOptional:  true,
@@ -90,7 +89,7 @@ func httpBackend(v *version.Version) *schema.BodySchema {
 	}
 
 	if v.GreaterThanOrEqual(v1_4_0) {
-		// https://github.com/hashicorp/terraform/commit/75e5ae27
+		// https://github.com/opentofu/opentofu/commit/75e5ae27
 		bodySchema.Attributes["client_ca_certificate_pem"] = &schema.AttributeSchema{
 			Constraint:  schema.LiteralType{Type: cty.String},
 			IsOptional:  true,

@@ -13,7 +13,6 @@ import (
 )
 
 func cosBackend(v *version.Version) *schema.BodySchema {
-	// https://github.com/hashicorp/terraform/blob/v0.13.0/backend/remote-state/cos/backend.go
 	docsUrl := "https://opentofu.org/docs/language/settings/backends/cos/"
 	bodySchema := &schema.BodySchema{
 		Description: lang.Markdown("Tencent Cloud Object Storage"),
@@ -68,7 +67,6 @@ func cosBackend(v *version.Version) *schema.BodySchema {
 	}
 
 	if v.GreaterThanOrEqual(v1_3_0) {
-		// See https://github.com/hashicorp/terraform/pull/31425/files
 		bodySchema.Attributes["accelerate"] = &schema.AttributeSchema{
 			Constraint:  schema.LiteralType{Type: cty.Bool},
 			IsOptional:  true,
@@ -77,7 +75,6 @@ func cosBackend(v *version.Version) *schema.BodySchema {
 	}
 
 	if v.GreaterThanOrEqual(v1_4_0) {
-		// See https://github.com/hashicorp/terraform/pull/32631/files
 		bodySchema.Attributes["secret_id"].IsRequired = false
 		bodySchema.Attributes["secret_id"].IsOptional = true
 		bodySchema.Attributes["secret_key"].IsRequired = false
@@ -93,7 +90,7 @@ func cosBackend(v *version.Version) *schema.BodySchema {
 		bodySchema.Blocks["assume_role"] = &schema.BlockSchema{
 			Type:        schema.BlockTypeSet,
 			MaxItems:    1,
-			Description: lang.Markdown("The `assume_role` block. If provided, terraform will attempt to assume this role using the supplied credentials."),
+			Description: lang.Markdown("The `assume_role` block. If provided, OpenTofu will attempt to assume this role using the supplied credentials."),
 			Body: &schema.BodySchema{
 				Attributes: map[string]*schema.AttributeSchema{
 					"role_arn": {

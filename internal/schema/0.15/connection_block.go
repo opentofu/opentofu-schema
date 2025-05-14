@@ -26,7 +26,7 @@ func ConnectionDependentBodies(v *version.Version) map[schema.SchemaKey]*schema.
 		},
 	})
 
-	// See https://github.com/hashicorp/terraform/commit/5b99a56f
+	// See https://github.com/opentofu/opentofu/commit/5b99a56f
 	bodies[ssh].Attributes["target_platform"] = &schema.AttributeSchema{
 		Constraint: schema.OneOf{
 			schema.LiteralValue{Value: cty.StringVal("windows")},

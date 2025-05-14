@@ -13,9 +13,6 @@ import (
 )
 
 func kubernetesBackend(v *version.Version) *schema.BodySchema {
-	// https://github.com/hashicorp/terraform/blob/v0.15.0/backend/remote-state/kubernetes/backend.go
-	// Docs:
-	// https://github.com/hashicorp/terraform/blob/v0.15.0/website/docs/language/settings/backends/kubernetes.html.md
 	docsUrl := "https://opentofu.org/docs/language/settings/backends/kubernetes/"
 	bodySchema := &schema.BodySchema{
 		Description: lang.Markdown("Kubernetes secret"),

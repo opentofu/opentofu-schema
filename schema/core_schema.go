@@ -39,7 +39,7 @@ var (
 )
 
 // CoreModuleSchemaForVersion finds a module schema which is relevant
-// for the given Terraform version.
+// for the given OpenTofu version.
 // It will return error if such schema cannot be found.
 func CoreModuleSchemaForVersion(v *version.Version) (*schema.BodySchema, error) {
 	ver := v.Core()

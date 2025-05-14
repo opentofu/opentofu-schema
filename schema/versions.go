@@ -7,7 +7,7 @@ package schema
 
 import "github.com/hashicorp/go-version"
 
-// ResolveVersion returns Terraform version for which we have schema available
+// ResolveVersion returns OpenTofu version for which we have schema available
 // based on either given version and/or constraint.
 // Lack of constraint and version implies latest known version.
 //

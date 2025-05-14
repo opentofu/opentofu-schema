@@ -20,7 +20,7 @@ import (
 	"github.com/zclconf/go-cty/cty/convert"
 )
 
-// decodedModule is the type representing a decoded Terraform module.
+// decodedModule is the type representing a decoded OpenTofu module.
 type decodedModule struct {
 	RequiredCore         []string
 	Backends             map[string]backend.BackendData

@@ -17,7 +17,6 @@ import (
 var (
 	FileProvisioner      = v0_15_mod.FileProvisioner
 	LocalExecProvisioner = func() *schema.BodySchema {
-		// See https: //github.com/hashicorp/terraform/pull/32116/files
 		bodySchema := v0_15_mod.LocalExecProvisioner
 		bodySchema.Attributes["quiet"] = &schema.AttributeSchema{
 			Constraint:   schema.LiteralType{Type: cty.Bool},

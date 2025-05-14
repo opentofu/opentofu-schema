@@ -15,7 +15,7 @@ import (
 func remoteBackend(v *version.Version) *schema.BodySchema {
 	docsUrl := "https://opentofu.org/docs/language/settings/backends/remote/"
 	return &schema.BodySchema{
-		Description: lang.Markdown("Remote backend to store state and run operations in HCP Terraform."),
+		Description: lang.Markdown("Remote backend to store state and run operations remotely."),
 		HoverURL:    docsUrl,
 		DocsLink: &schema.DocsLink{
 			URL: docsUrl,

@@ -13,7 +13,6 @@ import (
 )
 
 func s3Backend(v *version.Version) *schema.BodySchema {
-	// https://github.com/hashicorp/terraform/blob/v0.12.0/backend/remote-state/s3/backend.go
 	docsUrl := "https://opentofu.org/docs/language/settings/backends/s3/"
 	bodySchema := &schema.BodySchema{
 		Description: lang.Markdown("Amazon S3 (with locking via DynamoDB)"),
@@ -203,7 +202,7 @@ func s3Backend(v *version.Version) *schema.BodySchema {
 	}
 
 	if v.GreaterThanOrEqual(v0_12_8) {
-		// https://github.com/hashicorp/terraform/commit/5e3c3baf
+		// https://github.com/opentofu/opentofu/commit/5e3c3baf
 		bodySchema.Attributes["sse_customer_key"] = &schema.AttributeSchema{
 			Constraint:  schema.LiteralType{Type: cty.String},
 			IsOptional:  true,
@@ -213,7 +212,7 @@ func s3Backend(v *version.Version) *schema.BodySchema {
 	}
 
 	if v.GreaterThanOrEqual(v0_13_0) {
-		// https://github.com/hashicorp/terraform/commit/ba081aa1
+		// https://github.com/opentofu/opentofu/commit/ba081aa1
 
 		delete(bodySchema.Attributes, "lock_table")
 		delete(bodySchema.Attributes, "skip_get_ec2_platforms")
@@ -553,7 +552,7 @@ func s3Backend(v *version.Version) *schema.BodySchema {
 	}
 
 	if v.GreaterThanOrEqual(v1_8_0) {
-		// In Terraform 1.8 the use_legacy_workflow argument is be removed to encourage consistency with the AWS SDKs
+		// In OpenTofu 1.8 the use_legacy_workflow argument is be removed to encourage consistency with the AWS SDKs
 		delete(bodySchema.Attributes, "use_legacy_workflow")
 	}
 

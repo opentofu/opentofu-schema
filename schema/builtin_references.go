@@ -43,8 +43,8 @@ func BuiltinReferences(modPath string) reference.Targets {
 			ScopeId: refscope.BuiltinScope,
 			Type:    cty.String,
 			Description: lang.Markdown("The filesystem path of the current working directory.\n\n" +
-				"In normal use of Terraform this is the same as `path.root`, " +
-				"but some advanced uses of Terraform run it from a directory " +
+				"In normal use of OpenTofu this is the same as `path.root`, " +
+				"but some advanced uses of OpenTofu run it from a directory " +
 				"other than the root module directory, causing these paths to be different."),
 		},
 		{

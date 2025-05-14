@@ -216,7 +216,6 @@ func schemaForDependentModuleBlock(module module.DeclaredModuleCall, modMeta *mo
 		filename := modMeta.Filenames[0]
 
 		// Prioritize main.tf based on best practices as documented at
-		// https://learn.hashicorp.com/tutorials/terraform/module-create
 		if sliceContains(modMeta.Filenames, "main.tf") {
 			filename = "main.tf"
 		}

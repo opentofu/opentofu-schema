@@ -14,9 +14,9 @@ import (
 
 func importBlock() *schema.BlockSchema {
 	return &schema.BlockSchema{
-		Description: lang.Markdown("Import resources into Terraform to bring them under Terraform's management"),
+		Description: lang.Markdown("Import resources into OpenTofu to bring them under OpenTofu's management"),
 		Body: &schema.BodySchema{
-			HoverURL: "https://developer.hashicorp.com/terraform/language/import",
+			HoverURL: "https://opentofu.org/docs/language/import/",
 			Attributes: map[string]*schema.AttributeSchema{
 				"provider": {
 					Constraint:  schema.Reference{OfScopeId: refscope.ProviderScope},

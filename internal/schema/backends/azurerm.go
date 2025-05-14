@@ -13,7 +13,6 @@ import (
 )
 
 func azureRmBackend(v *version.Version) *schema.BodySchema {
-	// https://github.com/hashicorp/terraform/blob/v0.12.0/backend/remote-state/azure/backend.go
 	docsUrl := "https://opentofu.org/docs/language/settings/backends/azurerm/"
 	bodySchema := &schema.BodySchema{
 		Description: lang.Markdown("Azure Blob Storage"),
@@ -138,7 +137,7 @@ func azureRmBackend(v *version.Version) *schema.BodySchema {
 	}
 
 	if v.GreaterThanOrEqual(v0_13_0) {
-		// https://github.com/hashicorp/terraform/commit/0f85b283
+		// https://github.com/opentofu/opentofu/commit/0f85b283
 		bodySchema.Attributes["snapshot"] = &schema.AttributeSchema{
 			Constraint:  schema.LiteralType{Type: cty.Bool},
 			IsOptional:  true,
@@ -147,7 +146,7 @@ func azureRmBackend(v *version.Version) *schema.BodySchema {
 	}
 
 	if v.GreaterThanOrEqual(v0_13_1) {
-		// https://github.com/hashicorp/terraform/commit/0d34e5d9
+		// https://github.com/opentofu/opentofu/commit/0d34e5d9
 		bodySchema.Attributes["client_certificate_password"] = &schema.AttributeSchema{
 			Constraint:  schema.LiteralType{Type: cty.String},
 			IsOptional:  true,
@@ -158,7 +157,7 @@ func azureRmBackend(v *version.Version) *schema.BodySchema {
 			IsOptional:  true,
 			Description: lang.Markdown("The path to the PFX file used as the Client Certificate when authenticating as a Service Principal"),
 		}
-		// https://github.com/hashicorp/terraform/commit/23b4c2db
+		// https://github.com/opentofu/opentofu/commit/23b4c2db
 		bodySchema.Attributes["metadata_host"] = &schema.AttributeSchema{
 			Constraint:  schema.LiteralType{Type: cty.String},
 			IsRequired:  true,
@@ -167,7 +166,7 @@ func azureRmBackend(v *version.Version) *schema.BodySchema {
 	}
 
 	if v.GreaterThanOrEqual(v0_15_0) {
-		// https://github.com/hashicorp/terraform/commit/b263e688
+		// https://github.com/opentofu/opentofu/commit/b263e688
 		delete(bodySchema.Attributes, "arm_client_id")
 		delete(bodySchema.Attributes, "arm_client_secret")
 		delete(bodySchema.Attributes, "arm_subscription_id")
@@ -175,21 +174,21 @@ func azureRmBackend(v *version.Version) *schema.BodySchema {
 		bodySchema.Attributes["use_azuread_auth"] = &schema.AttributeSchema{
 			Constraint:  schema.LiteralType{Type: cty.Bool},
 			IsOptional:  true,
-			Description: lang.Markdown("Should Terraform use AzureAD Authentication to access the Blob?"),
+			Description: lang.Markdown("Should OpenTofu use AzureAD Authentication to access the Blob?"),
 		}
 	}
 
 	// This attribute was both introduced and deprecated in 1.2 🙈
-	// https://github.com/hashicorp/terraform/commit/9f710558 (introduction)
-	// https://github.com/hashicorp/terraform/commit/2eb9118c (deprecation)
+	// https://github.com/opentofu/opentofu/commit/9f710558 (introduction)
+	// https://github.com/opentofu/opentofu/commit/2eb9118c (deprecation)
 	if v.GreaterThanOrEqual(v1_2_0) {
 		bodySchema.Attributes["use_microsoft_graph"] = &schema.AttributeSchema{
 			Constraint:  schema.LiteralType{Type: cty.Bool},
 			IsOptional:  true,
-			Description: lang.Markdown("This field now defaults to `true` and will be removed in v1.3 of Terraform Core due to the deprecation of ADAL by Microsoft."),
+			Description: lang.Markdown("This field now defaults to `true` and will be removed in v1.3 of OpenTofu Core due to the deprecation of ADAL by Microsoft."),
 		}
 		if v.GreaterThanOrEqual(v1_3_0) {
-			// See https://github.com/hashicorp/terraform/commit/05528e8c (removal)
+			// See https://github.com/opentofu/opentofu/commit/05528e8c (removal)
 			delete(bodySchema.Attributes, "use_microsoft_graph")
 		}
 	}

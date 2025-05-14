@@ -26,7 +26,7 @@ func ConnectionDependentBodies(v *version.Version) map[schema.SchemaKey]*schema.
 		},
 	})
 
-	// See https://github.com/hashicorp/terraform/commit/4cfb6bc8
+	// See https://github.com/opentofu/opentofu/commit/4cfb6bc8
 	bodies[ssh].Attributes["proxy_scheme"] = &schema.AttributeSchema{
 		Constraint: schema.OneOf{
 			schema.LiteralValue{Value: cty.StringVal("http")},

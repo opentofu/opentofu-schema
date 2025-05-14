@@ -13,8 +13,6 @@ import (
 )
 
 func consulBackend(v *version.Version) *schema.BodySchema {
-	// https://github.com/hashicorp/terraform/blob/v0.12.0/backend/remote-state/consul/backend.go
-	// https://github.com/hashicorp/terraform/blob/v1.0.0/internal/backend/remote-state/consul/backend.go
 	docsUrl := "https://opentofu.org/docs/language/settings/backends/consul/"
 	bodySchema := &schema.BodySchema{
 		Description: lang.Markdown("Consul KV store"),

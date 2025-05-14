@@ -13,7 +13,6 @@ import (
 )
 
 func swiftBackend(v *version.Version) *schema.BodySchema {
-	// https://github.com/hashicorp/terraform/blob/v0.12.0/backend/remote-state/swift/backend.go
 	if v.GreaterThanOrEqual(v1_2_0) {
 		return &schema.BodySchema{
 			IsDeprecated: true,
@@ -160,7 +159,7 @@ func swiftBackend(v *version.Version) *schema.BodySchema {
 	}
 
 	if v.GreaterThanOrEqual(v0_12_2) {
-		// https://github.com/hashicorp/terraform/commit/d8343aa9
+		// https://github.com/opentofu/opentofu/commit/d8343aa9
 		bodySchema.Attributes["user_domain_name"] = &schema.AttributeSchema{
 			Constraint:  schema.LiteralType{Type: cty.String},
 			IsOptional:  true,
@@ -192,7 +191,7 @@ func swiftBackend(v *version.Version) *schema.BodySchema {
 			Description: lang.Markdown("An entry in a `clouds.yaml` file to use."),
 		}
 
-		// https://github.com/hashicorp/terraform/commit/d06609dd
+		// https://github.com/opentofu/opentofu/commit/d06609dd
 		bodySchema.Attributes["application_credential_id"] = &schema.AttributeSchema{
 			Constraint:  schema.LiteralType{Type: cty.String},
 			IsOptional:  true,
@@ -213,7 +212,7 @@ func swiftBackend(v *version.Version) *schema.BodySchema {
 	}
 
 	if v.GreaterThanOrEqual(v0_12_4) {
-		// https://github.com/hashicorp/terraform/commit/cd7bfba1
+		// https://github.com/opentofu/opentofu/commit/cd7bfba1
 		bodySchema.Attributes["state_name"] = &schema.AttributeSchema{
 			Constraint:  schema.LiteralType{Type: cty.String},
 			IsOptional:  true,
@@ -222,7 +221,7 @@ func swiftBackend(v *version.Version) *schema.BodySchema {
 	}
 
 	if v.GreaterThanOrEqual(v0_13_0) {
-		// https://github.com/hashicorp/terraform/commit/bd344f9d
+		// https://github.com/opentofu/opentofu/commit/bd344f9d
 		bodySchema.Attributes["auth_url"] = &schema.AttributeSchema{
 			Constraint:  schema.LiteralType{Type: cty.String},
 			IsOptional:  true,
@@ -243,7 +242,7 @@ func swiftBackend(v *version.Version) *schema.BodySchema {
 			IsOptional: true,
 			Description: lang.Markdown("If set to `true`, OpenStack authorization will be perfomed\n" +
 				"automatically, if the initial auth token get expired. This is useful,\n" +
-				"when the token TTL is low or the overall Terraform provider execution\n" +
+				"when the token TTL is low or the overall OpenTofu provider execution\n" +
 				"time expected to be greater than the initial token TTL."),
 		}
 		bodySchema.Attributes["max_retries"] = &schema.AttributeSchema{
