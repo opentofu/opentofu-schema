@@ -18,7 +18,7 @@ func NewLegacyProvider(name string) tfaddr.Provider {
 	}
 }
 
-// NewDefaultProvider returns the default address of a HashiCorp-maintained,
+// NewDefaultProvider returns the default address of a OpenTofu-maintained,
 // Registry-hosted provider.
 func NewDefaultProvider(name string) tfaddr.Provider {
 	return tfaddr.Provider{
