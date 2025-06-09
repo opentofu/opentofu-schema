@@ -149,6 +149,10 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 							IsComputed: true,
 						},
 					},
+					DocsLink: &schema.DocsLink{
+						URL:     "https://search.opentofu.org/provider/grafana/grafana/latest/docs/resources/alert_notification",
+						Tooltip: "grafana/grafana/grafana_alert_notification Documentation",
+					},
 				},
 				`{"labels":[{"index":0,"value":"grafana_dashboard"}]}`: {
 					Detail: "grafana/grafana",
@@ -171,6 +175,10 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 							Constraint: schema.AnyExpression{OfType: cty.String},
 							IsComputed: true,
 						},
+					},
+					DocsLink: &schema.DocsLink{
+						URL:     "https://search.opentofu.org/provider/grafana/grafana/latest/docs/resources/dashboard",
+						Tooltip: "grafana/grafana/grafana_dashboard Documentation",
 					},
 				},
 				`{"labels":[{"index":0,"value":"grafana_data_source"}]}`: {
@@ -388,6 +396,10 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 							IsOptional: true,
 						},
 					},
+					DocsLink: &schema.DocsLink{
+						URL:     "https://search.opentofu.org/provider/grafana/grafana/latest/docs/resources/data_source",
+						Tooltip: "grafana/grafana/grafana_data_source Documentation",
+					},
 				},
 				`{"labels":[{"index":0,"value":"grafana_folder"}]}`: {
 					Detail: "grafana/grafana",
@@ -406,6 +418,10 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 							Constraint: schema.AnyExpression{OfType: cty.String},
 							IsComputed: true,
 						},
+					},
+					DocsLink: &schema.DocsLink{
+						URL:     "https://search.opentofu.org/provider/grafana/grafana/latest/docs/resources/folder",
+						Tooltip: "grafana/grafana/grafana_folder Documentation",
 					},
 				},
 				`{"labels":[{"index":0,"value":"grafana_organization"}]}`: {
@@ -461,6 +477,10 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 							IsOptional: true,
 						},
 					},
+					DocsLink: &schema.DocsLink{
+						URL:     "https://search.opentofu.org/provider/grafana/grafana/latest/docs/resources/organization",
+						Tooltip: "grafana/grafana/grafana_organization Documentation",
+					},
 				},
 				`{"labels":[{"index":0,"value":"grafana_team"}]}`: {
 					Detail: "grafana/grafana",
@@ -493,6 +513,10 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 							IsComputed: true,
 						},
 					},
+					DocsLink: &schema.DocsLink{
+						URL:     "https://search.opentofu.org/provider/grafana/grafana/latest/docs/resources/team",
+						Tooltip: "grafana/grafana/grafana_team Documentation",
+					},
 				},
 				`{"labels":[{"index":0,"value":"grafana_user"}]}`: {
 					Detail: "grafana/grafana",
@@ -520,6 +544,10 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 							IsRequired:  true,
 							IsSensitive: true,
 						},
+					},
+					DocsLink: &schema.DocsLink{
+						URL:     "https://search.opentofu.org/provider/grafana/grafana/latest/docs/resources/user",
+						Tooltip: "grafana/grafana/grafana_user Documentation",
 					},
 				},
 				`{"labels":[{"index":0,"value":"grafana_alert_notification"}],"attrs":[{"name":"provider","expr":{"addr":"grafana"}}]}`: {
@@ -568,6 +596,10 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 							IsComputed: true,
 						},
 					},
+					DocsLink: &schema.DocsLink{
+						URL:     "https://search.opentofu.org/provider/grafana/grafana/latest/docs/resources/alert_notification",
+						Tooltip: "grafana/grafana/grafana_alert_notification Documentation",
+					},
 				},
 				`{"labels":[{"index":0,"value":"grafana_dashboard"}],"attrs":[{"name":"provider","expr":{"addr":"grafana"}}]}`: {
 					Detail: "grafana/grafana",
@@ -590,6 +622,10 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 							Constraint: schema.AnyExpression{OfType: cty.String},
 							IsComputed: true,
 						},
+					},
+					DocsLink: &schema.DocsLink{
+						URL:     "https://search.opentofu.org/provider/grafana/grafana/latest/docs/resources/dashboard",
+						Tooltip: "grafana/grafana/grafana_dashboard Documentation",
 					},
 				},
 				`{"labels":[{"index":0,"value":"grafana_data_source"}],"attrs":[{"name":"provider","expr":{"addr":"grafana"}}]}`: {
@@ -807,6 +843,10 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 							IsOptional: true,
 						},
 					},
+					DocsLink: &schema.DocsLink{
+						URL:     "https://search.opentofu.org/provider/grafana/grafana/latest/docs/resources/data_source",
+						Tooltip: "grafana/grafana/grafana_data_source Documentation",
+					},
 				},
 				`{"labels":[{"index":0,"value":"grafana_folder"}],"attrs":[{"name":"provider","expr":{"addr":"grafana"}}]}`: {
 					Detail: "grafana/grafana",
@@ -825,6 +865,10 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 							Constraint: schema.AnyExpression{OfType: cty.String},
 							IsComputed: true,
 						},
+					},
+					DocsLink: &schema.DocsLink{
+						URL:     "https://search.opentofu.org/provider/grafana/grafana/latest/docs/resources/folder",
+						Tooltip: "grafana/grafana/grafana_folder Documentation",
 					},
 				},
 				`{"labels":[{"index":0,"value":"grafana_organization"}],"attrs":[{"name":"provider","expr":{"addr":"grafana"}}]}`: {
@@ -880,6 +924,10 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 							IsOptional: true,
 						},
 					},
+					DocsLink: &schema.DocsLink{
+						URL:     "https://search.opentofu.org/provider/grafana/grafana/latest/docs/resources/organization",
+						Tooltip: "grafana/grafana/grafana_organization Documentation",
+					},
 				},
 				`{"labels":[{"index":0,"value":"grafana_team"}],"attrs":[{"name":"provider","expr":{"addr":"grafana"}}]}`: {
 					Detail: "grafana/grafana",
@@ -912,6 +960,10 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 							IsComputed: true,
 						},
 					},
+					DocsLink: &schema.DocsLink{
+						URL:     "https://search.opentofu.org/provider/grafana/grafana/latest/docs/resources/team",
+						Tooltip: "grafana/grafana/grafana_team Documentation",
+					},
 				},
 				`{"labels":[{"index":0,"value":"grafana_user"}],"attrs":[{"name":"provider","expr":{"addr":"grafana"}}]}`: {
 					Detail: "grafana/grafana",
@@ -939,6 +991,10 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 							IsRequired:  true,
 							IsSensitive: true,
 						},
+					},
+					DocsLink: &schema.DocsLink{
+						URL:     "https://search.opentofu.org/provider/grafana/grafana/latest/docs/resources/user",
+						Tooltip: "grafana/grafana/grafana_user Documentation",
 					},
 				},
 				`{"labels":[{"index":0,"value":"null_resource"}]}`: {
@@ -969,6 +1025,10 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 						Value: "The `null_resource` resource implements the standard resource lifecycle but takes no further action.\n\nThe `triggers` argument allows specifying an arbitrary set of values that, when changed, will cause the resource to be replaced.",
 						Kind:  lang.MarkdownKind,
 					},
+					DocsLink: &schema.DocsLink{
+						URL:     "https://search.opentofu.org/provider/hashicorp/null/latest/docs/resources/resource",
+						Tooltip: "hashicorp/null/null_resource Documentation",
+					},
 				},
 				`{"labels":[{"index":0,"value":"null_resource"}],"attrs":[{"name":"provider","expr":{"addr":"null"}}]}`: {
 					Detail: "hashicorp/null",
@@ -998,6 +1058,10 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 						Value: "The `null_resource` resource implements the standard resource lifecycle but takes no further action.\n\nThe `triggers` argument allows specifying an arbitrary set of values that, when changed, will cause the resource to be replaced.",
 						Kind:  lang.MarkdownKind,
 					},
+					DocsLink: &schema.DocsLink{
+						URL:     "https://search.opentofu.org/provider/hashicorp/null/latest/docs/resources/resource",
+						Tooltip: "hashicorp/null/null_resource Documentation",
+					},
 				},
 				`{"labels":[{"index":0,"value":"null_resource"}],"attrs":[{"name":"provider","expr":{"addr":"null.foobar"}}]}`: {
 					Detail: "hashicorp/null",
@@ -1026,6 +1090,10 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 					Description: lang.MarkupContent{
 						Value: "The `null_resource` resource implements the standard resource lifecycle but takes no further action.\n\nThe `triggers` argument allows specifying an arbitrary set of values that, when changed, will cause the resource to be replaced.",
 						Kind:  lang.MarkdownKind,
+					},
+					DocsLink: &schema.DocsLink{
+						URL:     "https://search.opentofu.org/provider/hashicorp/null/latest/docs/resources/resource",
+						Tooltip: "hashicorp/null/null_resource Documentation",
 					},
 				},
 				`{"labels":[{"index":0,"value":"random_id"}],"attrs":[{"name":"provider","expr":{"addr":"rand"}}]}`: {
@@ -1104,6 +1172,10 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 						Value: "\nThe resource `random_id` generates random numbers that are intended to be\nused as unique identifiers for other resources.\n\nThis resource *does* use a cryptographic random number generator in order\nto minimize the chance of collisions, making the results of this resource\nwhen a 16-byte identifier is requested of equivalent uniqueness to a\ntype-4 UUID.\n\nThis resource can be used in conjunction with resources that have\nthe `create_before_destroy` lifecycle flag set to avoid conflicts with\nunique names during the brief period where both the old and new resources\nexist concurrently.\n",
 						Kind:  lang.MarkdownKind,
 					},
+					DocsLink: &schema.DocsLink{
+						URL:     "https://search.opentofu.org/provider/hashicorp/random/latest/docs/resources/id",
+						Tooltip: "hashicorp/random/random_id Documentation",
+					},
 				},
 				`{"labels":[{"index":0,"value":"random_integer"}],"attrs":[{"name":"provider","expr":{"addr":"rand"}}]}`: {
 					Detail: "hashicorp/random",
@@ -1164,6 +1236,10 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 					Description: lang.MarkupContent{
 						Value: "The resource `random_integer` generates random values from a given range, described by the `min` and `max` attributes of a given resource.\n\nThis resource can be used in conjunction with resources that have the `create_before_destroy` lifecycle flag set, to avoid conflicts with unique names during the brief period where both the old and new resources exist concurrently.",
 						Kind:  lang.MarkdownKind,
+					},
+					DocsLink: &schema.DocsLink{
+						URL:     "https://search.opentofu.org/provider/hashicorp/random/latest/docs/resources/integer",
+						Tooltip: "hashicorp/random/random_integer Documentation",
 					},
 				},
 				`{"labels":[{"index":0,"value":"random_password"}],"attrs":[{"name":"provider","expr":{"addr":"rand"}}]}`: {
@@ -1283,6 +1359,10 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 						Value: "Identical to [random_string](string.html) with the exception that the result is treated as sensitive and, thus, _not_ displayed in console output.\n\nThis resource *does* use a cryptographic random number generator.",
 						Kind:  lang.MarkdownKind,
 					},
+					DocsLink: &schema.DocsLink{
+						URL:     "https://search.opentofu.org/provider/hashicorp/random/latest/docs/resources/password",
+						Tooltip: "hashicorp/random/random_password Documentation",
+					},
 				},
 				`{"labels":[{"index":0,"value":"random_pet"}],"attrs":[{"name":"provider","expr":{"addr":"rand"}}]}`: {
 					Detail: "hashicorp/random",
@@ -1335,6 +1415,10 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 					Description: lang.MarkupContent{
 						Value: "The resource `random_pet` generates random pet names that are intended to be used as unique identifiers for other resources.\n\nThis resource can be used in conjunction with resources that have the `create_before_destroy` lifecycle flag set, to avoid conflicts with unique names during the brief period where both the old and new resources exist concurrently.",
 						Kind:  lang.MarkdownKind,
+					},
+					DocsLink: &schema.DocsLink{
+						URL:     "https://search.opentofu.org/provider/hashicorp/random/latest/docs/resources/pet",
+						Tooltip: "hashicorp/random/random_pet Documentation",
 					},
 				},
 				`{"labels":[{"index":0,"value":"random_shuffle"}],"attrs":[{"name":"provider","expr":{"addr":"rand"}}]}`: {
@@ -1406,6 +1490,10 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 					Description: lang.MarkupContent{
 						Value: "The resource `random_shuffle` generates a random permutation of a list of strings given as an argument.",
 						Kind:  lang.MarkdownKind,
+					},
+					DocsLink: &schema.DocsLink{
+						URL:     "https://search.opentofu.org/provider/hashicorp/random/latest/docs/resources/shuffle",
+						Tooltip: "hashicorp/random/random_shuffle Documentation",
 					},
 				},
 				`{"labels":[{"index":0,"value":"random_string"}],"attrs":[{"name":"provider","expr":{"addr":"rand"}}]}`: {
@@ -1524,6 +1612,10 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 						Value: "The resource `random_string` generates a random permutation of alphanumeric characters and optionally special characters.\n\nThis resource *does* use a cryptographic random number generator.\n\nHistorically this resource's intended usage has been ambiguous as the original example used it in a password. For backwards compatibility it will continue to exist. For unique ids please use [random_id](id.html), for sensitive random values please use [random_password](password.html).",
 						Kind:  lang.MarkdownKind,
 					},
+					DocsLink: &schema.DocsLink{
+						URL:     "https://search.opentofu.org/provider/hashicorp/random/latest/docs/resources/string",
+						Tooltip: "hashicorp/random/random_string Documentation",
+					},
 				},
 				`{"labels":[{"index":0,"value":"random_uuid"}],"attrs":[{"name":"provider","expr":{"addr":"rand"}}]}`: {
 					Detail: "hashicorp/random",
@@ -1560,6 +1652,10 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 					Description: lang.MarkupContent{
 						Value: "The resource `random_uuid` generates random uuid string that is intended to be used as unique identifiers for other resources.\n\nThis resource uses [hashicorp/go-uuid](https://github.com/hashicorp/go-uuid) to generate a UUID-formatted string for use with services needed a unique string identifier.",
 						Kind:  lang.MarkdownKind,
+					},
+					DocsLink: &schema.DocsLink{
+						URL:     "https://search.opentofu.org/provider/hashicorp/random/latest/docs/resources/uuid",
+						Tooltip: "hashicorp/random/random_uuid Documentation",
 					},
 				},
 			},
