@@ -27,15 +27,22 @@ func (bs *SchemaMerger) mergeResourceSchema(bSchema *schema.BodySchema, rName st
 		},
 	}
 
-	// In OpenTofu's Search Registry, we don't save the resource prefix on the URL, example:
-	// random_uuid becomes uuid on the URL
-	if providerAddr.Namespace != "" && !providerAddr.IsLegacy() {
+	namespace := providerAddr.Namespace
+	if providerAddr.IsLegacy() {
+		// When namespaces are legacy, we assume their namespace is hashicorp
+		namespace = "hashicorp"
+	}
+
+	if namespace != "" {
+		// In OpenTofu's Search Registry, we don't save the resource prefix on the URL, example:
+		// random_uuid becomes uuid on the URL
 		registryName := rName[len(providerAddr.Type)+1:]
-		docsUrl := fmt.Sprintf("https://search.opentofu.org/provider/%s/%s/latest/docs/resources/%s", providerAddr.Namespace, providerAddr.Type, registryName)
+		docsUrl := fmt.Sprintf("https://search.opentofu.org/provider/%s/%s/latest/docs/resources/%s", namespace, providerAddr.Type, registryName)
 		rSchema.DocsLink = &schema.DocsLink{
 			URL:     docsUrl,
-			Tooltip: fmt.Sprintf("%s/%s/%s Documentation", providerAddr.Namespace, providerAddr.Type, rName),
+			Tooltip: fmt.Sprintf("%s/%s/%s Documentation", namespace, providerAddr.Type, rName),
 		}
+		rSchema.HoverURL = docsUrl
 	}
 
 	bSchema.Blocks["resource"].DependentBody[schema.NewSchemaKey(depKeys)] = rSchema
