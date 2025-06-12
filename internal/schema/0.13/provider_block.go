@@ -45,21 +45,6 @@ func providerBlockSchema() *schema.BlockSchema {
 					Constraint:  schema.LiteralType{Type: cty.String},
 					IsOptional:  true,
 					Description: lang.Markdown("Alias for using the same provider with different configurations for different resources, e.g. `eu-west`"),
-					OriginForTarget: &schema.PathTarget{
-						Address: schema.Address{
-							schema.AttrNameStep{},
-							schema.AttrNameStep{},
-						},
-						Path: lang.Path{
-							// TODO: pass this dynamically
-							Path:       "main.tf",
-							LanguageID: "opentofu",
-						},
-						Constraints: schema.Constraints{
-							ScopeId: refscope.ProviderScope,
-							Type:    cty.DynamicPseudoType,
-						},
-					},
 				},
 				"version": {
 					Constraint:   schema.LiteralType{Type: cty.String},

@@ -7,7 +7,9 @@ package schema
 
 import (
 	"github.com/hashicorp/go-version"
+	"github.com/hashicorp/hcl-lang/lang"
 	"github.com/hashicorp/hcl-lang/schema"
+	"github.com/opentofu/opentofu-schema/internal/schema/refscope"
 	tfaddr "github.com/opentofu/registry-address"
 )
 
@@ -67,10 +69,19 @@ func (ps *ProviderSchema) SetProviderVersion(pAddr tfaddr.Provider, v *version.V
 		fSig.Detail = detailForSrcAddr(pAddr, v)
 	}
 
-	// if ps.Provider.Attributes != nil {
-	// 	for _, attr := range ps.Provider.Attributes {
-	// 		if attr.
-	// 	}
-	// }
+	if ps.Provider.Attributes != nil {
+		for attrName, _ := range ps.Provider.Attributes {
+			if attrName == "alias" {
+				addr := lang.Address{
+					lang.RootStep{Name: "aws"},
+					lang.AttrStep{Name: "by_region"},
+				}
+				ps.Provider.TargetableAs = append(ps.Provider.TargetableAs, &schema.Targetable{
+					Address: addr,
+					ScopeId: refscope.ProviderScope,
+				})
+			}
+		}
+	}
 
 }
