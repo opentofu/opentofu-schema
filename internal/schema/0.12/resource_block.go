@@ -54,16 +54,7 @@ func resourceBlockSchema(v *version.Version) *schema.BlockSchema {
 			},
 			Attributes: map[string]*schema.AttributeSchema{
 				"provider": {
-					Constraint: schema.OneOf{
-						schema.Reference{OfScopeId: refscope.ProviderScope},
-						schema.Set{
-							Elem: schema.Reference{OfScopeId: refscope.ProviderScope},
-						},
-						schema.Map{
-							Name: "map of provider references",
-							Elem: schema.Reference{OfScopeId: refscope.ProviderScope},
-						},
-					},
+					Constraint:             schema.AnyExpression{OfType: cty.DynamicPseudoType},
 					IsOptional:             true,
 					Description:            lang.Markdown("Reference to a `provider` configuration block, e.g. `mycloud.west` or `mycloud`"),
 					IsDepKey:               true,
