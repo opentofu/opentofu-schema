@@ -70,18 +70,16 @@ func (ps *ProviderSchema) SetProviderVersion(pAddr tfaddr.Provider, v *version.V
 	}
 
 	if ps.Provider.Attributes != nil {
-		for attrName, _ := range ps.Provider.Attributes {
-			if attrName == "alias" {
-				addr := lang.Address{
-					lang.RootStep{Name: "aws"},
-					lang.AttrStep{Name: "by_region"},
-				}
-				ps.Provider.TargetableAs = append(ps.Provider.TargetableAs, &schema.Targetable{
-					Address: addr,
-					ScopeId: refscope.ProviderScope,
-				})
-			}
+		// for attrName, _ := range ps.Provider.Attributes {
+		addr := lang.Address{
+			lang.RootStep{Name: "aws"},
+			lang.AttrStep{Name: "by_region"},
 		}
+		ps.Provider.TargetableAs = append(ps.Provider.TargetableAs, &schema.Targetable{
+			Address: addr,
+			ScopeId: refscope.ProviderScope,
+		})
+		// }
 	}
 
 }
