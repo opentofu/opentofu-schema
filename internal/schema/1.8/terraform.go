@@ -25,7 +25,5 @@ func patchTerraformBlockSchema(bs *schema.BlockSchema) *schema.BlockSchema {
 		Description: lang.Markdown("A set of experimental language features to enable"),
 	}
 
-	bs.Body.Blocks["encryption"] = patchEncryptionBlockSchema(bs.Body.Blocks["encryption"])
-
 	return bs
 }
