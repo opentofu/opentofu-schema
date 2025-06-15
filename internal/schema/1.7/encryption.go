@@ -14,7 +14,7 @@ func labelKey(value string) schema.SchemaKey {
 	})
 }
 
-// keyProviderTypes with their markdown descriptions
+// keyProviderTypes with their markdown descriptions for 1.7
 func keyProviderTypes() map[schema.SchemaKey]*schema.BodySchema {
 	return map[schema.SchemaKey]*schema.BodySchema{
 		labelKey("pbkdf2"): &schema.BodySchema{
@@ -23,11 +23,8 @@ func keyProviderTypes() map[schema.SchemaKey]*schema.BodySchema {
 			Attributes: map[string]*schema.AttributeSchema{
 				"passphrase": {
 					Constraint:  schema.LiteralType{Type: cty.String},
-					Description: lang.Markdown("Enter a long and complex passphrase. Required if `chain` is not specified. Minimum 16 characters."),
-				},
-				"chain": {
-					Constraint:  schema.LiteralType{Type: cty.String},
-					Description: lang.Markdown("Receive the passphrase from another key provider. Required if `passphrase` is not specified."),
+					IsRequired:  true,
+					Description: lang.Markdown("Enter a long and complex passphrase. Minimum 16 characters."),
 				},
 				"key_length": {
 					Constraint:  schema.LiteralType{Type: cty.Number},
@@ -45,10 +42,6 @@ func keyProviderTypes() map[schema.SchemaKey]*schema.BodySchema {
 					Constraint:  schema.LiteralType{Type: cty.String},
 					Description: lang.Markdown("Hash function to use: `sha256` or `sha512`. Default: sha512"),
 				},
-				"encrypted_metadata_alias": {
-					Constraint:  schema.LiteralType{Type: cty.String},
-					Description: lang.Markdown("Optional identifier to store metadata in encrypted state/plan files. Allows changing key provider name."),
-				},
 			},
 		},
 		labelKey("aws_kms"): &schema.BodySchema{
@@ -64,10 +57,6 @@ func keyProviderTypes() map[schema.SchemaKey]*schema.BodySchema {
 					Constraint:  schema.LiteralType{Type: cty.String},
 					IsRequired:  true,
 					Description: lang.Markdown("Key spec for AWS KMS. Adapt this to your encryption method (e.g. `AES_256`)"),
-				},
-				"encrypted_metadata_alias": {
-					Constraint:  schema.LiteralType{Type: cty.String},
-					Description: lang.Markdown("Optional identifier to store metadata in encrypted state/plan files. Allows changing key provider name."),
 				},
 			},
 		},
@@ -85,14 +74,10 @@ func keyProviderTypes() map[schema.SchemaKey]*schema.BodySchema {
 					IsRequired:  true,
 					Description: lang.Markdown("Number of bytes to generate as a key. Must be in range from 1 to 1024 bytes."),
 				},
-				"encrypted_metadata_alias": {
-					Constraint:  schema.LiteralType{Type: cty.String},
-					Description: lang.Markdown("Optional identifier to store metadata in encrypted state/plan files. Allows changing key provider name."),
-				},
 			},
 		},
 		labelKey("openbao"): &schema.BodySchema{
-			Description: lang.Markdown("OpenBao key provider uses the OpenBao Transit Secret Engine to generate data keys"),
+			Description: lang.Markdown("OpenBao key provider uses the OpenBao Transit Secret Engine to generate data keys (experimental)"),
 			HoverURL:    "https://opentofu.org/docs/language/state/encryption/#openbao",
 			Attributes: map[string]*schema.AttributeSchema{
 				"key_name": {
@@ -116,10 +101,6 @@ func keyProviderTypes() map[schema.SchemaKey]*schema.BodySchema {
 					Constraint:  schema.LiteralType{Type: cty.Number},
 					Description: lang.Markdown("Number of bytes to generate as a key. Available options are 16, 32 or 64 bytes. Default: 32"),
 				},
-				"encrypted_metadata_alias": {
-					Constraint:  schema.LiteralType{Type: cty.String},
-					Description: lang.Markdown("Optional identifier to store metadata in encrypted state/plan files. Allows changing key provider name."),
-				},
 			},
 		},
 	}
@@ -129,11 +110,11 @@ func keyProviderBlock() *schema.BlockSchema {
 	return &schema.BlockSchema{
 		Address: &schema.BlockAddrSchema{
 			Steps: []schema.AddrStep{
-				schema.StaticStep{Name: "encryption"},
+				schema.StaticStep{Name: "key_provider"},
 				schema.LabelStep{Index: 0},
 				schema.LabelStep{Index: 1},
 			},
-			FriendlyName: "encryption",
+			FriendlyName: "key_provider",
 			ScopeId:      refscope.EncryptionScope,
 			AsReference:  true,
 		},
@@ -152,13 +133,207 @@ func keyProviderBlock() *schema.BlockSchema {
 			},
 		},
 		DependentBody: keyProviderTypes(),
-
-		Description: lang.Markdown("TODO"),
+		Description:   lang.Markdown("Key provider configuration for encryption"),
 		Body: &schema.BodySchema{
 			HoverURL: "https://opentofu.org/docs/language/state/encryption/#key-providers",
-			//TODO
 		},
-		MinItems: 1,
+	}
+}
+
+// methodTypes with their markdown descriptions for 1.7
+func methodTypes() map[schema.SchemaKey]*schema.BodySchema {
+	return map[schema.SchemaKey]*schema.BodySchema{
+		labelKey("aes_gcm"): &schema.BodySchema{
+			Description: lang.Markdown("AES-GCM encryption method"),
+			HoverURL:    "https://opentofu.org/docs/language/state/encryption/#aes-gcm",
+			Attributes: map[string]*schema.AttributeSchema{
+				"keys": {
+					Constraint:  schema.Reference{OfType: cty.DynamicPseudoType},
+					IsRequired:  true,
+					Description: lang.Markdown("Reference to a key provider"),
+				},
+			},
+		},
+		labelKey("unencrypted"): &schema.BodySchema{
+			Description: lang.Markdown("Unencrypted method for migration purposes"),
+			HoverURL:    "https://opentofu.org/docs/language/state/encryption/#unencrypted",
+			Attributes:  map[string]*schema.AttributeSchema{},
+		},
+	}
+}
+
+func methodBlock() *schema.BlockSchema {
+	return &schema.BlockSchema{
+		Address: &schema.BlockAddrSchema{
+			Steps: []schema.AddrStep{
+				schema.StaticStep{Name: "method"},
+				schema.LabelStep{Index: 0},
+				schema.LabelStep{Index: 1},
+			},
+			FriendlyName: "method",
+			ScopeId:      refscope.EncryptionScope,
+			AsReference:  true,
+		},
+		SemanticTokenModifiers: lang.SemanticTokenModifiers{tokmod.Encryption},
+		Labels: []*schema.LabelSchema{
+			{
+				Name:                   "type",
+				SemanticTokenModifiers: lang.SemanticTokenModifiers{tokmod.Name},
+				Description:            lang.PlainText("method type"),
+				Completable:            true,
+			},
+			{
+				Name:                   "name",
+				SemanticTokenModifiers: lang.SemanticTokenModifiers{tokmod.Type},
+				Description:            lang.Markdown("method name"),
+			},
+		},
+		DependentBody: methodTypes(),
+		Description:   lang.Markdown("Encryption method configuration"),
+		Body: &schema.BodySchema{
+			HoverURL: "https://opentofu.org/docs/language/state/encryption/#methods",
+		},
+	}
+}
+
+func stateBlock() *schema.BlockSchema {
+	return &schema.BlockSchema{
+		Description: lang.Markdown("State encryption configuration"),
+		Body: &schema.BodySchema{
+			HoverURL: "https://opentofu.org/docs/language/state/encryption/#configuration",
+			Attributes: map[string]*schema.AttributeSchema{
+				"method": {
+					Constraint:  schema.Reference{OfType: cty.DynamicPseudoType},
+					IsRequired:  true,
+					Description: lang.Markdown("Reference to an encryption method"),
+				},
+				"enforced": {
+					Constraint:  schema.LiteralType{Type: cty.Bool},
+					Description: lang.Markdown("Whether encryption is enforced"),
+				},
+			},
+			Blocks: map[string]*schema.BlockSchema{
+				"fallback": {
+					Description: lang.Markdown("Fallback method for reading existing encrypted data"),
+					Body: &schema.BodySchema{
+						Attributes: map[string]*schema.AttributeSchema{
+							"method": {
+								Constraint:  schema.Reference{OfType: cty.DynamicPseudoType},
+								IsRequired:  true,
+								Description: lang.Markdown("Reference to a fallback encryption method"),
+							},
+						},
+					},
+					MaxItems: 1,
+				},
+			},
+		},
+		MaxItems: 1,
+	}
+}
+
+func planBlock() *schema.BlockSchema {
+	return &schema.BlockSchema{
+		Description: lang.Markdown("Plan encryption configuration"),
+		Body: &schema.BodySchema{
+			HoverURL: "https://opentofu.org/docs/language/state/encryption/#configuration",
+			Attributes: map[string]*schema.AttributeSchema{
+				"method": {
+					Constraint:  schema.Reference{OfType: cty.DynamicPseudoType},
+					IsRequired:  true,
+					Description: lang.Markdown("Reference to an encryption method"),
+				},
+				"enforced": {
+					Constraint:  schema.LiteralType{Type: cty.Bool},
+					Description: lang.Markdown("Whether encryption is enforced"),
+				},
+			},
+			Blocks: map[string]*schema.BlockSchema{
+				"fallback": fallbackSchema(),
+			},
+		},
+		MaxItems: 1,
+	}
+}
+
+func fallbackSchema() *schema.BlockSchema {
+	return &schema.BlockSchema{
+		Description: lang.Markdown("Fallback method for reading existing encrypted data"),
+		Body: &schema.BodySchema{
+			Attributes: map[string]*schema.AttributeSchema{
+				"method": {
+					Constraint:  schema.Reference{OfType: cty.DynamicPseudoType},
+					IsRequired:  true,
+					Description: lang.Markdown("Reference to a fallback encryption method"),
+				},
+				"fallback": {
+					Constraint:  schema.Reference{OfType: cty.DynamicPseudoType},
+					IsRequired:  true,
+					Description: lang.Markdown("Reference to a fallback encryption method"),
+				},
+			},
+		},
+		MaxItems: 1,
+	}
+}
+
+func remoteStateDataSourcesBlock() *schema.BlockSchema {
+	return &schema.BlockSchema{
+		Description: lang.Markdown("Remote state data sources encryption configuration"),
+		Body: &schema.BodySchema{
+			HoverURL: "https://opentofu.org/docs/language/state/encryption/#remote-state-data-sources",
+			Blocks: map[string]*schema.BlockSchema{
+				"default": {
+					Description: lang.Markdown("Default encryption method for remote state data sources"),
+					Body: &schema.BodySchema{
+						Attributes: map[string]*schema.AttributeSchema{
+							"method": {
+								Constraint:  schema.Reference{OfType: cty.DynamicPseudoType},
+								IsRequired:  true,
+								Description: lang.Markdown("Reference to an encryption method"),
+							},
+						},
+						Blocks: map[string]*schema.BlockSchema{
+							"fallback": fallbackSchema(),
+						},
+					},
+					MaxItems: 1,
+				},
+				"remote_state_data_source": {
+					Description: lang.Markdown("Specific remote state data source encryption configuration"),
+					Labels: []*schema.LabelSchema{
+						{
+							Name:        "name",
+							Description: lang.Markdown("Name of the remote state data source"),
+						},
+					},
+					Body: &schema.BodySchema{
+						Attributes: map[string]*schema.AttributeSchema{
+							"method": {
+								Constraint:  schema.Reference{OfType: cty.DynamicPseudoType},
+								IsRequired:  true,
+								Description: lang.Markdown("Reference to an encryption method"),
+							},
+						},
+						Blocks: map[string]*schema.BlockSchema{
+							"fallback": {
+								Description: lang.Markdown("Fallback method for reading existing encrypted data"),
+								Body: &schema.BodySchema{
+									Attributes: map[string]*schema.AttributeSchema{
+										"method": {
+											Constraint:  schema.Reference{OfType: cty.DynamicPseudoType},
+											IsRequired:  true,
+											Description: lang.Markdown("Reference to a fallback encryption method"),
+										},
+									},
+								},
+								MaxItems: 1,
+							},
+						},
+					},
+				},
+			},
+		},
 		MaxItems: 1,
 	}
 }
@@ -169,8 +344,13 @@ func encryptionBlock() *schema.BlockSchema {
 		Body: &schema.BodySchema{
 			HoverURL: "https://opentofu.org/docs/language/state/encryption/#configuration",
 			Blocks: map[string]*schema.BlockSchema{
-				"key_provider": keyProviderBlock(),
+				"key_provider":              keyProviderBlock(),
+				"method":                    methodBlock(),
+				"state":                     stateBlock(),
+				"plan":                      planBlock(),
+				"remote_state_data_sources": remoteStateDataSourcesBlock(),
 			},
 		},
+		MaxItems: 1,
 	}
 }

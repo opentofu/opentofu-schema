@@ -10,29 +10,33 @@ import (
 	"github.com/hashicorp/hcl-lang/lang"
 	"github.com/hashicorp/hcl-lang/schema"
 	"github.com/zclconf/go-cty/cty"
-
-	tofuSchema "github.com/opentofu/opentofu-schema/schema"
 )
 
 func ProvisionerDependentBodies(v *version.Version) map[schema.SchemaKey]*schema.BodySchema {
 	m := map[schema.SchemaKey]*schema.BodySchema{
-		tofuSchema.FirstLabelKey("file"):        FileProvisioner,
-		tofuSchema.FirstLabelKey("local-exec"):  LocalExecProvisioner,
-		tofuSchema.FirstLabelKey("remote-exec"): RemoteExecProvisioner,
+		labelKey("file"):        FileProvisioner,
+		labelKey("local-exec"):  LocalExecProvisioner,
+		labelKey("remote-exec"): RemoteExecProvisioner,
 	}
 
 	// Vendor provisioners are deprecated in 0.13.4+
 	// Some of these provisioners have complex schemas
 	// but we can at least helpfully list their names
-	m[tofuSchema.FirstLabelKey("chef")] = &schema.BodySchema{}
-	m[tofuSchema.FirstLabelKey("salt-masterless")] = &schema.BodySchema{}
-	m[tofuSchema.FirstLabelKey("habitat")] = &schema.BodySchema{}
+	m[labelKey("chef")] = &schema.BodySchema{}
+	m[labelKey("salt-masterless")] = &schema.BodySchema{}
+	m[labelKey("habitat")] = &schema.BodySchema{}
 	if v.GreaterThanOrEqual(v0_12_2) {
 		// See https://github.com/opentofu/opentofu/commit/615110e13
-		m[tofuSchema.FirstLabelKey("puppet")] = &schema.BodySchema{}
+		m[labelKey("puppet")] = &schema.BodySchema{}
 	}
 
 	return m
+}
+
+func labelKey(value string) schema.SchemaKey {
+	return schema.NewSchemaKey(schema.DependencyKeys{
+		Labels: []schema.LabelDependent{{Index: 0, Value: value}},
+	})
 }
 
 var FileProvisioner = &schema.BodySchema{
