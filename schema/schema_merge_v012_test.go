@@ -99,6 +99,11 @@ var expectedMergedSchema_v012 = &schema.BodySchema{
 							IsOptional: true,
 						},
 					},
+					HoverURL: "https://search.opentofu.org/provider/hashicorp/null/latest/docs/resources/resource",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://search.opentofu.org/provider/hashicorp/null/latest/docs/resources/resource",
+						Tooltip: "hashicorp/null/null_resource Documentation",
+					},
 				},
 				`{"labels":[{"index":0,"value":"null_resource"}],"attrs":[{"name":"provider","expr":{"addr":"null"}}]}`: {
 					Detail: "hashicorp/null",
@@ -122,6 +127,11 @@ var expectedMergedSchema_v012 = &schema.BodySchema{
 							IsOptional: true,
 						},
 					},
+					HoverURL: "https://search.opentofu.org/provider/hashicorp/null/latest/docs/resources/resource",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://search.opentofu.org/provider/hashicorp/null/latest/docs/resources/resource",
+						Tooltip: "hashicorp/null/null_resource Documentation",
+					},
 				},
 				`{"labels":[{"index":0,"value":"null_resource"}],"attrs":[{"name":"provider","expr":{"addr":"null.foobar"}}]}`: {
 					Detail: "hashicorp/null",
@@ -144,6 +154,11 @@ var expectedMergedSchema_v012 = &schema.BodySchema{
 							},
 							IsOptional: true,
 						},
+					},
+					HoverURL: "https://search.opentofu.org/provider/hashicorp/null/latest/docs/resources/resource",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://search.opentofu.org/provider/hashicorp/null/latest/docs/resources/resource",
+						Tooltip: "hashicorp/null/null_resource Documentation",
 					},
 				},
 				`{"labels":[{"index":0,"value":"random_id"}]}`: {
@@ -216,6 +231,11 @@ var expectedMergedSchema_v012 = &schema.BodySchema{
 							Constraint: schema.AnyExpression{OfType: cty.String},
 						},
 					},
+					HoverURL: "https://search.opentofu.org/provider/hashicorp/random/latest/docs/resources/id",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://search.opentofu.org/provider/hashicorp/random/latest/docs/resources/id",
+						Tooltip: "hashicorp/random/random_id Documentation",
+					},
 				},
 				`{"labels":[{"index":0,"value":"random_integer"}]}`: {
 					Detail: "hashicorp/random",
@@ -270,6 +290,11 @@ var expectedMergedSchema_v012 = &schema.BodySchema{
 							Constraint: schema.AnyExpression{OfType: cty.String},
 							IsOptional: true,
 						},
+					},
+					HoverURL: "https://search.opentofu.org/provider/hashicorp/random/latest/docs/resources/integer",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://search.opentofu.org/provider/hashicorp/random/latest/docs/resources/integer",
+						Tooltip: "hashicorp/random/random_integer Documentation",
 					},
 				},
 				`{"labels":[{"index":0,"value":"random_password"}]}`: {
@@ -383,6 +408,11 @@ var expectedMergedSchema_v012 = &schema.BodySchema{
 							IsOptional: true,
 						},
 					},
+					HoverURL: "https://search.opentofu.org/provider/hashicorp/random/latest/docs/resources/password",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://search.opentofu.org/provider/hashicorp/random/latest/docs/resources/password",
+						Tooltip: "hashicorp/random/random_password Documentation",
+					},
 				},
 				`{"labels":[{"index":0,"value":"random_pet"}]}`: {
 					Detail: "hashicorp/random",
@@ -429,6 +459,11 @@ var expectedMergedSchema_v012 = &schema.BodySchema{
 							Constraint: schema.AnyExpression{OfType: cty.String},
 							IsOptional: true,
 						},
+					},
+					HoverURL: "https://search.opentofu.org/provider/hashicorp/random/latest/docs/resources/pet",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://search.opentofu.org/provider/hashicorp/random/latest/docs/resources/pet",
+						Tooltip: "hashicorp/random/random_pet Documentation",
 					},
 				},
 				`{"labels":[{"index":0,"value":"random_shuffle"}]}`: {
@@ -494,6 +529,11 @@ var expectedMergedSchema_v012 = &schema.BodySchema{
 							Constraint: schema.AnyExpression{OfType: cty.String},
 							IsOptional: true,
 						},
+					},
+					HoverURL: "https://search.opentofu.org/provider/hashicorp/random/latest/docs/resources/shuffle",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://search.opentofu.org/provider/hashicorp/random/latest/docs/resources/shuffle",
+						Tooltip: "hashicorp/random/random_shuffle Documentation",
 					},
 				},
 				`{"labels":[{"index":0,"value":"random_string"}]}`: {
@@ -606,6 +646,11 @@ var expectedMergedSchema_v012 = &schema.BodySchema{
 							IsOptional: true,
 						},
 					},
+					HoverURL: "https://search.opentofu.org/provider/hashicorp/random/latest/docs/resources/string",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://search.opentofu.org/provider/hashicorp/random/latest/docs/resources/string",
+						Tooltip: "hashicorp/random/random_string Documentation",
+					},
 				},
 				`{"labels":[{"index":0,"value":"random_uuid"}]}`: {
 					Detail: "hashicorp/random",
@@ -636,6 +681,11 @@ var expectedMergedSchema_v012 = &schema.BodySchema{
 							IsComputed: true,
 							Constraint: schema.AnyExpression{OfType: cty.String},
 						},
+					},
+					HoverURL: "https://search.opentofu.org/provider/hashicorp/random/latest/docs/resources/uuid",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://search.opentofu.org/provider/hashicorp/random/latest/docs/resources/uuid",
+						Tooltip: "hashicorp/random/random_uuid Documentation",
 					},
 				},
 				`{"labels":[{"index":0,"value":"random_id"}],"attrs":[{"name":"provider","expr":{"addr":"random"}}]}`: {
@@ -708,6 +758,11 @@ var expectedMergedSchema_v012 = &schema.BodySchema{
 							Constraint: schema.AnyExpression{OfType: cty.String},
 						},
 					},
+					HoverURL: "https://search.opentofu.org/provider/hashicorp/random/latest/docs/resources/id",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://search.opentofu.org/provider/hashicorp/random/latest/docs/resources/id",
+						Tooltip: "hashicorp/random/random_id Documentation",
+					},
 				},
 				`{"labels":[{"index":0,"value":"random_integer"}],"attrs":[{"name":"provider","expr":{"addr":"random"}}]}`: {
 					Detail: "hashicorp/random",
@@ -762,6 +817,11 @@ var expectedMergedSchema_v012 = &schema.BodySchema{
 							Constraint: schema.AnyExpression{OfType: cty.String},
 							IsOptional: true,
 						},
+					},
+					HoverURL: "https://search.opentofu.org/provider/hashicorp/random/latest/docs/resources/integer",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://search.opentofu.org/provider/hashicorp/random/latest/docs/resources/integer",
+						Tooltip: "hashicorp/random/random_integer Documentation",
 					},
 				},
 				`{"labels":[{"index":0,"value":"random_password"}],"attrs":[{"name":"provider","expr":{"addr":"random"}}]}`: {
@@ -875,6 +935,11 @@ var expectedMergedSchema_v012 = &schema.BodySchema{
 							IsOptional: true,
 						},
 					},
+					HoverURL: "https://search.opentofu.org/provider/hashicorp/random/latest/docs/resources/password",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://search.opentofu.org/provider/hashicorp/random/latest/docs/resources/password",
+						Tooltip: "hashicorp/random/random_password Documentation",
+					},
 				},
 				`{"labels":[{"index":0,"value":"random_pet"}],"attrs":[{"name":"provider","expr":{"addr":"random"}}]}`: {
 					Detail: "hashicorp/random",
@@ -921,6 +986,11 @@ var expectedMergedSchema_v012 = &schema.BodySchema{
 							Constraint: schema.AnyExpression{OfType: cty.String},
 							IsOptional: true,
 						},
+					},
+					HoverURL: "https://search.opentofu.org/provider/hashicorp/random/latest/docs/resources/pet",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://search.opentofu.org/provider/hashicorp/random/latest/docs/resources/pet",
+						Tooltip: "hashicorp/random/random_pet Documentation",
 					},
 				},
 				`{"labels":[{"index":0,"value":"random_shuffle"}],"attrs":[{"name":"provider","expr":{"addr":"random"}}]}`: {
@@ -986,6 +1056,11 @@ var expectedMergedSchema_v012 = &schema.BodySchema{
 							Constraint: schema.AnyExpression{OfType: cty.String},
 							IsOptional: true,
 						},
+					},
+					HoverURL: "https://search.opentofu.org/provider/hashicorp/random/latest/docs/resources/shuffle",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://search.opentofu.org/provider/hashicorp/random/latest/docs/resources/shuffle",
+						Tooltip: "hashicorp/random/random_shuffle Documentation",
 					},
 				},
 				`{"labels":[{"index":0,"value":"random_string"}],"attrs":[{"name":"provider","expr":{"addr":"random"}}]}`: {
@@ -1098,6 +1173,11 @@ var expectedMergedSchema_v012 = &schema.BodySchema{
 							IsOptional: true,
 						},
 					},
+					HoverURL: "https://search.opentofu.org/provider/hashicorp/random/latest/docs/resources/string",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://search.opentofu.org/provider/hashicorp/random/latest/docs/resources/string",
+						Tooltip: "hashicorp/random/random_string Documentation",
+					},
 				},
 				`{"labels":[{"index":0,"value":"random_uuid"}],"attrs":[{"name":"provider","expr":{"addr":"random"}}]}`: {
 					Detail: "hashicorp/random",
@@ -1128,6 +1208,11 @@ var expectedMergedSchema_v012 = &schema.BodySchema{
 							IsComputed: true,
 							Constraint: schema.AnyExpression{OfType: cty.String},
 						},
+					},
+					HoverURL: "https://search.opentofu.org/provider/hashicorp/random/latest/docs/resources/uuid",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://search.opentofu.org/provider/hashicorp/random/latest/docs/resources/uuid",
+						Tooltip: "hashicorp/random/random_uuid Documentation",
 					},
 				},
 			},

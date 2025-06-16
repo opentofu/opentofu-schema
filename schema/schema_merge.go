@@ -119,31 +119,7 @@ func (m *SchemaMerger) SchemaForModule(meta *tfmod.Meta) (*schema.BodySchema, er
 			}
 
 			for rName, rSchema := range pSchema.Resources {
-				depKeys := schema.DependencyKeys{
-					Labels: []schema.LabelDependent{
-						{Index: 0, Value: rName},
-					},
-					Attributes: []schema.AttributeDependent{
-						{
-							Name: "provider",
-							Expr: schema.ExpressionValue{
-								Address: providerAddr,
-							},
-						},
-					},
-				}
-				mergedSchema.Blocks["resource"].DependentBody[schema.NewSchemaKey(depKeys)] = rSchema
-
-				// No explicit association is required
-				// if the resource prefix matches provider name
-				if typeBelongsToProvider(rName, localRef) {
-					depKeys := schema.DependencyKeys{
-						Labels: []schema.LabelDependent{
-							{Index: 0, Value: rName},
-						},
-					}
-					mergedSchema.Blocks["resource"].DependentBody[schema.NewSchemaKey(depKeys)] = rSchema
-				}
+				m.mergeResourceSchema(mergedSchema, rName, rSchema, pAddr, providerAddr, localRef)
 			}
 
 			for dsName, dsSchema := range pSchema.DataSources {
