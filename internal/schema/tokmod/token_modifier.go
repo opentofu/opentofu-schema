@@ -24,6 +24,7 @@ var (
 	Name              = lang.SemanticTokenModifier("opentofu-name")
 	Type              = lang.SemanticTokenModifier("opentofu-type")
 	RequiredProviders = lang.SemanticTokenModifier("opentofu-requiredProviders")
+	Encryption        = lang.SemanticTokenModifier("opentofu-encryption")
 )
 
 var SupportedModifiers = []lang.SemanticTokenModifier{
@@ -41,4 +42,5 @@ var SupportedModifiers = []lang.SemanticTokenModifier{
 	Terraform,
 	Type,
 	Variable,
+	Encryption,
 }

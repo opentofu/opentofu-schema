@@ -9,6 +9,7 @@ import (
 	"github.com/hashicorp/hcl-lang/lang"
 	"github.com/hashicorp/hcl-lang/schema"
 	"github.com/opentofu/opentofu-schema/internal/schema/backends"
+	"github.com/opentofu/opentofu-schema/internal/schema/refscope"
 	"github.com/opentofu/opentofu-schema/internal/schema/tokmod"
 	"github.com/zclconf/go-cty/cty"
 )
@@ -28,6 +29,16 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 					"alias": {
 						Constraint: schema.LiteralType{Type: cty.String},
 						IsOptional: true,
+					},
+				},
+				TargetableAs: schema.Targetables{
+					{
+						Address: lang.Address{
+							lang.RootStep{Name: "null"},
+							lang.AttrStep{Name: "foobar"},
+						},
+						ScopeId: refscope.ProviderScope,
+						AsType:  cty.DynamicPseudoType,
 					},
 				},
 			},
