@@ -17,7 +17,7 @@ import (
 
 func terraformBlockSchema(v *version.Version) *schema.BlockSchema {
 	return &schema.BlockSchema{
-		Description: lang.Markdown("Terraform block used to configure some high-level behaviors of Terraform"),
+		Description: lang.Markdown("`terraform` block used to configure some high-level behaviors of OpenTofu"),
 		Body: &schema.BodySchema{
 			Attributes: map[string]*schema.AttributeSchema{
 				"required_version": {
