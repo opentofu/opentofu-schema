@@ -120,20 +120,21 @@ func keyProviderBlock() *schema.BlockSchema {
 				schema.LabelStep{Index: 1},
 			},
 			FriendlyName: "key_provider",
-			ScopeId:      refscope.EncryptionScope,
+			ScopeId:      refscope.EncryptionKeyProviderScope,
 			AsReference:  true,
 		},
 		SemanticTokenModifiers: lang.SemanticTokenModifiers{tokmod.Encryption},
 		Labels: []*schema.LabelSchema{
 			{
 				Name:                   "type",
-				SemanticTokenModifiers: lang.SemanticTokenModifiers{tokmod.Name},
+				SemanticTokenModifiers: lang.SemanticTokenModifiers{tokmod.Type, lang.TokenModifierDependent},
 				Description:            lang.PlainText("key_provider type"),
 				Completable:            true,
+				IsDepKey:               true,
 			},
 			{
 				Name:                   "name",
-				SemanticTokenModifiers: lang.SemanticTokenModifiers{tokmod.Type},
+				SemanticTokenModifiers: lang.SemanticTokenModifiers{tokmod.Name},
 				Description:            lang.Markdown("key_provider name"),
 			},
 		},
@@ -153,7 +154,7 @@ func methodTypes() map[schema.SchemaKey]*schema.BodySchema {
 			HoverURL:    "https://opentofu.org/docs/language/state/encryption/#aes-gcm",
 			Attributes: map[string]*schema.AttributeSchema{
 				"keys": {
-					Constraint:  schema.Reference{OfType: cty.DynamicPseudoType},
+					Constraint:  schema.Reference{OfScopeId: refscope.EncryptionKeyProviderScope},
 					IsRequired:  true,
 					Description: lang.Markdown("Reference to a key provider"),
 				},
@@ -176,20 +177,20 @@ func methodBlock() *schema.BlockSchema {
 				schema.LabelStep{Index: 1},
 			},
 			FriendlyName: "method",
-			ScopeId:      refscope.EncryptionScope,
+			ScopeId:      refscope.EncryptionMethodScope,
 			AsReference:  true,
 		},
-		SemanticTokenModifiers: lang.SemanticTokenModifiers{tokmod.Encryption},
 		Labels: []*schema.LabelSchema{
 			{
 				Name:                   "type",
-				SemanticTokenModifiers: lang.SemanticTokenModifiers{tokmod.Name},
+				SemanticTokenModifiers: lang.SemanticTokenModifiers{tokmod.Type},
 				Description:            lang.PlainText("method type"),
 				Completable:            true,
+				IsDepKey:               true,
 			},
 			{
 				Name:                   "name",
-				SemanticTokenModifiers: lang.SemanticTokenModifiers{tokmod.Type},
+				SemanticTokenModifiers: lang.SemanticTokenModifiers{tokmod.Name},
 				Description:            lang.Markdown("method name"),
 			},
 		},
@@ -208,7 +209,7 @@ func stateBlock() *schema.BlockSchema {
 			HoverURL: "https://opentofu.org/docs/language/state/encryption/#configuration",
 			Attributes: map[string]*schema.AttributeSchema{
 				"method": {
-					Constraint:  schema.Reference{OfType: cty.DynamicPseudoType},
+					Constraint:  schema.Reference{OfScopeId: refscope.EncryptionMethodScope},
 					IsRequired:  true,
 					Description: lang.Markdown("Reference to an encryption method"),
 				},
@@ -223,7 +224,7 @@ func stateBlock() *schema.BlockSchema {
 					Body: &schema.BodySchema{
 						Attributes: map[string]*schema.AttributeSchema{
 							"method": {
-								Constraint:  schema.Reference{OfType: cty.DynamicPseudoType},
+								Constraint:  schema.Reference{OfScopeId: refscope.EncryptionMethodScope},
 								IsRequired:  true,
 								Description: lang.Markdown("Reference to a fallback encryption method"),
 							},
@@ -244,7 +245,7 @@ func planBlock() *schema.BlockSchema {
 			HoverURL: "https://opentofu.org/docs/language/state/encryption/#configuration",
 			Attributes: map[string]*schema.AttributeSchema{
 				"method": {
-					Constraint:  schema.Reference{OfType: cty.DynamicPseudoType},
+					Constraint:  schema.Reference{OfScopeId: refscope.EncryptionMethodScope},
 					IsRequired:  true,
 					Description: lang.Markdown("Reference to an encryption method"),
 				},
@@ -267,7 +268,9 @@ func fallbackSchema() *schema.BlockSchema {
 		Body: &schema.BodySchema{
 			Attributes: map[string]*schema.AttributeSchema{
 				"method": {
-					Constraint:  schema.Reference{OfType: cty.DynamicPseudoType},
+					Constraint: schema.Reference{
+						OfScopeId: refscope.EncryptionMethodScope,
+					},
 					IsRequired:  true,
 					Description: lang.Markdown("Reference to a fallback encryption method"),
 				},
@@ -293,7 +296,9 @@ func remoteStateDataSourcesBlock() *schema.BlockSchema {
 					Body: &schema.BodySchema{
 						Attributes: map[string]*schema.AttributeSchema{
 							"method": {
-								Constraint:  schema.Reference{OfType: cty.DynamicPseudoType},
+								Constraint: schema.Reference{
+									OfScopeId: refscope.EncryptionMethodScope,
+								},
 								IsRequired:  true,
 								Description: lang.Markdown("Reference to an encryption method"),
 							},
@@ -309,13 +314,15 @@ func remoteStateDataSourcesBlock() *schema.BlockSchema {
 					Labels: []*schema.LabelSchema{
 						{
 							Name:        "name",
-							Description: lang.Markdown("Name of the remote state data source"),
+							Description: lang.Markdown("Name of the remote state data source of type *terraform_remote_state* <br> examples: *myname*, *mymodule.myname*, *mymodule.myname[0]* "),
+							IsDepKey:    true,
+							Completable: true, // This will be set based on the available datasource during early evaluation
 						},
 					},
 					Body: &schema.BodySchema{
 						Attributes: map[string]*schema.AttributeSchema{
 							"method": {
-								Constraint:  schema.Reference{OfType: cty.DynamicPseudoType},
+								Constraint:  schema.Reference{OfScopeId: refscope.EncryptionMethodScope},
 								IsRequired:  true,
 								Description: lang.Markdown("Reference to an encryption method"),
 							},
@@ -326,7 +333,7 @@ func remoteStateDataSourcesBlock() *schema.BlockSchema {
 								Body: &schema.BodySchema{
 									Attributes: map[string]*schema.AttributeSchema{
 										"method": {
-											Constraint:  schema.Reference{OfType: cty.DynamicPseudoType},
+											Constraint:  schema.Reference{OfScopeId: refscope.EncryptionMethodScope},
 											IsRequired:  true,
 											Description: lang.Markdown("Reference to a fallback encryption method"),
 										},
@@ -345,7 +352,8 @@ func remoteStateDataSourcesBlock() *schema.BlockSchema {
 
 func encryptionBlock() *schema.BlockSchema {
 	return &schema.BlockSchema{
-		Description: lang.Markdown("State and Plan encryption configuration block"),
+		Description:            lang.Markdown("State and Plan encryption configuration block"),
+		SemanticTokenModifiers: lang.SemanticTokenModifiers{tokmod.Encryption},
 		Body: &schema.BodySchema{
 			HoverURL: "https://opentofu.org/docs/language/state/encryption/#configuration",
 			Blocks: map[string]*schema.BlockSchema{
