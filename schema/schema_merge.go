@@ -117,11 +117,24 @@ func (m *SchemaMerger) SchemaForModule(meta *tfmod.Meta) (*schema.BodySchema, er
 			}
 			if localRef.Alias != "" {
 				providerAddr = append(providerAddr, lang.AttrStep{Name: localRef.Alias})
-				mergedSchema.Blocks["provider"].Body.TargetableAs = append(mergedSchema.Blocks["provider"].Body.TargetableAs, &schema.Targetable{
-					Address: providerAddr,
-					ScopeId: refscope.ProviderScope,
-					AsType:  cty.DynamicPseudoType,
-				})
+				depKeys := schema.DependencyKeys{
+					Attributes: []schema.AttributeDependent{
+						{
+							Name: "alias",
+							Expr: schema.ExpressionValue{
+								Address: providerAddr,
+							},
+						},
+					},
+				}
+				mergedSchema.Blocks["provider"].DependentBody[schema.NewSchemaKey(depKeys)] = pSchema.Provider
+				mergedSchema.Blocks["provider"].DependentBody[schema.NewSchemaKey(depKeys)].TargetableAs = schema.Targetables{
+					{
+						Address: providerAddr,
+						ScopeId: refscope.ProviderScope,
+						AsType:  cty.DynamicPseudoType,
+					},
+				}
 			}
 
 			for rName, rSchema := range pSchema.Resources {
