@@ -9,7 +9,6 @@ import (
 	"github.com/hashicorp/hcl-lang/lang"
 	"github.com/hashicorp/hcl-lang/schema"
 	"github.com/opentofu/opentofu-schema/internal/schema/backends"
-	"github.com/opentofu/opentofu-schema/internal/schema/refscope"
 	"github.com/opentofu/opentofu-schema/internal/schema/tokmod"
 	"github.com/zclconf/go-cty/cty"
 )
@@ -31,16 +30,6 @@ var expectedMergedSchema_v012 = &schema.BodySchema{
 						IsOptional: true,
 					},
 				},
-				TargetableAs: schema.Targetables{
-					{
-						Address: lang.Address{
-							lang.RootStep{Name: "null"},
-							lang.AttrStep{Name: "foobar"},
-						},
-						ScopeId: refscope.ProviderScope,
-						AsType:  cty.DynamicPseudoType,
-					},
-				},
 			},
 			DependentBody: map[schema.SchemaKey]*schema.BodySchema{
 				`{"labels":[{"index":0,"value":"null"}]}`: {
@@ -52,6 +41,16 @@ var expectedMergedSchema_v012 = &schema.BodySchema{
 						URL:     "https://search.opentofu.org/provider/hashicorp/null/latest/",
 						Tooltip: "hashicorp/null Documentation",
 					},
+					TargetableAs: schema.Targetables{
+						{
+							Address: lang.Address{
+								lang.RootStep{Name: "null"},
+								lang.AttrStep{Name: "foobar"},
+							},
+							ScopeId: "provider",
+							AsType:  cty.DynamicPseudoType,
+						},
+					},
 				},
 				`{"labels":[{"index":0,"value":"random"}]}`: {
 					Blocks:     map[string]*schema.BlockSchema{},
@@ -61,6 +60,26 @@ var expectedMergedSchema_v012 = &schema.BodySchema{
 					DocsLink: &schema.DocsLink{
 						URL:     "https://search.opentofu.org/provider/hashicorp/random/latest/",
 						Tooltip: "hashicorp/random Documentation",
+					},
+				},
+				`{"attrs":[{"name":"alias","expr":{"addr":"null.foobar"}}]}`: {
+					Blocks:     map[string]*schema.BlockSchema{},
+					Attributes: map[string]*schema.AttributeSchema{},
+					Detail:     "hashicorp/null",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://search.opentofu.org/provider/hashicorp/null/latest/",
+						Tooltip: "hashicorp/null Documentation",
+					},
+					HoverURL: "https://search.opentofu.org/provider/hashicorp/null/latest/",
+					TargetableAs: schema.Targetables{
+						{
+							Address: lang.Address{
+								lang.RootStep{Name: "null"},
+								lang.AttrStep{Name: "foobar"},
+							},
+							ScopeId: "provider",
+							AsType:  cty.DynamicPseudoType,
+						},
 					},
 				},
 			},
