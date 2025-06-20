@@ -13,7 +13,6 @@ import (
 	"github.com/hashicorp/hcl-lang/lang"
 	"github.com/hashicorp/hcl-lang/schema"
 	"github.com/opentofu/opentofu-schema/internal/schema/backends"
-	"github.com/opentofu/opentofu-schema/internal/schema/refscope"
 	tfmod "github.com/opentofu/opentofu-schema/module"
 	"github.com/opentofu/opentofu-schema/registry"
 	tfaddr "github.com/opentofu/registry-address"
@@ -117,24 +116,6 @@ func (m *SchemaMerger) SchemaForModule(meta *tfmod.Meta) (*schema.BodySchema, er
 			}
 			if localRef.Alias != "" {
 				providerAddr = append(providerAddr, lang.AttrStep{Name: localRef.Alias})
-				depKeys := schema.DependencyKeys{
-					Attributes: []schema.AttributeDependent{
-						{
-							Name: "alias",
-							Expr: schema.ExpressionValue{
-								Address: providerAddr,
-							},
-						},
-					},
-				}
-				mergedSchema.Blocks["provider"].DependentBody[schema.NewSchemaKey(depKeys)] = pSchema.Provider
-				mergedSchema.Blocks["provider"].DependentBody[schema.NewSchemaKey(depKeys)].TargetableAs = schema.Targetables{
-					{
-						Address: providerAddr,
-						ScopeId: refscope.ProviderScope,
-						AsType:  cty.DynamicPseudoType,
-					},
-				}
 			}
 
 			for rName, rSchema := range pSchema.Resources {

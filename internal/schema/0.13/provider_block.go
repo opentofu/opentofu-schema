@@ -24,6 +24,9 @@ func providerBlockSchema() *schema.BlockSchema {
 			FriendlyName: "provider",
 			ScopeId:      refscope.ProviderScope,
 			AsReference:  true,
+			AsTypeOf: &schema.BlockAsTypeOf{
+				AttributeExpr: "type",
+			},
 		},
 		SemanticTokenModifiers: lang.SemanticTokenModifiers{tokmod.Provider},
 		Labels: []*schema.LabelSchema{
