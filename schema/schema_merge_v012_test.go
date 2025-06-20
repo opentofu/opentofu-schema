@@ -41,16 +41,6 @@ var expectedMergedSchema_v012 = &schema.BodySchema{
 						URL:     "https://search.opentofu.org/provider/hashicorp/null/latest/",
 						Tooltip: "hashicorp/null Documentation",
 					},
-					TargetableAs: schema.Targetables{
-						{
-							Address: lang.Address{
-								lang.RootStep{Name: "null"},
-								lang.AttrStep{Name: "foobar"},
-							},
-							ScopeId: "provider",
-							AsType:  cty.DynamicPseudoType,
-						},
-					},
 				},
 				`{"labels":[{"index":0,"value":"random"}]}`: {
 					Blocks:     map[string]*schema.BlockSchema{},
@@ -60,26 +50,6 @@ var expectedMergedSchema_v012 = &schema.BodySchema{
 					DocsLink: &schema.DocsLink{
 						URL:     "https://search.opentofu.org/provider/hashicorp/random/latest/",
 						Tooltip: "hashicorp/random Documentation",
-					},
-				},
-				`{"attrs":[{"name":"alias","expr":{"addr":"null.foobar"}}]}`: {
-					Blocks:     map[string]*schema.BlockSchema{},
-					Attributes: map[string]*schema.AttributeSchema{},
-					Detail:     "hashicorp/null",
-					DocsLink: &schema.DocsLink{
-						URL:     "https://search.opentofu.org/provider/hashicorp/null/latest/",
-						Tooltip: "hashicorp/null Documentation",
-					},
-					HoverURL: "https://search.opentofu.org/provider/hashicorp/null/latest/",
-					TargetableAs: schema.Targetables{
-						{
-							Address: lang.Address{
-								lang.RootStep{Name: "null"},
-								lang.AttrStep{Name: "foobar"},
-							},
-							ScopeId: "provider",
-							AsType:  cty.DynamicPseudoType,
-						},
 					},
 				},
 			},
