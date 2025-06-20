@@ -19,6 +19,215 @@ func labelKey(value string) schema.SchemaKey {
 	})
 }
 
+func awsKmsSchema() *schema.BodySchema {
+	return &schema.BodySchema{
+		Description: lang.Markdown("AWS KMS key provider uses Amazon Web Services Key Management Service to generate keys"),
+		HoverURL:    "https://opentofu.org/docs/language/state/encryption/#aws-kms",
+		Attributes: map[string]*schema.AttributeSchema{
+			"kms_key_id": {
+				Constraint:  schema.LiteralType{Type: cty.String},
+				IsRequired:  true,
+				Description: lang.Markdown("Key ID for AWS KMS"),
+			},
+			"key_spec": {
+				Constraint:  schema.LiteralType{Type: cty.String},
+				IsRequired:  true,
+				Description: lang.Markdown("Key spec for AWS KMS. Adapt this to your encryption method (e.g. `AES_256`)"),
+			},
+			"access_key": {
+				Constraint:  schema.LiteralType{Type: cty.String},
+				Description: lang.Markdown("AWS access key ID. Can also be sourced from the `AWS_ACCESS_KEY_ID` environment variable"),
+			},
+			"secret_key": {
+				Constraint:  schema.LiteralType{Type: cty.String},
+				Description: lang.Markdown("AWS secret access key. Can also be sourced from the `AWS_SECRET_ACCESS_KEY` environment variable"),
+			},
+			"region": {
+				Constraint:  schema.LiteralType{Type: cty.String},
+				Description: lang.Markdown("AWS region. Can also be sourced from the `AWS_REGION` or `AWS_DEFAULT_REGION` environment variables"),
+			},
+			"profile": {
+				Constraint:  schema.LiteralType{Type: cty.String},
+				Description: lang.Markdown("AWS profile name to use from the shared credentials file"),
+			},
+			"token": {
+				Constraint:  schema.LiteralType{Type: cty.String},
+				Description: lang.Markdown("AWS session token. Can also be sourced from the `AWS_SESSION_TOKEN` environment variable"),
+			},
+			"max_retries": {
+				Constraint:  schema.LiteralType{Type: cty.Number},
+				Description: lang.Markdown("Maximum number of times to retry API calls. Default is 5"),
+			},
+			"skip_credentials_validation": {
+				Constraint:  schema.LiteralType{Type: cty.Bool},
+				Description: lang.Markdown("Skip the credentials validation via the STS API"),
+			},
+			"skip_requesting_account_id": {
+				Constraint:  schema.LiteralType{Type: cty.Bool},
+				Description: lang.Markdown("Skip requesting the account ID"),
+			},
+			"sts_region": {
+				Constraint:  schema.LiteralType{Type: cty.String},
+				Description: lang.Markdown("AWS STS region to use for assuming roles"),
+			},
+			"http_proxy": {
+				Constraint:  schema.LiteralType{Type: cty.String},
+				Description: lang.Markdown("HTTP proxy URL to use for API requests"),
+			},
+			"https_proxy": {
+				Constraint:  schema.LiteralType{Type: cty.String},
+				Description: lang.Markdown("HTTPS proxy URL to use for API requests"),
+			},
+			"no_proxy": {
+				Constraint:  schema.LiteralType{Type: cty.String},
+				Description: lang.Markdown("Comma-separated list of hosts to exclude from proxy"),
+			},
+			"insecure": {
+				Constraint:  schema.LiteralType{Type: cty.Bool},
+				Description: lang.Markdown("Whether to explicitly allow insecure HTTPS requests"),
+			},
+			"use_dualstack_endpoint": {
+				Constraint:  schema.LiteralType{Type: cty.Bool},
+				Description: lang.Markdown("Whether to use the dual-stack endpoint for AWS services"),
+			},
+			"use_fips_endpoint": {
+				Constraint:  schema.LiteralType{Type: cty.Bool},
+				Description: lang.Markdown("Whether to use FIPS-compliant endpoints"),
+			},
+			"custom_ca_bundle": {
+				Constraint:  schema.LiteralType{Type: cty.String},
+				Description: lang.Markdown("Path to a custom CA bundle to use for HTTPS requests"),
+			},
+			"ec2_metadata_service_endpoint": {
+				Constraint:  schema.LiteralType{Type: cty.String},
+				Description: lang.Markdown("Address of the EC2 metadata service endpoint"),
+			},
+			"ec2_metadata_service_endpoint_mode": {
+				Constraint:  schema.LiteralType{Type: cty.String},
+				Description: lang.Markdown("Protocol to use with EC2 metadata (IPv4 or IPv6)"),
+			},
+			"skip_metadata_api_check": {
+				Constraint:  schema.LiteralType{Type: cty.Bool},
+				Description: lang.Markdown("Skip the AWS metadata API check"),
+			},
+			"shared_credentials_files": {
+				Constraint:  schema.List{Elem: schema.LiteralType{Type: cty.String}},
+				Description: lang.Markdown("List of paths to shared credentials files"),
+			},
+			"shared_config_files": {
+				Constraint:  schema.List{Elem: schema.LiteralType{Type: cty.String}},
+				Description: lang.Markdown("List of paths to shared configuration files"),
+			},
+			"allowed_account_ids": {
+				Constraint:  schema.List{Elem: schema.LiteralType{Type: cty.String}},
+				Description: lang.Markdown("List of allowed AWS account IDs"),
+			},
+			"forbidden_account_ids": {
+				Constraint:  schema.List{Elem: schema.LiteralType{Type: cty.String}},
+				Description: lang.Markdown("List of forbidden AWS account IDs"),
+			},
+			"retry_mode": {
+				Constraint:  schema.LiteralType{Type: cty.String},
+				Description: lang.Markdown("Specifies how many times to retry API calls. Valid values are `standard` and `adaptive`"),
+			},
+			"assume_role": {
+				Description: lang.Markdown("Configuration for assuming an IAM role"),
+				Constraint: schema.Object{
+					Name: "Assume an IAM Role Configuration",
+					Attributes: map[string]*schema.AttributeSchema{
+						"role_arn": {
+							Constraint:  schema.LiteralType{Type: cty.String},
+							IsRequired:  true,
+							Description: lang.Markdown("ARN of the IAM role to assume"),
+						},
+						"duration": {
+							Constraint:  schema.LiteralType{Type: cty.String},
+							Description: lang.Markdown("Duration of the assumed role session (e.g. `1h`, `30m`)"),
+						},
+						"external_id": {
+							Constraint:  schema.LiteralType{Type: cty.String},
+							Description: lang.Markdown("External ID to use when assuming the role"),
+						},
+						"policy": {
+							Constraint:  schema.LiteralType{Type: cty.String},
+							Description: lang.Markdown("IAM policy in JSON format to apply to the assumed role session"),
+						},
+						"policy_arns": {
+							Constraint:  schema.List{Elem: schema.LiteralType{Type: cty.String}},
+							Description: lang.Markdown("List of ARNs of IAM policies to apply to the assumed role session"),
+						},
+						"session_name": {
+							Constraint:  schema.LiteralType{Type: cty.String},
+							Description: lang.Markdown("Name to use for the assumed role session"),
+						},
+						"tags": {
+							Constraint:  schema.Map{Elem: schema.LiteralType{Type: cty.String}},
+							Description: lang.Markdown("Map of tags to apply to the assumed role session"),
+						},
+						"transitive_tag_keys": {
+							Constraint:  schema.List{Elem: schema.LiteralType{Type: cty.String}},
+							Description: lang.Markdown("List of tag keys to pass to subsequent assumed roles"),
+						},
+					},
+				},
+			},
+			"assume_role_with_web_identity": {
+				Description: lang.Markdown("Configuration for assuming an IAM role using web identity"),
+				Constraint: schema.Object{
+					Name: "`assume_role_with_web_identity` configuration block",
+					Attributes: map[string]*schema.AttributeSchema{
+						"role_arn": {
+							Constraint:  schema.LiteralType{Type: cty.String},
+							Description: lang.Markdown("ARN of the IAM role to assume"),
+						},
+						"duration": {
+							Constraint:  schema.LiteralType{Type: cty.String},
+							Description: lang.Markdown("Duration of the assumed role session (e.g. `1h`, `30m`)"),
+						},
+						"policy": {
+							Constraint:  schema.LiteralType{Type: cty.String},
+							Description: lang.Markdown("IAM policy in JSON format to apply to the assumed role session"),
+						},
+						"policy_arns": {
+							Constraint:  schema.List{Elem: schema.LiteralType{Type: cty.String}},
+							Description: lang.Markdown("List of ARNs of IAM policies to apply to the assumed role session"),
+						},
+						"session_name": {
+							Constraint:  schema.LiteralType{Type: cty.String},
+							Description: lang.Markdown("Name to use for the assumed role session"),
+						},
+						"web_identity_token": {
+							Constraint:  schema.LiteralType{Type: cty.String},
+							Description: lang.Markdown("OAuth 2.0 access token or OpenID Connect ID token"),
+						},
+						"web_identity_token_file": {
+							Constraint:  schema.LiteralType{Type: cty.String},
+							Description: lang.Markdown("Path to file containing web identity token"),
+						},
+					},
+				},
+			},
+		},
+		Blocks: map[string]*schema.BlockSchema{
+			"endpoints": {
+				Description: lang.Markdown("Configuration for custom AWS service endpoints"),
+				Body: &schema.BodySchema{
+					Attributes: map[string]*schema.AttributeSchema{
+						"iam": {
+							Constraint:  schema.LiteralType{Type: cty.String},
+							Description: lang.Markdown("Custom endpoint URL for AWS IAM API"),
+						},
+						"sts": {
+							Constraint:  schema.LiteralType{Type: cty.String},
+							Description: lang.Markdown("Custom endpoint URL for AWS STS API"),
+						},
+					},
+				},
+			},
+		},
+	}
+}
+
 // keyProviderTypes with their markdown descriptions for 1.7
 func keyProviderTypes() map[schema.SchemaKey]*schema.BodySchema {
 	return map[schema.SchemaKey]*schema.BodySchema{
@@ -49,22 +258,7 @@ func keyProviderTypes() map[schema.SchemaKey]*schema.BodySchema {
 				},
 			},
 		},
-		labelKey("aws_kms"): &schema.BodySchema{
-			Description: lang.Markdown("AWS KMS key provider uses Amazon Web Services Key Management Service to generate keys"),
-			HoverURL:    "https://opentofu.org/docs/language/state/encryption/#aws-kms",
-			Attributes: map[string]*schema.AttributeSchema{
-				"kms_key_id": {
-					Constraint:  schema.LiteralType{Type: cty.String},
-					IsRequired:  true,
-					Description: lang.Markdown("Key ID for AWS KMS"),
-				},
-				"key_spec": {
-					Constraint:  schema.LiteralType{Type: cty.String},
-					IsRequired:  true,
-					Description: lang.Markdown("Key spec for AWS KMS. Adapt this to your encryption method (e.g. `AES_256`)"),
-				},
-			},
-		},
+		labelKey("aws_kms"): awsKmsSchema(),
 		labelKey("gcp_kms"): &schema.BodySchema{
 			Description: lang.Markdown("GCP KMS key provider uses Google Cloud Key Management Service to generate keys"),
 			HoverURL:    "https://opentofu.org/docs/language/state/encryption/#gcp-kms",
