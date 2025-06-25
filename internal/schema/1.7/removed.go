@@ -39,7 +39,7 @@ func removedBlock() *schema.BlockSchema {
 							},
 						},
 					},
-					MinItems: 1,
+					MinItems: 0,
 					MaxItems: 1,
 				},
 			},
