@@ -18,5 +18,7 @@ func ModuleSchema(v *version.Version) *schema.BodySchema {
 	bs.Blocks["terraform"].Body.Blocks["encryption"] = patchEncryptionBlockSchema(
 		bs.Blocks["terraform"].Body.Blocks["encryption"],
 	)
+
+	patchRemovedBlock1_10(v, bs)
 	return bs
 }
