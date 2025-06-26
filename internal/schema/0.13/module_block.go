@@ -70,12 +70,9 @@ func moduleBlockSchema() *schema.BlockSchema {
 					},
 				},
 				"providers": {
-					Constraint: schema.OneOf{
-						schema.AnyExpression{OfType: cty.DynamicPseudoType},
-						schema.Map{
-							Name: "map of provider references",
-							Elem: schema.Reference{OfScopeId: refscope.ProviderScope},
-						},
+					Constraint: schema.Map{
+						Name: "map of provider references",
+						Elem: schema.Reference{OfScopeId: refscope.ProviderScope},
 					},
 					IsDepKey:    true,
 					IsOptional:  true,
