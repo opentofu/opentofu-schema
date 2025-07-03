@@ -12,6 +12,7 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"github.com/hashicorp/hcl-lang/lang"
 	"github.com/hashicorp/hcl-lang/schema"
+	"github.com/opentofu/opentofu-schema/internal/schema/refscope"
 	"github.com/opentofu/opentofu-schema/module"
 	"github.com/zclconf/go-cty-debug/ctydebug"
 	"github.com/zclconf/go-cty/cty"
@@ -112,5 +113,59 @@ func TestSchemaForVariables(t *testing.T) {
 				t.Fatalf("unexpected schema %s", diff)
 			}
 		})
+	}
+}
+
+func TestGetTargetablesForAddrType(t *testing.T) {
+	addr := lang.Address{
+		lang.RootStep{Name: "var"},
+		lang.AttrStep{Name: "complex_variable_name"},
+	}
+	rootType := cty.ObjectWithOptionalAttrs(map[string]cty.Type{
+		"name": cty.String,
+		"type": cty.ObjectWithOptionalAttrs(map[string]cty.Type{
+			"nested_name": cty.String,
+		}, []string{"nested_name"}),
+	}, []string{"name", "type"})
+
+	actualTargetables := getTargetablesForAddrType(addr, rootType)
+	expectedTargetables := schema.Targetables{
+		&schema.Targetable{
+			Address: lang.Address{
+				lang.RootStep{Name: "var"},
+				lang.AttrStep{Name: "complex_variable_name"},
+				lang.AttrStep{Name: "name"},
+			},
+			ScopeId:           refscope.VariableScope,
+			AsType:            cty.String,
+			NestedTargetables: nil,
+		},
+		&schema.Targetable{
+			Address: lang.Address{
+				lang.RootStep{Name: "var"},
+				lang.AttrStep{Name: "complex_variable_name"},
+				lang.AttrStep{Name: "type"},
+			},
+			ScopeId: refscope.VariableScope,
+			AsType:  rootType.AttributeTypes()["type"],
+			NestedTargetables: schema.Targetables{
+				&schema.Targetable{
+					Address: lang.Address{
+						lang.RootStep{Name: "var"},
+						lang.AttrStep{Name: "complex_variable_name"},
+						lang.AttrStep{Name: "type"},
+						lang.AttrStep{Name: "nested_name"},
+					},
+					ScopeId:           refscope.VariableScope,
+					AsType:            cty.String,
+					NestedTargetables: nil,
+				},
+			},
+		},
+	}
+
+	diff := cmp.Diff(expectedTargetables, actualTargetables, ctydebug.CmpOptions)
+	if diff != "" {
+		t.Fatalf("unexpected targetables %s", diff)
 	}
 }

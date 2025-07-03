@@ -281,6 +281,7 @@ func typeBelongsToProvider(typeName string, pRef tfmod.ProviderRef) bool {
 	return typeName == pRef.LocalName || strings.HasPrefix(typeName, pRef.LocalName+"_")
 }
 
+// variableDependentBody is used to generate dependent body for variables.
 func variableDependentBody(vars map[string]tfmod.Variable) map[schema.SchemaKey]*schema.BodySchema {
 	depBodies := make(map[schema.SchemaKey]*schema.BodySchema)
 
@@ -290,6 +291,12 @@ func variableDependentBody(vars map[string]tfmod.Variable) map[schema.SchemaKey]
 				{Index: 0, Value: name},
 			},
 		}
+
+		addr := lang.Address{
+			lang.RootStep{Name: "var"},
+			lang.AttrStep{Name: name},
+		}
+
 		depBodies[schema.NewSchemaKey(depKeys)] = &schema.BodySchema{
 			Attributes: map[string]*schema.AttributeSchema{
 				"default": {
@@ -298,6 +305,7 @@ func variableDependentBody(vars map[string]tfmod.Variable) map[schema.SchemaKey]
 					Description: lang.Markdown("Default value to use when variable is not explicitly set"),
 				},
 			},
+			TargetableAs: targetablesForAddrType(addr, mVar.Type),
 		}
 	}
 

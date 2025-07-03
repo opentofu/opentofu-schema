@@ -151,6 +151,8 @@ func typeCanBeBlocks(ty cty.Type) bool {
 	return (ty.IsListType() || ty.IsSetType()) && ty.ElementType().IsObjectType()
 }
 
+// blockSchemaForAttribute returns a block schema for the given attribute
+// if the attribute type is a list-of-object or set-of-object type.
 func blockSchemaForAttribute(attr *tfjson.SchemaAttribute) (*schema.BlockSchema, bool) {
 	if attr.AttributeType == cty.NilType {
 		return nil, false

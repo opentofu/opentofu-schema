@@ -6,6 +6,8 @@
 package schema
 
 import (
+	"sort"
+
 	"github.com/hashicorp/hcl-lang/lang"
 	"github.com/hashicorp/hcl-lang/schema"
 	"github.com/opentofu/opentofu-schema/internal/schema/refscope"
@@ -87,4 +89,27 @@ func moduleVarToAttribute(modVar module.Variable) *schema.AttributeSchema {
 	}
 
 	return aSchema
+}
+
+// targetablesForAddrType is used to generate targets for complex object variables. Nested targets are supported as well in case they are objects too.
+func targetablesForAddrType(addr lang.Address, rootType cty.Type) schema.Targetables {
+	if !rootType.IsObjectType() {
+		return nil
+	}
+
+	targetables := schema.Targetables{}
+
+	for attrName, attrType := range rootType.AttributeTypes() {
+		nestedAddr := addr.Copy()
+		nestedAddr = append(nestedAddr, lang.AttrStep{Name: attrName})
+		targetables = append(targetables, &schema.Targetable{
+			Address:           nestedAddr,
+			ScopeId:           refscope.VariableScope,
+			AsType:            attrType,
+			NestedTargetables: targetablesForAddrType(nestedAddr, attrType),
+		})
+	}
+
+	sort.Sort(targetables)
+	return targetables
 }
