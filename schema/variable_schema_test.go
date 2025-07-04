@@ -128,7 +128,7 @@ func TestGetTargetablesForAddrType(t *testing.T) {
 		}, []string{"nested_name"}),
 	}, []string{"name", "type"})
 
-	actualTargetables := getTargetablesForAddrType(addr, rootType)
+	actualTargetables := targetablesForAddrType(addr, rootType)
 	expectedTargetables := schema.Targetables{
 		&schema.Targetable{
 			Address: lang.Address{
