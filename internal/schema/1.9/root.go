@@ -20,9 +20,7 @@ func ModuleSchema(v *version.Version) *schema.BodySchema {
 	bs.Blocks["removed"].Body.Blocks["connection"] = v012_mod.ConnectionBlock(v)
 	bs.Blocks["removed"].Body.Blocks["connection"].DependentBody = v1_3_mod.ConnectionDependentBodies(v)
 
-	bs.Blocks["provider"].Body.Extensions = &schema.BodyExtensions{
-		ForEach: true,
-	}
+	bs.Blocks["provider"].Body.Extensions.ForEach = true
 
 	bs.Blocks["terraform"].Body.Blocks["encryption"] = patchEncryptionBlockSchema(bs.Blocks["terraform"].Body.Blocks["encryption"])
 
