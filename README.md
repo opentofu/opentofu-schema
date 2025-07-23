@@ -1,4 +1,6 @@
 # opentofu-schema [WIP]
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fopentofu%2Fopentofu-schema.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fopentofu%2Fopentofu-schema?ref=badge_shield)
+
 
 This library helps assembling a complete [`hcl-lang`](https://github.com/hashicorp/hcl-lang)
 schema for decoding OpenTofu config based on static OpenTofu core schema
@@ -80,3 +82,7 @@ Read more at [hashicorp/terraform#24261](https://github.com/hashicorp/terraform/
 
 Other ways of obtaining schemas are also being explored.
 
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fopentofu%2Fopentofu-schema.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fopentofu%2Fopentofu-schema?ref=badge_large)
