@@ -47,6 +47,11 @@ var data = schema.BlockSchema{
 	DependentBody: map[schema.SchemaKey]*schema.BodySchema{
 		`{"labels":[{"index":0,"value":"hashicups_test"}],"attrs":[{"name":"provider","expr":{"addr":"hashicups"}}]}`: {
 			Blocks: map[string]*schema.BlockSchema{},
+			DocsLink: &schema.DocsLink{
+				URL:     "https://search.opentofu.org/provider/hashicorp/hashicups/latest/docs/datasources/test",
+				Tooltip: "hashicorp/hashicups/hashicups_test Documentation",
+			},
+			HoverURL: "https://search.opentofu.org/provider/hashicorp/hashicups/latest/docs/datasources/test",
 			Attributes: map[string]*schema.AttributeSchema{
 				"backend": {
 					IsRequired: true,
@@ -186,6 +191,11 @@ var data = schema.BlockSchema{
 		},
 		`{"labels":[{"index":0,"value":"hashicups_test"}]}`: {
 			Blocks: map[string]*schema.BlockSchema{},
+			DocsLink: &schema.DocsLink{
+				URL:     "https://search.opentofu.org/provider/hashicorp/hashicups/latest/docs/datasources/test",
+				Tooltip: "hashicorp/hashicups/hashicups_test Documentation",
+			},
+			HoverURL: "https://search.opentofu.org/provider/hashicorp/hashicups/latest/docs/datasources/test",
 			Attributes: map[string]*schema.AttributeSchema{
 				"backend": {
 					IsRequired: true,

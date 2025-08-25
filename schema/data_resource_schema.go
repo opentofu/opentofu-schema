@@ -31,7 +31,7 @@ func (sm *SchemaMerger) mergeDataSourceSchema(bSchema *schema.BodySchema, dsName
 
 	// Add backend-related core bits of schema
 	if isRemoteStateDataSource(providerAddr, dsName) {
-		remoteStateDs := bSchema.Copy()
+		remoteStateDs := dsSchema.Copy()
 
 		remoteStateDs.Attributes["backend"].IsDepKey = true
 		remoteStateDs.Attributes["backend"].SemanticTokenModifiers = lang.SemanticTokenModifiers{lang.TokenModifierDependent}
@@ -75,9 +75,14 @@ func (sm *SchemaMerger) mergeDataSourceSchema(bSchema *schema.BodySchema, dsName
 		namespace = "hashicorp"
 	}
 	if namespace != "" {
-		// In OpenTofu's Search Registry, we don't save the resource prefix on the URL, example:
-		// random_uuid becomes uuid on the URL
-		registryName := dsName[len(providerAddr.Type)+1:]
+		var registryName string
+		if len(providerAddr.Type)+1 <= len(dsName) {
+			// In OpenTofu's Search Registry, we don't save the data source prefix on the URL, example:
+			// random_uuid becomes uuid on the URL
+			registryName = dsName[len(providerAddr.Type)+1:]
+		} else {
+			registryName = dsName
+		}
 		docsUrl := fmt.Sprintf("https://search.opentofu.org/provider/%s/%s/latest/docs/datasources/%s", namespace, providerAddr.Type, registryName)
 		dsSchema.DocsLink = &schema.DocsLink{
 			URL:     docsUrl,

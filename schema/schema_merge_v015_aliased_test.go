@@ -37,6 +37,11 @@ var expectedMergedSchema_v015_aliased = &schema.BodySchema{
 			DependentBody: map[schema.SchemaKey]*schema.BodySchema{
 				`{"labels":[{"index":0,"value":"hashicups_test"}],"attrs":[{"name":"provider","expr":{"addr":"hcc"}}]}`: {
 					Blocks: map[string]*schema.BlockSchema{},
+					DocsLink: &schema.DocsLink{
+						URL:     "https://search.opentofu.org/provider/hashicorp/hashicups/latest/docs/datasources/test",
+						Tooltip: "hashicorp/hashicups/hashicups_test Documentation",
+					},
+					HoverURL: "https://search.opentofu.org/provider/hashicorp/hashicups/latest/docs/datasources/test",
 					Attributes: map[string]*schema.AttributeSchema{
 						"backend": {
 							IsRequired: true,

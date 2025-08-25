@@ -1241,6 +1241,11 @@ var expectedMergedSchema_v012 = &schema.BodySchema{
 				`{"labels":[{"index":0,"value":"null_data_source"}]}`: {
 					Detail: "hashicorp/null",
 					Blocks: map[string]*schema.BlockSchema{},
+					DocsLink: &schema.DocsLink{
+						URL:     "https://search.opentofu.org/provider/hashicorp/null/latest/docs/datasources/data_source",
+						Tooltip: "hashicorp/null/null_data_source Documentation",
+					},
+					HoverURL: "https://search.opentofu.org/provider/hashicorp/null/latest/docs/datasources/data_source",
 					Attributes: map[string]*schema.AttributeSchema{
 						"has_computed_default": {
 							Description: lang.MarkupContent{
@@ -1295,6 +1300,11 @@ var expectedMergedSchema_v012 = &schema.BodySchema{
 				`{"labels":[{"index":0,"value":"null_data_source"}],"attrs":[{"name":"provider","expr":{"addr":"null"}}]}`: {
 					Detail: "hashicorp/null",
 					Blocks: map[string]*schema.BlockSchema{},
+					DocsLink: &schema.DocsLink{
+						URL:     "https://search.opentofu.org/provider/hashicorp/null/latest/docs/datasources/data_source",
+						Tooltip: "hashicorp/null/null_data_source Documentation",
+					},
+					HoverURL: "https://search.opentofu.org/provider/hashicorp/null/latest/docs/datasources/data_source",
 					Attributes: map[string]*schema.AttributeSchema{
 						"has_computed_default": {
 							Description: lang.MarkupContent{
@@ -1349,6 +1359,11 @@ var expectedMergedSchema_v012 = &schema.BodySchema{
 				`{"labels":[{"index":0,"value":"null_data_source"}],"attrs":[{"name":"provider","expr":{"addr":"null.foobar"}}]}`: {
 					Detail: "hashicorp/null",
 					Blocks: map[string]*schema.BlockSchema{},
+					DocsLink: &schema.DocsLink{
+						URL:     "https://search.opentofu.org/provider/hashicorp/null/latest/docs/datasources/data_source",
+						Tooltip: "hashicorp/null/null_data_source Documentation",
+					},
+					HoverURL: "https://search.opentofu.org/provider/hashicorp/null/latest/docs/datasources/data_source",
 					Attributes: map[string]*schema.AttributeSchema{
 						"has_computed_default": {
 							Description: lang.MarkupContent{
@@ -1403,6 +1418,11 @@ var expectedMergedSchema_v012 = &schema.BodySchema{
 				`{"labels":[{"index":0,"value":"terraform_remote_state"}]}`: {
 					Detail: "(builtin)",
 					Blocks: map[string]*schema.BlockSchema{},
+					DocsLink: &schema.DocsLink{
+						URL:     "https://search.opentofu.org/provider/hashicorp/terraform/latest/docs/datasources/remote_state",
+						Tooltip: "hashicorp/terraform/terraform_remote_state Documentation",
+					},
+					HoverURL: "https://search.opentofu.org/provider/hashicorp/terraform/latest/docs/datasources/remote_state",
 					Attributes: map[string]*schema.AttributeSchema{
 						"backend": {
 							IsRequired:             true,
@@ -1427,6 +1447,11 @@ var expectedMergedSchema_v012 = &schema.BodySchema{
 				`{"labels":[{"index":0,"value":"terraform_remote_state"}],"attrs":[{"name":"provider","expr":{"addr":"terraform"}}]}`: {
 					Detail: "(builtin)",
 					Blocks: map[string]*schema.BlockSchema{},
+					DocsLink: &schema.DocsLink{
+						URL:     "https://search.opentofu.org/provider/hashicorp/terraform/latest/docs/datasources/remote_state",
+						Tooltip: "hashicorp/terraform/terraform_remote_state Documentation",
+					},
+					HoverURL: "https://search.opentofu.org/provider/hashicorp/terraform/latest/docs/datasources/remote_state",
 					Attributes: map[string]*schema.AttributeSchema{
 						"backend": {
 							IsRequired:             true,
