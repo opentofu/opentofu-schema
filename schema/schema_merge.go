@@ -12,7 +12,6 @@ import (
 	"github.com/hashicorp/go-version"
 	"github.com/hashicorp/hcl-lang/lang"
 	"github.com/hashicorp/hcl-lang/schema"
-	"github.com/opentofu/opentofu-schema/internal/schema/backends"
 	tfmod "github.com/opentofu/opentofu-schema/module"
 	"github.com/opentofu/opentofu-schema/registry"
 	tfaddr "github.com/opentofu/registry-address"
@@ -123,59 +122,7 @@ func (m *SchemaMerger) SchemaForModule(meta *tfmod.Meta) (*schema.BodySchema, er
 			}
 
 			for dsName, dsSchema := range pSchema.DataSources {
-				depKeys := schema.DependencyKeys{
-					Labels: []schema.LabelDependent{
-						{Index: 0, Value: dsName},
-					},
-					Attributes: []schema.AttributeDependent{
-						{
-							Name: "provider",
-							Expr: schema.ExpressionValue{
-								Address: providerAddr,
-							},
-						},
-					},
-				}
-
-				// Add backend-related core bits of schema
-				if isRemoteStateDataSource(pAddr, dsName) {
-					remoteStateDs := dsSchema.Copy()
-
-					remoteStateDs.Attributes["backend"].IsDepKey = true
-					remoteStateDs.Attributes["backend"].SemanticTokenModifiers = lang.SemanticTokenModifiers{lang.TokenModifierDependent}
-					remoteStateDs.Attributes["backend"].Constraint = backends.BackendTypesAsOneOfConstraint(m.tofuVersion)
-					delete(remoteStateDs.Attributes, "config")
-
-					depBodies := m.dependentBodyForRemoteStateDataSource(remoteStateDs, providerAddr, localRef)
-					for key, depBody := range depBodies {
-						mergedSchema.Blocks["data"].DependentBody[key] = depBody
-						if _, ok := mergedSchema.Blocks["check"]; ok {
-							mergedSchema.Blocks["check"].Body.Blocks["data"].DependentBody[key] = depBody
-						}
-					}
-
-					dsSchema = remoteStateDs
-				}
-
-				mergedSchema.Blocks["data"].DependentBody[schema.NewSchemaKey(depKeys)] = dsSchema
-
-				if _, ok := mergedSchema.Blocks["check"]; ok {
-					mergedSchema.Blocks["check"].Body.Blocks["data"].DependentBody[schema.NewSchemaKey(depKeys)] = dsSchema
-				}
-
-				// No explicit association is required
-				// if the resource prefix matches provider name
-				if typeBelongsToProvider(dsName, localRef) {
-					depKeys := schema.DependencyKeys{
-						Labels: []schema.LabelDependent{
-							{Index: 0, Value: dsName},
-						},
-					}
-					mergedSchema.Blocks["data"].DependentBody[schema.NewSchemaKey(depKeys)] = dsSchema
-					if _, ok := mergedSchema.Blocks["check"]; ok {
-						mergedSchema.Blocks["check"].Body.Blocks["data"].DependentBody[schema.NewSchemaKey(depKeys)] = dsSchema
-					}
-				}
+				m.mergeDataSourceSchema(mergedSchema, dsName, dsSchema, pAddr, providerAddr, localRef)
 			}
 		}
 	}
