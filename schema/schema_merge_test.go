@@ -262,7 +262,12 @@ func TestSchemaMerger_SchemaForModule_providerNameMatch(t *testing.T) {
 								Constraint: schema.AnyExpression{OfType: cty.Bool},
 							},
 						},
-						Detail: "hashicorp/data",
+						DocsLink: &schema.DocsLink{
+							URL:     "https://search.opentofu.org/provider/hashicorp/data/latest/docs/datasources/data",
+							Tooltip: "hashicorp/data/data Documentation",
+						},
+						HoverURL: "https://search.opentofu.org/provider/hashicorp/data/latest/docs/datasources/data",
+						Detail:   "hashicorp/data",
 					},
 					`{"labels":[{"index":0,"value":"data"}]}`: {
 						Blocks: map[string]*schema.BlockSchema{},
@@ -272,7 +277,12 @@ func TestSchemaMerger_SchemaForModule_providerNameMatch(t *testing.T) {
 								Constraint: schema.AnyExpression{OfType: cty.Bool},
 							},
 						},
-						Detail: "hashicorp/data",
+						DocsLink: &schema.DocsLink{
+							URL:     "https://search.opentofu.org/provider/hashicorp/data/latest/docs/datasources/data",
+							Tooltip: "hashicorp/data/data Documentation",
+						},
+						HoverURL: "https://search.opentofu.org/provider/hashicorp/data/latest/docs/datasources/data",
+						Detail:   "hashicorp/data",
 					},
 				},
 			},
