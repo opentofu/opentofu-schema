@@ -18,5 +18,11 @@ func ModuleSchema(v *version.Version) *schema.BodySchema {
 	// Add the new ephemeral block
 	bs.Blocks["ephemeral"] = ephemeralBlockSchema(v)
 
+	// Update variable block to support ephemeral attribute
+	bs.Blocks["variable"] = patchVariableBlockSchema(bs.Blocks["variable"])
+
+	// Update output block to support ephemeral attribute
+	bs.Blocks["output"] = patchOutputBlockSchema(bs.Blocks["output"])
+
 	return bs
 }
