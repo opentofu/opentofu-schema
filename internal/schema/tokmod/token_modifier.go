@@ -19,6 +19,7 @@ var (
 	Provisioner       = lang.SemanticTokenModifier("opentofu-provisioner")
 	Connection        = lang.SemanticTokenModifier("opentofu-connection")
 	Variable          = lang.SemanticTokenModifier("opentofu-variable")
+	Ephemeral         = lang.SemanticTokenModifier("opentofu-ephemeral")
 	Terraform         = lang.SemanticTokenModifier("opentofu-terraform")
 	Backend           = lang.SemanticTokenModifier("opentofu-backend")
 	Name              = lang.SemanticTokenModifier("opentofu-name")
@@ -42,5 +43,6 @@ var SupportedModifiers = []lang.SemanticTokenModifier{
 	Terraform,
 	Type,
 	Variable,
+	Ephemeral,
 	Encryption,
 }
