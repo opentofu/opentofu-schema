@@ -27,9 +27,9 @@ import (
 )
 
 var (
-	// No new functions were released on 1.8 or 1.9, that's why the last generated file is on 1.7
-	// TODO: This argument should be bumped after 1.10 release
-	tofuVersion = version.Must(version.NewVersion("1.9.0"))
+	// If no new functions were released in later versions, the last version file will be
+	// the version that introduced a new function last
+	tofuVersion = version.Must(version.NewVersion("1.11.0-beta1"))
 )
 
 const (
