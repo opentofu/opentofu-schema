@@ -36,8 +36,11 @@ func (bs *SchemaMerger) mergeResourceSchema(bSchema *schema.BodySchema, rName st
 	if namespace != "" {
 		// In OpenTofu's Search Registry, we don't save the resource prefix on the URL, example:
 		// random_uuid becomes uuid on the URL
-		registryName := rName[len(providerAddr.Type)+1:]
-		docsUrl := fmt.Sprintf("https://search.opentofu.org/provider/%s/%s/latest/docs/resources/%s", namespace, providerAddr.Type, registryName)
+		registryResourceName := rName
+		if len(providerAddr.Type)+1 <= len(rName) {
+			registryResourceName = rName[len(providerAddr.Type)+1:]
+		}
+		docsUrl := fmt.Sprintf("https://search.opentofu.org/provider/%s/%s/latest/docs/resources/%s", namespace, providerAddr.Type, registryResourceName)
 		rSchema.DocsLink = &schema.DocsLink{
 			URL:     docsUrl,
 			Tooltip: fmt.Sprintf("%s/%s/%s Documentation", namespace, providerAddr.Type, rName),
