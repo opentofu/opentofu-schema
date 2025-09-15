@@ -433,19 +433,7 @@ func stateBlock() *schema.BlockSchema {
 				},
 			},
 			Blocks: map[string]*schema.BlockSchema{
-				"fallback": {
-					Description: lang.Markdown("Fallback method for reading existing encrypted data"),
-					Body: &schema.BodySchema{
-						Attributes: map[string]*schema.AttributeSchema{
-							"method": {
-								Constraint:  schema.Reference{OfScopeId: refscope.EncryptionMethodScope},
-								IsRequired:  true,
-								Description: lang.Markdown("Reference to a fallback encryption method"),
-							},
-						},
-					},
-					MaxItems: 1,
-				},
+				"fallback": fallbackSchema(10),
 			},
 		},
 		MaxItems: 1,
@@ -469,15 +457,15 @@ func planBlock() *schema.BlockSchema {
 				},
 			},
 			Blocks: map[string]*schema.BlockSchema{
-				"fallback": fallbackSchema(),
+				"fallback": fallbackSchema(10),
 			},
 		},
 		MaxItems: 1,
 	}
 }
 
-func fallbackSchema() *schema.BlockSchema {
-	return &schema.BlockSchema{
+func fallbackSchema(recursiveDepth int) *schema.BlockSchema {
+	block := &schema.BlockSchema{
 		Description: lang.Markdown("Fallback method for reading existing encrypted data"),
 		Body: &schema.BodySchema{
 			Attributes: map[string]*schema.AttributeSchema{
@@ -488,15 +476,16 @@ func fallbackSchema() *schema.BlockSchema {
 					IsRequired:  true,
 					Description: lang.Markdown("Reference to a fallback encryption method"),
 				},
-				"fallback": {
-					Constraint:  schema.Reference{OfType: cty.DynamicPseudoType},
-					IsRequired:  true,
-					Description: lang.Markdown("Reference to a fallback encryption method"),
-				},
 			},
 		},
 		MaxItems: 1,
 	}
+	if recursiveDepth == 0 {
+		return block
+	}
+
+	block.Body.Blocks["fallback"] = fallbackSchema(recursiveDepth - 1)
+	return block
 }
 
 func remoteStateDataSourcesBlock() *schema.BlockSchema {
@@ -518,7 +507,7 @@ func remoteStateDataSourcesBlock() *schema.BlockSchema {
 							},
 						},
 						Blocks: map[string]*schema.BlockSchema{
-							"fallback": fallbackSchema(),
+							"fallback": fallbackSchema(10),
 						},
 					},
 					MaxItems: 1,
@@ -542,19 +531,7 @@ func remoteStateDataSourcesBlock() *schema.BlockSchema {
 							},
 						},
 						Blocks: map[string]*schema.BlockSchema{
-							"fallback": {
-								Description: lang.Markdown("Fallback method for reading existing encrypted data"),
-								Body: &schema.BodySchema{
-									Attributes: map[string]*schema.AttributeSchema{
-										"method": {
-											Constraint:  schema.Reference{OfScopeId: refscope.EncryptionMethodScope},
-											IsRequired:  true,
-											Description: lang.Markdown("Reference to a fallback encryption method"),
-										},
-									},
-								},
-								MaxItems: 1,
-							},
+							"fallback": fallbackSchema(10),
 						},
 					},
 				},
