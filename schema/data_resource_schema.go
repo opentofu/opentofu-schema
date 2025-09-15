@@ -75,15 +75,14 @@ func (sm *SchemaMerger) mergeDataSourceSchema(bSchema *schema.BodySchema, dsName
 		namespace = "hashicorp"
 	}
 	if namespace != "" {
-		var registryName string
+		// In OpenTofu's Search Registry, we don't save the data source prefix on the URL, example:
+		// random_uuid becomes uuid on the URL
+		registryDataSourceName := dsName
 		if len(providerAddr.Type)+1 <= len(dsName) {
-			// In OpenTofu's Search Registry, we don't save the data source prefix on the URL, example:
-			// random_uuid becomes uuid on the URL
-			registryName = dsName[len(providerAddr.Type)+1:]
-		} else {
-			registryName = dsName
+			registryDataSourceName = dsName[len(providerAddr.Type)+1:]
 		}
-		docsUrl := fmt.Sprintf("https://search.opentofu.org/provider/%s/%s/latest/docs/datasources/%s", namespace, providerAddr.Type, registryName)
+
+		docsUrl := fmt.Sprintf("https://search.opentofu.org/provider/%s/%s/latest/docs/datasources/%s", namespace, providerAddr.Type, registryDataSourceName)
 		dsSchema.DocsLink = &schema.DocsLink{
 			URL:     docsUrl,
 			Tooltip: fmt.Sprintf("%s/%s/%s Documentation", namespace, providerAddr.Type, dsName),
