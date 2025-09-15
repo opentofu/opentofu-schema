@@ -477,6 +477,7 @@ func fallbackSchema(recursiveDepth int) *schema.BlockSchema {
 					Description: lang.Markdown("Reference to a fallback encryption method"),
 				},
 			},
+			Blocks: make(map[string]*schema.BlockSchema),
 		},
 		MaxItems: 1,
 	}
