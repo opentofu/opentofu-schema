@@ -433,7 +433,7 @@ func stateBlock() *schema.BlockSchema {
 				},
 			},
 			Blocks: map[string]*schema.BlockSchema{
-				"fallback": fallbackSchema(10),
+				"fallback": fallbackSchema(FallbackRecursiveDepth),
 			},
 		},
 		MaxItems: 1,
@@ -457,13 +457,20 @@ func planBlock() *schema.BlockSchema {
 				},
 			},
 			Blocks: map[string]*schema.BlockSchema{
-				"fallback": fallbackSchema(10),
+				"fallback": fallbackSchema(FallbackRecursiveDepth),
 			},
 		},
 		MaxItems: 1,
 	}
 }
 
+// FallbackRecursiveDepth For all valid intents and purposes, fallback blocks of depth <= 10 should be used
+const FallbackRecursiveDepth = 10
+
+// fallbackSchema returns the schema for encryption fallback block
+// Since we cannot do a true recursion of this data structure,
+// we mimic it by making fallback "recursive" up to a certain depth.
+// `fallback` block in the depth + 1 block will return an error
 func fallbackSchema(recursiveDepth int) *schema.BlockSchema {
 	block := &schema.BlockSchema{
 		Description: lang.Markdown("Fallback method for reading existing encrypted data"),
@@ -477,6 +484,7 @@ func fallbackSchema(recursiveDepth int) *schema.BlockSchema {
 					Description: lang.Markdown("Reference to a fallback encryption method"),
 				},
 			},
+			Blocks: make(map[string]*schema.BlockSchema),
 		},
 		MaxItems: 1,
 	}
@@ -507,7 +515,7 @@ func remoteStateDataSourcesBlock() *schema.BlockSchema {
 							},
 						},
 						Blocks: map[string]*schema.BlockSchema{
-							"fallback": fallbackSchema(10),
+							"fallback": fallbackSchema(FallbackRecursiveDepth),
 						},
 					},
 					MaxItems: 1,
