@@ -11,6 +11,7 @@ import (
 	"github.com/hashicorp/hcl-lang/schema"
 	"github.com/opentofu/opentofu-schema/internal/schema/refscope"
 	"github.com/opentofu/opentofu-schema/internal/schema/tokmod"
+	"github.com/zclconf/go-cty/cty"
 )
 
 func ephemeralBlockSchema(_ *version.Version) *schema.BlockSchema {
@@ -117,12 +118,12 @@ func ephemeralLifecycleBlock() *schema.BlockSchema {
 					Body: &schema.BodySchema{
 						Attributes: map[string]*schema.AttributeSchema{
 							"condition": {
-								Constraint:  schema.AnyExpression{},
+								Constraint:  schema.AnyExpression{OfType: cty.Bool},
 								IsRequired:  true,
 								Description: lang.Markdown("Condition that must be true after the ephemeral resource is opened"),
 							},
 							"error_message": {
-								Constraint:  schema.AnyExpression{},
+								Constraint:  schema.AnyExpression{OfType: cty.String},
 								IsRequired:  true,
 								Description: lang.Markdown("Error message to show when the condition fails"),
 							},
