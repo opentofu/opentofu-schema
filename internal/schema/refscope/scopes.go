@@ -18,6 +18,7 @@ var (
 	ProviderScope              = lang.ScopeId("provider")
 	ResourceScope              = lang.ScopeId("resource")
 	VariableScope              = lang.ScopeId("variable")
+	EphemeralScope             = lang.ScopeId("ephemeral")
 	EncryptionScope            = lang.ScopeId("encryption")
 	EncryptionMethodScope      = lang.ScopeId("encryption_method")
 	EncryptionKeyProviderScope = lang.ScopeId("encryption_key_provider")

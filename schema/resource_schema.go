@@ -49,6 +49,8 @@ func (bs *SchemaMerger) mergeResourceSchema(bSchema *schema.BodySchema, rName st
 	}
 
 	bSchema.Blocks["resource"].DependentBody[schema.NewSchemaKey(depKeys)] = rSchema
+	// Set ephemeral block DependentBody same as for resources
+	bSchema.Blocks["ephemeral"].DependentBody[schema.NewSchemaKey(depKeys)] = rSchema
 
 	// No explicit association is required
 	// if the resource prefix matches provider name
@@ -59,5 +61,7 @@ func (bs *SchemaMerger) mergeResourceSchema(bSchema *schema.BodySchema, rName st
 			},
 		}
 		bSchema.Blocks["resource"].DependentBody[schema.NewSchemaKey(depKeys)] = rSchema
+		// Set ephemeral block DependentBody same as for resources
+		bSchema.Blocks["ephemeral"].DependentBody[schema.NewSchemaKey(depKeys)] = rSchema
 	}
 }
