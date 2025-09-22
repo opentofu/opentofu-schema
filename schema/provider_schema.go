@@ -12,11 +12,10 @@ import (
 )
 
 type ProviderSchema struct {
-	Provider      *schema.BodySchema
-	Resources     map[string]*schema.BodySchema
-	DataSources   map[string]*schema.BodySchema
-	Functions     map[string]*schema.FunctionSignature
-	ListResources map[string]*schema.BodySchema
+	Provider    *schema.BodySchema
+	Resources   map[string]*schema.BodySchema
+	DataSources map[string]*schema.BodySchema
+	Functions   map[string]*schema.FunctionSignature
 }
 
 func (ps *ProviderSchema) Copy() *ProviderSchema {
@@ -49,13 +48,6 @@ func (ps *ProviderSchema) Copy() *ProviderSchema {
 		}
 	}
 
-	if ps.ListResources != nil {
-		newPs.ListResources = make(map[string]*schema.BodySchema, len(ps.ListResources))
-		for name, lsSchema := range ps.ListResources {
-			newPs.ListResources[name] = lsSchema.Copy()
-		}
-	}
-
 	return newPs
 }
 
@@ -73,8 +65,5 @@ func (ps *ProviderSchema) SetProviderVersion(pAddr tfaddr.Provider, v *version.V
 	}
 	for _, fSig := range ps.Functions {
 		fSig.Detail = detailForSrcAddr(pAddr, v)
-	}
-	for _, lsSchema := range ps.ListResources {
-		lsSchema.Detail = detailForSrcAddr(pAddr, v)
 	}
 }
