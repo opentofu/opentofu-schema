@@ -18,16 +18,6 @@ var (
 	ProviderScope              = lang.ScopeId("provider")
 	ResourceScope              = lang.ScopeId("resource")
 	VariableScope              = lang.ScopeId("variable")
-	EncryptionScope            = lang.ScopeId("encryption")
 	EncryptionMethodScope      = lang.ScopeId("encryption_method")
 	EncryptionKeyProviderScope = lang.ScopeId("encryption_key_provider")
-
-	ComponentScope     = lang.ScopeId("component")
-	IdentityTokenScope = lang.ScopeId("identity_token")
-	StoreScope         = lang.ScopeId("store")
-	OrchestrateContext = lang.ScopeId("orchestrate_context")
-
-	ListScope = lang.ScopeId("list")
-
-	ActionScope = lang.ScopeId("action")
 )
