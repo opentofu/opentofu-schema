@@ -16,7 +16,6 @@ var (
 	Output            = lang.SemanticTokenModifier("opentofu-output")
 	Provider          = lang.SemanticTokenModifier("opentofu-provider")
 	Resource          = lang.SemanticTokenModifier("opentofu-resource")
-	Ephemeral         = lang.SemanticTokenModifier("opentofu-ephemeral")
 	Provisioner       = lang.SemanticTokenModifier("opentofu-provisioner")
 	Connection        = lang.SemanticTokenModifier("opentofu-connection")
 	Variable          = lang.SemanticTokenModifier("opentofu-variable")

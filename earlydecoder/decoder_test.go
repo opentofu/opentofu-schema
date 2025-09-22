@@ -81,10 +81,6 @@ resource "google_storage_bucket" "bucket" {
   name = "test-bucket"
 }
 
-ephemeral "random_password" "psst" {
-  length = 16
-}
-
 data "blah_foobar" "test" {
   name = "something"
 }
