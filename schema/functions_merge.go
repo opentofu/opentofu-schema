@@ -9,6 +9,7 @@ import (
 	"github.com/hashicorp/go-version"
 	"github.com/hashicorp/hcl-lang/schema"
 	tfmod "github.com/opentofu/opentofu-schema/module"
+	tfaddr "github.com/opentofu/registry-address"
 )
 
 // FunctionsStateReader exposes a set of methods to read data from the internal language server state
@@ -20,9 +21,9 @@ type FunctionsStateReader interface {
 }
 
 type FunctionsMerger struct {
-	coreFunctions    map[string]schema.FunctionSignature
-	tofuVersion      *version.Version
-	stateReader      FunctionsStateReader
+	coreFunctions map[string]schema.FunctionSignature
+	tofuVersion   *version.Version
+	stateReader   FunctionsStateReader
 }
 
 func NewFunctionsMerger(coreFunctions map[string]schema.FunctionSignature) *FunctionsMerger {
