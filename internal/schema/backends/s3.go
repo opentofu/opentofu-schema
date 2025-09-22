@@ -560,17 +560,8 @@ func s3Backend(v *version.Version) *schema.BodySchema {
 		bodySchema.Attributes["use_lockfile"] = &schema.AttributeSchema{
 			Constraint:  schema.LiteralType{Type: cty.Bool},
 			IsOptional:  true,
-			Description: lang.Markdown("(Experimental) Whether to use a lockfile for locking the state file."),
+			Description: lang.Markdown("Enable locking directly into the configured bucket for the state. [Read more about state locking](https://opentofu.org/docs/language/settings/backends/s3/#s3-state-locking)"),
 		}
-
-		delete(bodySchema.Attributes, "role_arn")
-		delete(bodySchema.Attributes, "session_name")
-		delete(bodySchema.Attributes, "external_id")
-		delete(bodySchema.Attributes, "assume_role_duration_seconds")
-		delete(bodySchema.Attributes, "assume_role_policy")
-		delete(bodySchema.Attributes, "assume_role_policy_arns")
-		delete(bodySchema.Attributes, "assume_role_tags")
-		delete(bodySchema.Attributes, "assume_role_transitive_tag_keys")
 	}
 
 	return bodySchema
