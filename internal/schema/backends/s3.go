@@ -556,5 +556,22 @@ func s3Backend(v *version.Version) *schema.BodySchema {
 		delete(bodySchema.Attributes, "use_legacy_workflow")
 	}
 
+	if v.GreaterThanOrEqual(v1_10_0) {
+		bodySchema.Attributes["use_lockfile"] = &schema.AttributeSchema{
+			Constraint:  schema.LiteralType{Type: cty.Bool},
+			IsOptional:  true,
+			Description: lang.Markdown("(Experimental) Whether to use a lockfile for locking the state file."),
+		}
+
+		delete(bodySchema.Attributes, "role_arn")
+		delete(bodySchema.Attributes, "session_name")
+		delete(bodySchema.Attributes, "external_id")
+		delete(bodySchema.Attributes, "assume_role_duration_seconds")
+		delete(bodySchema.Attributes, "assume_role_policy")
+		delete(bodySchema.Attributes, "assume_role_policy_arns")
+		delete(bodySchema.Attributes, "assume_role_tags")
+		delete(bodySchema.Attributes, "assume_role_transitive_tag_keys")
+	}
+
 	return bodySchema
 }

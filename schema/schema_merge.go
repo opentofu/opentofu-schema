@@ -63,7 +63,7 @@ func (m *SchemaMerger) SetTofuVersion(v *version.Version) {
 
 func (m *SchemaMerger) SchemaForModule(meta *tfmod.Meta) (*schema.BodySchema, error) {
 	if m.coreSchema == nil {
-		return nil, coreSchemaRequiredErr{}
+		return nil, CoreSchemaRequiredErr{}
 	}
 
 	if meta == nil {
@@ -219,7 +219,7 @@ func (m *SchemaMerger) SchemaForModule(meta *tfmod.Meta) (*schema.BodySchema, er
 	return mergedSchema, nil
 }
 
-// typeBelongsToProvider returns true if the given type
+// TypeBelongsToProvider returns true if the given type
 // (resource or data source) name belongs to a particular provider.
 //
 // This reflects internal implementation in OpenTofu at

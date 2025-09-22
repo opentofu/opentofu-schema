@@ -25,9 +25,11 @@ func TestProviderSchemaFromJson_empty(t *testing.T) {
 
 	ps := ProviderSchemaFromJson(jsonSchema, providerAddr)
 	expectedPs := &ProviderSchema{
-		Resources:   map[string]*schema.BodySchema{},
-		DataSources: map[string]*schema.BodySchema{},
-		Functions:   map[string]*schema.FunctionSignature{},
+		Resources:          map[string]*schema.BodySchema{},
+		EphemeralResources: map[string]*schema.BodySchema{},
+		DataSources:        map[string]*schema.BodySchema{},
+		Functions:          map[string]*schema.FunctionSignature{},
+		ListResources:      map[string]*schema.BodySchema{},
 	}
 
 	if diff := cmp.Diff(expectedPs, ps, ctydebug.CmpOptions); diff != "" {
@@ -295,8 +297,10 @@ func TestProviderSchemaFromJson_basic(t *testing.T) {
 				Detail: "hashicorp/aws",
 			},
 		},
-		DataSources: map[string]*schema.BodySchema{},
-		Functions:   map[string]*schema.FunctionSignature{},
+		EphemeralResources: map[string]*schema.BodySchema{},
+		DataSources:        map[string]*schema.BodySchema{},
+		Functions:          map[string]*schema.FunctionSignature{},
+		ListResources:      map[string]*schema.BodySchema{},
 	}
 
 	if diff := cmp.Diff(expectedPs, ps, ctydebug.CmpOptions); diff != "" {
@@ -503,8 +507,10 @@ func TestProviderSchemaFromJson_nested_set_list(t *testing.T) {
 				Detail: "hashicorp/aws",
 			},
 		},
-		DataSources: map[string]*schema.BodySchema{},
-		Functions:   map[string]*schema.FunctionSignature{},
+		EphemeralResources: map[string]*schema.BodySchema{},
+		DataSources:        map[string]*schema.BodySchema{},
+		Functions:          map[string]*schema.FunctionSignature{},
+		ListResources:      map[string]*schema.BodySchema{},
 	}
 
 	if diff := cmp.Diff(expectedPs, ps, ctydebug.CmpOptions); diff != "" {
@@ -537,8 +543,9 @@ func TestProviderSchemaFromJson_function(t *testing.T) {
 			  }
 		}`,
 			ProviderSchema{
-				Resources:   map[string]*schema.BodySchema{},
-				DataSources: map[string]*schema.BodySchema{},
+				Resources:          map[string]*schema.BodySchema{},
+				EphemeralResources: map[string]*schema.BodySchema{},
+				DataSources:        map[string]*schema.BodySchema{},
 				Functions: map[string]*schema.FunctionSignature{
 					"example": {
 						Description: "Echoes given argument as result",
@@ -554,6 +561,7 @@ func TestProviderSchemaFromJson_function(t *testing.T) {
 						VarParam: nil,
 					},
 				},
+				ListResources: map[string]*schema.BodySchema{},
 			},
 		},
 		{
@@ -569,8 +577,9 @@ func TestProviderSchemaFromJson_function(t *testing.T) {
 			  }
 		}`,
 			ProviderSchema{
-				Resources:   map[string]*schema.BodySchema{},
-				DataSources: map[string]*schema.BodySchema{},
+				Resources:          map[string]*schema.BodySchema{},
+				EphemeralResources: map[string]*schema.BodySchema{},
+				DataSources:        map[string]*schema.BodySchema{},
 				Functions: map[string]*schema.FunctionSignature{
 					"example": {
 						Description: "Returns a string",
@@ -580,6 +589,7 @@ func TestProviderSchemaFromJson_function(t *testing.T) {
 						VarParam:    nil,
 					},
 				},
+				ListResources: map[string]*schema.BodySchema{},
 			},
 		},
 		{
@@ -606,8 +616,9 @@ func TestProviderSchemaFromJson_function(t *testing.T) {
 			  }
 		}`,
 			ProviderSchema{
-				Resources:   map[string]*schema.BodySchema{},
-				DataSources: map[string]*schema.BodySchema{},
+				Resources:          map[string]*schema.BodySchema{},
+				EphemeralResources: map[string]*schema.BodySchema{},
+				DataSources:        map[string]*schema.BodySchema{},
 				Functions: map[string]*schema.FunctionSignature{
 					"example": {
 						Description: "Echoes given argument as result",
@@ -627,6 +638,7 @@ func TestProviderSchemaFromJson_function(t *testing.T) {
 						},
 					},
 				},
+				ListResources: map[string]*schema.BodySchema{},
 			},
 		},
 	}
