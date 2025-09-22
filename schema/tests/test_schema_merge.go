@@ -57,8 +57,8 @@ func (m *TestSchemaMerger) SchemaForTest(meta *tftest.Meta) (*schema.BodySchema,
 	// TODO merge nested mock_resource blocks - use the label as dependency key
 	// TODO merge nested mock_data blocks - use the label as dependency key
 	// TODO merge run - module blocks - use the source as dependency key
-	// TODO merge variables - source them from the Terraform module meta
-	// TODO merge provider - source them from the Terraform module meta requirements
+	// TODO merge variables - source them from the OpenTofu module meta
+	// TODO merge provider - source them from the OpenTofu module meta requirements
 
 	return mergedSchema, nil
 }
