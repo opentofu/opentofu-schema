@@ -7,7 +7,7 @@ import (
 	"github.com/hashicorp/go-version"
 	"github.com/hashicorp/hcl-lang/schema"
 
-	v1_6_test "github.com/hashicorp/terraform-schema/internal/schema/tests/1.6"
+	v1_6_test "github.com/opentofu/opentofu-schema/internal/schema/tests/1.6"
 )
 
 // TestSchema returns the static schema for a test
@@ -25,17 +25,4 @@ func TestSchema(v *version.Version) *schema.BodySchema {
 	bs.Blocks["run"].Body.Blocks["override_module"] = overrideModuleBlockSchema()
 
 	return bs
-}
-
-// MockSchema returns the static schema for a mock
-// configuration (*.tfmock.hcl) file.
-func MockSchema(_ *version.Version) *schema.BodySchema {
-	return &schema.BodySchema{
-		Blocks: map[string]*schema.BlockSchema{
-			"mock_resource":     mockResourceBlockSchema(),
-			"mock_data":         mockDataBlockSchema(),
-			"override_resource": overrideResourceBlockSchema(),
-			"override_data":     overrideDataBlockSchema(),
-		},
-	}
 }

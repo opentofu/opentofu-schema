@@ -6,8 +6,8 @@ package schema
 import (
 	"github.com/hashicorp/hcl-lang/lang"
 	"github.com/hashicorp/hcl-lang/schema"
-	"github.com/hashicorp/terraform-schema/internal/schema/refscope"
-	"github.com/hashicorp/terraform-schema/internal/schema/tokmod"
+	"github.com/opentofu/opentofu-schema/internal/schema/refscope"
+	"github.com/opentofu/opentofu-schema/internal/schema/tokmod"
 	"github.com/zclconf/go-cty/cty"
 )
 
@@ -42,13 +42,6 @@ func providerBlockSchema() *schema.BlockSchema {
 					Constraint:  schema.LiteralType{Type: cty.String},
 					IsOptional:  true,
 					Description: lang.Markdown("Alias for using the same provider with different configurations for different resources, e.g. `eu-west`"),
-				},
-				"version": {
-					Constraint:   schema.LiteralType{Type: cty.String},
-					IsOptional:   true,
-					IsDeprecated: true,
-					Description: lang.Markdown("Specifies a version constraint for the provider. e.g. `~> 1.0`.\n" +
-						"**DEPRECATED:** Use `required_providers` block to manage provider version instead."),
 				},
 			},
 		},

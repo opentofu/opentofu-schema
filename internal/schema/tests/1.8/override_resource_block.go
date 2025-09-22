@@ -6,20 +6,20 @@ package schema
 import (
 	"github.com/hashicorp/hcl-lang/lang"
 	"github.com/hashicorp/hcl-lang/schema"
-	"github.com/hashicorp/terraform-schema/internal/schema/refscope"
+	"github.com/opentofu/opentofu-schema/internal/schema/refscope"
 )
 
-func overrideDataBlockSchema() *schema.BlockSchema {
+func overrideResourceBlockSchema() *schema.BlockSchema {
 	return &schema.BlockSchema{
-		Description: lang.PlainText("Allows overriding the values of a specific data source in the targeted configuration"),
+		Description: lang.PlainText("Allows overriding the values of a specific resource in the targeted configuration"),
 		Body: &schema.BodySchema{
 			Attributes: map[string]*schema.AttributeSchema{
 				"target": {
 					Constraint: schema.Reference{
-						OfScopeId: refscope.DataScope,
+						OfScopeId: refscope.ResourceScope,
 					},
 					IsRequired:  true,
-					Description: lang.Markdown("Reference to the data source to override"),
+					Description: lang.Markdown("Reference to the resource to override"),
 				},
 				"values": {
 					Constraint: schema.Object{
