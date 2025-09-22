@@ -6,9 +6,9 @@ package schema
 import (
 	"github.com/hashicorp/go-version"
 	"github.com/hashicorp/hcl-lang/schema"
-	tfschema "github.com/hashicorp/terraform-schema/schema"
 	test_v1_6 "github.com/opentofu/opentofu-schema/internal/schema/tests/1.6"
 	test_v1_8 "github.com/opentofu/opentofu-schema/internal/schema/tests/1.8"
+	tfschema "github.com/opentofu/opentofu-schema/schema"
 )
 
 var (

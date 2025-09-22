@@ -6,10 +6,10 @@ package schema
 import (
 	"github.com/hashicorp/go-version"
 	"github.com/hashicorp/hcl-lang/schema"
-	tfaddr "github.com/hashicorp/terraform-registry-address"
-	tfmod "github.com/hashicorp/terraform-schema/module"
-	tfschema "github.com/hashicorp/terraform-schema/schema"
-	tftest "github.com/hashicorp/terraform-schema/test"
+	tfmod "github.com/opentofu/opentofu-schema/module"
+	tfschema "github.com/opentofu/opentofu-schema/schema"
+	tftest "github.com/opentofu/opentofu-schema/test"
+	tfaddr "github.com/opentofu/registry-address"
 )
 
 type TestSchemaMerger struct {

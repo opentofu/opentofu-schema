@@ -9,11 +9,9 @@ require (
 	github.com/hashicorp/hcl-lang v0.0.0-20250613065305-ef4e1a57cead
 	github.com/hashicorp/hcl/v2 v2.24.0
 	github.com/hashicorp/terraform-json v0.27.2
-	github.com/hashicorp/terraform-registry-address v0.4.0
-	github.com/hashicorp/terraform-schema v0.0.0-20250919072604-47be6f126d59
 	github.com/mh-cbon/go-fmt-fail v0.0.0-20160815164508-67765b3fbcb5
 	github.com/opentofu/registry-address v0.0.0-20230922120653-901b9ae4061a
-	github.com/opentofu/tofudl v0.0.0-20250129123822-d4254f2a6147
+	github.com/opentofu/tofudl v0.0.1
 	github.com/zclconf/go-cty v1.17.0
 	github.com/zclconf/go-cty-debug v0.0.0-20240509010212-0d6042c53940
 )

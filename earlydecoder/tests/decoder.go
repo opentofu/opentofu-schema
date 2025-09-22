@@ -7,7 +7,7 @@ import (
 	"sort"
 
 	"github.com/hashicorp/hcl/v2"
-	tftest "github.com/hashicorp/terraform-schema/test"
+	tftest "github.com/opentofu/opentofu-schema/test"
 )
 
 func LoadTest(path string, files map[string]*hcl.File) (*tftest.Meta, hcl.Diagnostics) {

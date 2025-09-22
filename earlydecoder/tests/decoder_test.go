@@ -11,7 +11,7 @@ import (
 	"github.com/hashicorp/go-version"
 	"github.com/hashicorp/hcl/v2"
 	"github.com/hashicorp/hcl/v2/hclsyntax"
-	tftest "github.com/hashicorp/terraform-schema/test"
+	tftest "github.com/opentofu/opentofu-schema/test"
 	"github.com/zclconf/go-cty-debug/ctydebug"
 )
 
