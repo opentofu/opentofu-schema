@@ -128,6 +128,9 @@ func ephemeralLifecycleBlock() *schema.BlockSchema {
 								Description: lang.Markdown("Error message to show when the condition fails"),
 							},
 						},
+						Extensions: &schema.BodyExtensions{
+							SelfRefs: true,
+						},
 					},
 				},
 			},
