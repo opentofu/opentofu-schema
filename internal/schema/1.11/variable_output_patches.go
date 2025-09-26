@@ -8,6 +8,7 @@ package schema
 import (
 	"github.com/hashicorp/hcl-lang/lang"
 	"github.com/hashicorp/hcl-lang/schema"
+	"github.com/opentofu/opentofu-schema/internal/schema/refscope"
 	"github.com/zclconf/go-cty/cty"
 )
 
@@ -39,4 +40,21 @@ func patchOutputBlockSchema(bs *schema.BlockSchema) *schema.BlockSchema {
 	}
 
 	return bs
+}
+
+// patchDependencyScopeConstraintsWithEphemeral Adds Ephemeral scope to depends_on blocks of different blocks
+func patchDependencyScopeConstraintsWithEphemeral(bs *schema.BodySchema) {
+	// Every block type currently in the schema can depend on ephemeral resources and their constraints are identical
+	for _, block := range bs.Blocks {
+		block.Body.Attributes["depends_on"].Constraint = schema.Set{
+			Elem: schema.OneOf{
+				schema.Reference{OfScopeId: refscope.DataScope},
+				schema.Reference{OfScopeId: refscope.ModuleScope},
+				schema.Reference{OfScopeId: refscope.ResourceScope},
+				schema.Reference{OfScopeId: refscope.EphemeralScope},
+				schema.Reference{OfScopeId: refscope.VariableScope},
+				schema.Reference{OfScopeId: refscope.LocalScope},
+			},
+		}
+	}
 }

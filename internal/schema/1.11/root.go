@@ -24,5 +24,8 @@ func ModuleSchema(v *version.Version) *schema.BodySchema {
 	// Update output block to support ephemeral attribute
 	bs.Blocks["output"] = patchOutputBlockSchema(bs.Blocks["output"])
 
+	// Assign new set of identical contraints, including ephemeral resource as a viable dependency type to all block types
+	patchDependencyScopeConstraintsWithEphemeral(bs)
+
 	return bs
 }
