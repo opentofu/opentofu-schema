@@ -142,15 +142,18 @@ func LoadModule(path string, files map[string]*hcl.File) (*module.Meta, hcl.Diag
 	}
 
 	for _, resource := range mod.Resources {
-		assignResourceAndDataSourceConstraints(resource.Provider.LocalName, providerRequirements, refs)
+		constraintDiags := assignResourceAndDataSourceConstraints(resource.Provider.LocalName, providerRequirements, refs)
+		diags = append(diags, constraintDiags...)
 	}
 
 	for _, ephemeralResource := range mod.EphemeralResources {
-		assignResourceAndDataSourceConstraints(ephemeralResource.Provider.LocalName, providerRequirements, refs)
+		constraintDiags := assignResourceAndDataSourceConstraints(ephemeralResource.Provider.LocalName, providerRequirements, refs)
+		diags = append(diags, constraintDiags...)
 	}
 
 	for _, dataSource := range mod.DataSources {
-		assignResourceAndDataSourceConstraints(dataSource.Provider.LocalName, providerRequirements, refs)
+		constraintDiags := assignResourceAndDataSourceConstraints(dataSource.Provider.LocalName, providerRequirements, refs)
+		diags = append(diags, constraintDiags...)
 	}
 
 	variables := make(map[string]module.Variable)

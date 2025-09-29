@@ -8,19 +8,22 @@ package schema
 import (
 	"testing"
 
+	"github.com/hashicorp/hcl-lang/schema"
+	"github.com/opentofu/opentofu-schema/internal/schema/refscope"
+
 	"github.com/hashicorp/go-version"
 )
 
 // Generic test scenarios to check if the ephemeral schema is setup correctly
 func TestCoreModuleSchemaForVersion_v1_11_ephemeral(t *testing.T) {
 	v := version.Must(version.NewVersion("1.11.0"))
-	schema, err := CoreModuleSchemaForVersion(v)
+	schemaForVersion, err := CoreModuleSchemaForVersion(v)
 	if err != nil {
 		t.Fatal(err)
 	}
 
 	// Test that ephemeral block exists
-	ephemeralBlock, exists := schema.Blocks["ephemeral"]
+	ephemeralBlock, exists := schemaForVersion.Blocks["ephemeral"]
 	if !exists {
 		t.Fatal("expected ephemeral block in v1.11 schema")
 	}
@@ -73,7 +76,7 @@ func TestCoreModuleSchemaForVersion_v1_11_ephemeral(t *testing.T) {
 	}
 
 	// Test variable block has ephemeral attribute
-	variableBlock, exists := schema.Blocks["variable"]
+	variableBlock, exists := schemaForVersion.Blocks["variable"]
 	if !exists {
 		t.Fatal("expected variable block in v1.11 schema")
 	}
@@ -89,7 +92,7 @@ func TestCoreModuleSchemaForVersion_v1_11_ephemeral(t *testing.T) {
 	}
 
 	// Test output block has an ephemeral attribute
-	outputBlock, exists := schema.Blocks["output"]
+	outputBlock, exists := schemaForVersion.Blocks["output"]
 	if !exists {
 		t.Fatal("expected output block in v1.11 schema")
 	}
@@ -103,12 +106,63 @@ func TestCoreModuleSchemaForVersion_v1_11_ephemeral(t *testing.T) {
 			t.Error("expected output ephemeral attribute to be optional")
 		}
 	}
+}
 
-	// Test that all other expected blocks still exist after merging the 1.11 schema
-	expectedBlocks := []string{"data", "locals", "module", "provider", "resource", "terraform"}
+func TestCoreModuleSchemaForVersion_v1_11_ephemeral_misc(t *testing.T) {
+	v := version.Must(version.NewVersion("1.11.0"))
+	schemaForVersion, err := CoreModuleSchemaForVersion(v)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	// Test that all other expected blocks still exist after merging the 1.11 schema, no accidental overrides
+	expectedBlocks := []string{"resource", "terraform", "moved", "removed", "data", "locals", "module", "output", "provider", "variable", "import", "check"}
+
+	blockRemoved := false
 	for _, blockName := range expectedBlocks {
-		if _, exists := schema.Blocks[blockName]; !exists {
+		if _, exists := schemaForVersion.Blocks[blockName]; !exists {
 			t.Errorf("expected %s block to exist in v1.11 schema", blockName)
+			blockRemoved = true
 		}
 	}
+	// We have bigger issues that depends_on attributes and it will likely panic
+	if blockRemoved {
+		return
+	}
+
+	// Check that all expected blocks can depend_on ephemeral
+	dependantBlocks := []string{"resource", "data", "module", "output"}
+	for _, blockName := range dependantBlocks {
+		if !blockCanDependOnEphemeral(schemaForVersion.Blocks[blockName]) {
+			t.Errorf("expected the `%s` block to be able to depend_on ephemeral", blockName)
+		}
+	}
+	// Additional case for nested "data" block under the "check" block
+	if !blockCanDependOnEphemeral(schemaForVersion.Blocks["check"].Body.Blocks["data"]) {
+		t.Errorf("expected the `data` block under the `check` block to be able to depend_on ephemeral")
+	}
+}
+
+// blockCanDependOnEphemeral is a test helper that checks if the given block's depends_on attribute
+// can reference ephemeral blocks.
+func blockCanDependOnEphemeral(block *schema.BlockSchema) bool {
+	do, ok := block.Body.Attributes["depends_on"]
+	if !ok {
+		return false
+	}
+	refsCons, ok := do.Constraint.(schema.Set)
+	if !ok {
+		return false
+	}
+	oneOf, ok := refsCons.Elem.(schema.OneOf)
+	if !ok {
+		return false
+	}
+	for _, con := range oneOf {
+		ref, ok := con.(schema.Reference)
+		if ok && ref.OfScopeId == refscope.EphemeralScope {
+			return true
+		}
+	}
+	return false
 }

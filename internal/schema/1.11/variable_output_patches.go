@@ -42,19 +42,31 @@ func patchOutputBlockSchema(bs *schema.BlockSchema) *schema.BlockSchema {
 	return bs
 }
 
+func defaultDependsOnValue() schema.Constraint {
+	return schema.Set{
+		Elem: schema.OneOf{
+			schema.Reference{OfScopeId: refscope.DataScope},
+			schema.Reference{OfScopeId: refscope.ModuleScope},
+			schema.Reference{OfScopeId: refscope.ResourceScope},
+			schema.Reference{OfScopeId: refscope.EphemeralScope},
+			schema.Reference{OfScopeId: refscope.VariableScope},
+			schema.Reference{OfScopeId: refscope.LocalScope},
+		},
+	}
+}
+
 // patchDependencyScopeConstraintsWithEphemeral Adds Ephemeral scope to depends_on blocks of different blocks
 func patchDependencyScopeConstraintsWithEphemeral(bs *schema.BodySchema) {
-	// Every block type currently in the schema can depend on ephemeral resources and their constraints are identical
+	// Every block type that support depends_on attribute currently in the schema can also depend on the ephemeral resources and their constraints are identical
 	for _, block := range bs.Blocks {
-		block.Body.Attributes["depends_on"].Constraint = schema.Set{
-			Elem: schema.OneOf{
-				schema.Reference{OfScopeId: refscope.DataScope},
-				schema.Reference{OfScopeId: refscope.ModuleScope},
-				schema.Reference{OfScopeId: refscope.ResourceScope},
-				schema.Reference{OfScopeId: refscope.EphemeralScope},
-				schema.Reference{OfScopeId: refscope.VariableScope},
-				schema.Reference{OfScopeId: refscope.LocalScope},
-			},
+		attrs := block.Body.Attributes
+		if _, ok := attrs["depends_on"]; !ok {
+			continue
 		}
+		attrs["depends_on"].Constraint = defaultDependsOnValue()
 	}
+
+	// The outlier that we also need to patch is the "data" block inside the "check" block
+	// This is configured separately and needs to have it's depends_on updated separately
+	bs.Blocks["check"].Body.Blocks["data"].Body.Attributes["depends_on"].Constraint = defaultDependsOnValue()
 }
