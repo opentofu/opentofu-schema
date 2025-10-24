@@ -193,7 +193,7 @@ func TestSchemaMerger_SchemaForModule_providerNameMatch(t *testing.T) {
 		},
 	})
 
-	sm.SetTofuVersion(v1_10)
+	sm.SetTofuVersion(v1_6)
 
 	givenBodySchema, err := sm.SchemaForModule(&module.Meta{
 		ProviderReferences: map[module.ProviderRef]tfaddr.Provider{
