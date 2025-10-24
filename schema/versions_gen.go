@@ -6,9 +6,8 @@ import (
 )
 
 var (
-	OldestAvailableVersion                     = version.Must(version.NewVersion("0.12.0"))
-	LatestAvailableVersion                     = version.Must(version.NewVersion("1.10.6"))
-	LatestAvailableVersionIncludingPrereleases = version.Must(version.NewVersion("1.11.0-beta1"))
+	OldestAvailableVersion = version.Must(version.NewVersion("1.6.0"))
+	LatestAvailableVersion = version.Must(version.NewVersion("1.11.0-beta1"))
 
 	tofuVersions = version.Collection{
 		version.Must(version.NewVersion("1.11.0-beta1")),

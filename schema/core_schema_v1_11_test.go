@@ -16,7 +16,7 @@ import (
 
 // Generic test scenarios to check if the ephemeral schema is setup correctly
 func TestCoreModuleSchemaForVersion_v1_11_ephemeral(t *testing.T) {
-	v := version.Must(version.NewVersion("1.11.0"))
+	v := version.Must(version.NewVersion("1.11.0-beta1"))
 	schemaForVersion, err := CoreModuleSchemaForVersion(v)
 	if err != nil {
 		t.Fatal(err)
@@ -109,7 +109,7 @@ func TestCoreModuleSchemaForVersion_v1_11_ephemeral(t *testing.T) {
 }
 
 func TestCoreModuleSchemaForVersion_v1_11_ephemeral_misc(t *testing.T) {
-	v := version.Must(version.NewVersion("1.11.0"))
+	v := version.Must(version.NewVersion("1.11.0-beta1"))
 	schemaForVersion, err := CoreModuleSchemaForVersion(v)
 	if err != nil {
 		t.Fatal(err)

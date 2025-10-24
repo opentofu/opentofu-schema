@@ -48,8 +48,6 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	//TODO Manually appending the 1.11.0
-	releases = append(releases, release{Version: version.Must(version.NewVersion("1.11.0"))})
 
 	sort.SliceStable(releases, func(i, j int) bool {
 		return releases[i].Version.GreaterThan(releases[j].Version)
