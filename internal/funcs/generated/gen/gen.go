@@ -33,7 +33,7 @@ var (
 )
 
 const (
-	functionSignatureHash = "a2a13d27adacdffe438113b347642b75d64f204b702f6d7d2453dbed34e90eb1"
+	functionSignatureHash = "a1933fc3a049155578d817e116c48601e64ac4ff4758581c06f46608ed4f6f54"
 )
 
 func main() {
@@ -169,7 +169,7 @@ func {{ .FunctionName }}() map[string]schema.FunctionSignature {
 			},{{- end }}
 			ReturnType: {{ $func.ReturnType.GoString }},
 			Description: "{{ escapeDescription $func.Description }}",
-		},	
+		},
 {{- end }}
 	}
 }
@@ -277,7 +277,7 @@ func Functions(v *version.Version) map[string]schema.FunctionSignature {
 {{- end }}
 
 	return v1_4_0_Functions()
-}	
+}
 `
 
 	tpl, err := template.New("output").Funcs(template.FuncMap{
