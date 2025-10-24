@@ -108,7 +108,10 @@ func TestCoreModuleSchemaForVersion_v1_11_ephemeral(t *testing.T) {
 	}
 }
 
-func TestCoreModuleSchemaForVersion_v1_11_ephemeral_misc(t *testing.T) {
+// Since we need to overwrite parts of the schema in order to update it
+// there have been instance, where we overwrote an existing block and lost the definition
+// this is a naive test and simply check if every other block still exists in the schema we return for 1.11
+func TestCoreModuleSchemaForVersion_v1_11_block_integrity(t *testing.T) {
 	v := version.Must(version.NewVersion("1.11.0-beta1"))
 	schemaForVersion, err := CoreModuleSchemaForVersion(v)
 	if err != nil {
@@ -118,18 +121,20 @@ func TestCoreModuleSchemaForVersion_v1_11_ephemeral_misc(t *testing.T) {
 	// Test that all other expected blocks still exist after merging the 1.11 schema, no accidental overrides
 	expectedBlocks := []string{"resource", "terraform", "moved", "removed", "data", "locals", "module", "output", "provider", "variable", "import", "check"}
 
-	blockRemoved := false
 	for _, blockName := range expectedBlocks {
 		if _, exists := schemaForVersion.Blocks[blockName]; !exists {
 			t.Errorf("expected %s block to exist in v1.11 schema", blockName)
-			blockRemoved = true
 		}
 	}
-	// We have bigger issues that depends_on attributes and it will likely panic
-	if blockRemoved {
-		return
-	}
+}
 
+// Check that the correct blocks have a way to depend on the ephemeral block
+func TestCoreModuleSchemaForVersion_v1_11_ephemeral_depends_on(t *testing.T) {
+	v := version.Must(version.NewVersion("1.11.0-beta1"))
+	schemaForVersion, err := CoreModuleSchemaForVersion(v)
+	if err != nil {
+		t.Fatal(err)
+	}
 	// Check that all expected blocks can depend_on ephemeral
 	dependantBlocks := []string{"resource", "data", "module", "output"}
 	for _, blockName := range dependantBlocks {
