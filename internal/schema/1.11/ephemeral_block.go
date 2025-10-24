@@ -49,7 +49,7 @@ func ephemeralBlockSchema(_ *version.Version) *schema.BlockSchema {
 			"transient and confidential information during OpenTofu execution."),
 		Body: &schema.BodySchema{
 			DocsLink: &schema.DocsLink{
-				URL: "https://opentofu.org/docs/language/ephemerality/ephemeral-resources/",
+				URL: "https://opentofu.org/docs/v1.11/language/ephemerality/ephemeral-resources/",
 			},
 			Extensions: &schema.BodyExtensions{
 				Count:         true,
@@ -93,7 +93,7 @@ func ephemeralLifecycleBlock() *schema.BlockSchema {
 		Description: lang.Markdown("Lifecycle customizations for ephemeral resources (only precondition and postcondition are supported)"),
 		Body: &schema.BodySchema{
 			DocsLink: &schema.DocsLink{
-				URL: "https://opentofu.org/docs/language/expressions/custom-conditions/#preconditions-and-postconditions",
+				URL: "https://opentofu.org/docs/v1.11/language/expressions/custom-conditions/#preconditions-and-postconditions",
 			},
 			Blocks: map[string]*schema.BlockSchema{
 				"precondition": {

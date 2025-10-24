@@ -21,7 +21,7 @@ func patchVariableBlockSchema(bs *schema.BlockSchema) *schema.BlockSchema {
 		IsOptional:   true,
 		Description: lang.Markdown("Marks variable as ephemeral. OpenTofu will not store ephemeral variable in state at all" +
 			"and will store them only their name in plan. \n Ephemeral variables can only be used in the limited context where ephemerals are allowed. " +
-			"[Read more about ephemeral variables.](https://opentofu.org/docs/language/values/variables/#ephemerality)"),
+			"[Read more about ephemeral variables.](https://opentofu.org/docs/v1.11/language/values/variables/#ephemerality)"),
 	}
 
 	return bs
@@ -36,7 +36,7 @@ func patchOutputBlockSchema(bs *schema.BlockSchema) *schema.BlockSchema {
 		IsOptional:   true,
 		Description: lang.Markdown("Marks output as ephemeral. " +
 			"Ephemeral outputs can only be used in the limited context where ephemerals are allowed.\n" +
-			"[Read more about ephemeral variables.](https://opentofu.org/docs/language/values/outputs/#ephemerality)"),
+			"[Read more about ephemeral variables.](https://opentofu.org/docs/v1.11/language/values/outputs/#ephemerality)"),
 	}
 
 	return bs
