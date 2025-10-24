@@ -185,7 +185,7 @@ func LoadModule(path string, files map[string]*hcl.File) (*module.Meta, hcl.Diag
 	}, diags
 }
 
-func assignResourceAndDataSourceConstraints(localProviderName string, reqs map[tfaddr.Provider]version.Constraints, refs map[module.ProviderRef]tfaddr.Provider) hcl.Diagnostics {
+func assignResourceContraints(localProviderName string, reqs map[tfaddr.Provider]version.Constraints, refs map[module.ProviderRef]tfaddr.Provider) hcl.Diagnostics {
 	var diags hcl.Diagnostics
 	_, err := tfaddr.ParseProviderPart(localProviderName)
 	if err != nil {
