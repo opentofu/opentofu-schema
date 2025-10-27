@@ -6,15 +6,27 @@ import (
 )
 
 var (
-	OldestAvailableVersion = version.Must(version.NewVersion("0.12.0"))
-	LatestAvailableVersion = version.Must(version.NewVersion("1.9.1"))
+	OldestAvailableVersion                     = version.Must(version.NewVersion("0.12.0"))
+	LatestAvailableVersion                     = version.Must(version.NewVersion("1.10.6"))
+	LatestAvailableVersionIncludingPrereleases = version.Must(version.NewVersion("1.11.0-beta1"))
 
 	tofuVersions = version.Collection{
+		version.Must(version.NewVersion("1.11.0-beta1")),
+		version.Must(version.NewVersion("1.10.6")),
+		version.Must(version.NewVersion("1.10.5")),
+		version.Must(version.NewVersion("1.10.4")),
+		version.Must(version.NewVersion("1.10.3")),
+		version.Must(version.NewVersion("1.10.2")),
+		version.Must(version.NewVersion("1.10.1")),
+		version.Must(version.NewVersion("1.10.0")),
 		version.Must(version.NewVersion("1.10.0-rc1")),
 		version.Must(version.NewVersion("1.10.0-beta2")),
 		version.Must(version.NewVersion("1.10.0-beta1")),
 		version.Must(version.NewVersion("1.10.0-alpha2")),
 		version.Must(version.NewVersion("1.10.0-alpha1")),
+		version.Must(version.NewVersion("1.9.4")),
+		version.Must(version.NewVersion("1.9.3")),
+		version.Must(version.NewVersion("1.9.2")),
 		version.Must(version.NewVersion("1.9.1")),
 		version.Must(version.NewVersion("1.9.0")),
 		version.Must(version.NewVersion("1.9.0-rc2")),
@@ -23,6 +35,8 @@ var (
 		version.Must(version.NewVersion("1.9.0-beta1")),
 		version.Must(version.NewVersion("1.9.0-alpha2")),
 		version.Must(version.NewVersion("1.9.0-alpha1")),
+		version.Must(version.NewVersion("1.8.11")),
+		version.Must(version.NewVersion("1.8.10")),
 		version.Must(version.NewVersion("1.8.9")),
 		version.Must(version.NewVersion("1.8.8")),
 		version.Must(version.NewVersion("1.8.7")),
@@ -37,6 +51,8 @@ var (
 		version.Must(version.NewVersion("1.8.0-beta2")),
 		version.Must(version.NewVersion("1.8.0-beta1")),
 		version.Must(version.NewVersion("1.8.0-alpha1")),
+		version.Must(version.NewVersion("1.7.10")),
+		version.Must(version.NewVersion("1.7.9")),
 		version.Must(version.NewVersion("1.7.8")),
 		version.Must(version.NewVersion("1.7.7")),
 		version.Must(version.NewVersion("1.7.6")),

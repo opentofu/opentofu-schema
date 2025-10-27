@@ -63,6 +63,7 @@ import (
 var (
 	OldestAvailableVersion = version.Must(version.NewVersion("{{ .OldestVersion }}"))
 	LatestAvailableVersion = version.Must(version.NewVersion("{{ .LatestVersion }}"))
+	LatestAvailableVersionIncludingPrereleases = version.Must(version.NewVersion("{{ .LatestVersionWPrereleases }}"))
 
 	tofuVersions = version.Collection{
 {{- range .Releases }}
@@ -77,31 +78,33 @@ var (
 	}
 
 	type data struct {
-		Releases      []release
-		OldestVersion *version.Version
-		LatestVersion *version.Version
+		Releases                  []release
+		OldestVersion             *version.Version
+		LatestVersion             *version.Version
+		LatestVersionWPrereleases *version.Version
 	}
 
 	// we keep this hard-coded to 0.12 since
 	// we don't have schema for older versions
 	oldestVersion := version.Must(version.NewVersion("0.12.0"))
 
-	latestVersion, err := firstStableVersion(releases)
+	latestVersion, err := latestStableVersion(releases)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	err = tpl.Execute(output, data{
-		Releases:      releases,
-		LatestVersion: latestVersion,
-		OldestVersion: oldestVersion,
+		Releases:                  releases,
+		LatestVersion:             latestVersion,
+		OldestVersion:             oldestVersion,
+		LatestVersionWPrereleases: latestVersionOverall(releases),
 	})
 	if err != nil {
 		log.Fatal(err)
 	}
 }
 
-func firstStableVersion(releases []release) (*version.Version, error) {
+func latestStableVersion(releases []release) (*version.Version, error) {
 	for _, release := range releases {
 		if release.Version.Prerelease() == "" {
 			return release.Version, nil
@@ -109,6 +112,10 @@ func firstStableVersion(releases []release) (*version.Version, error) {
 	}
 
 	return nil, fmt.Errorf("unable to find stable version in %d given releases", len(releases))
+}
+
+func latestVersionOverall(releases []release) *version.Version {
+	return releases[0].Version
 }
 
 func GetTofuReleases() ([]release, error) {
