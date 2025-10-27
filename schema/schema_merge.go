@@ -128,7 +128,7 @@ func (m *SchemaMerger) SchemaForModule(meta *tfmod.Meta) (*schema.BodySchema, er
 			}
 
 			// We should only assign the ephemeral resources if tofu version supports it (>= 1.11)
-			if m.tofuVersion.GreaterThanOrEqual(v1_11) {
+			if m.tofuVersion.Core().GreaterThanOrEqual(v1_11) {
 				for rName, rSchema := range pSchema.EphemeralResources {
 					m.mergeResourceSchema(mergedSchema, rName, rSchema, pAddr, providerAddr, localRef, true)
 				}
