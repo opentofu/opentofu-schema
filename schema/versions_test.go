@@ -63,6 +63,13 @@ func TestResolveVersion(t *testing.T) {
 			nil,
 			version.Must(version.NewVersion("1.6.0")),
 		},
+		{
+			// In case user requested a version which is a prerelease,
+			// we assume that it is ok to return the latest overall version instead of the latest stable one.
+			version.Must(version.NewVersion("99.00.0-beta2")),
+			nil,
+			LatestAvailableVersionIncludingPrereleases.Core(),
+		},
 	}
 
 	for i, tc := range testCases {
