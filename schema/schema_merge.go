@@ -83,7 +83,7 @@ func (m *SchemaMerger) SchemaForModule(meta *tfmod.Meta) (*schema.BodySchema, er
 		mergedSchema.Blocks["resource"].DependentBody = make(map[schema.SchemaKey]*schema.BodySchema)
 	}
 	// Ephemeral available since 1.11
-	if m.tofuVersion.GreaterThanOrEqual(v1_11) {
+	if m.tofuVersion.Core().GreaterThanOrEqual(v1_11) {
 		if mergedSchema.Blocks["ephemeral"].DependentBody == nil {
 			mergedSchema.Blocks["ephemeral"].DependentBody = make(map[schema.SchemaKey]*schema.BodySchema)
 		}
