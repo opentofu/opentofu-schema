@@ -20,7 +20,7 @@ func patchVariableBlockSchema(bs *schema.BlockSchema) *schema.BlockSchema {
 		DefaultValue: schema.DefaultValue{Value: cty.BoolVal(false)},
 		IsOptional:   true,
 		Description: lang.Markdown("Marks variable as ephemeral. OpenTofu will not store ephemeral variable in state at all" +
-			"and will store them only their name in plan. \n Ephemeral variables can only be used in the limited context where ephemerals are allowed. " +
+			"and will store only their name in the plan. \n Ephemeral variables can only be used in the limited context where ephemerals are allowed. " +
 			"[Read more about ephemeral variables.](https://opentofu.org/docs/v1.11/language/values/variables/#ephemerality)"),
 	}
 
