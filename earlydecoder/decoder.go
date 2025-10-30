@@ -142,17 +142,17 @@ func LoadModule(path string, files map[string]*hcl.File) (*module.Meta, hcl.Diag
 	}
 
 	for _, resource := range mod.Resources {
-		constraintDiags := assignResourceConstraints(resource.Provider.LocalName, providerRequirements, refs)
+		constraintDiags := addProviderReferences(resource.Provider.LocalName, providerRequirements, refs)
 		diags = append(diags, constraintDiags...)
 	}
 
 	for _, ephemeralResource := range mod.EphemeralResources {
-		constraintDiags := assignResourceConstraints(ephemeralResource.Provider.LocalName, providerRequirements, refs)
+		constraintDiags := addProviderReferences(ephemeralResource.Provider.LocalName, providerRequirements, refs)
 		diags = append(diags, constraintDiags...)
 	}
 
 	for _, dataSource := range mod.DataSources {
-		constraintDiags := assignResourceConstraints(dataSource.Provider.LocalName, providerRequirements, refs)
+		constraintDiags := addProviderReferences(dataSource.Provider.LocalName, providerRequirements, refs)
 		diags = append(diags, constraintDiags...)
 	}
 
@@ -185,7 +185,9 @@ func LoadModule(path string, files map[string]*hcl.File) (*module.Meta, hcl.Diag
 	}, diags
 }
 
-func assignResourceConstraints(localProviderName string, reqs map[tfaddr.Provider]version.Constraints, refs map[module.ProviderRef]tfaddr.Provider) hcl.Diagnostics {
+// addProviderReferences given a provider with a local name (extracted from resources and data sources)
+// if not already present - adds it to the passed requirements and references
+func addProviderReferences(localProviderName string, reqs map[tfaddr.Provider]version.Constraints, refs map[module.ProviderRef]tfaddr.Provider) hcl.Diagnostics {
 	var diags hcl.Diagnostics
 	_, err := tfaddr.ParseProviderPart(localProviderName)
 	if err != nil {
