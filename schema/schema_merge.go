@@ -82,6 +82,12 @@ func (m *SchemaMerger) SchemaForModule(meta *tfmod.Meta) (*schema.BodySchema, er
 	if mergedSchema.Blocks["resource"].DependentBody == nil {
 		mergedSchema.Blocks["resource"].DependentBody = make(map[schema.SchemaKey]*schema.BodySchema)
 	}
+	// Ephemeral available since 1.11
+	if m.tofuVersion.Core().GreaterThanOrEqual(v1_11) {
+		if mergedSchema.Blocks["ephemeral"].DependentBody == nil {
+			mergedSchema.Blocks["ephemeral"].DependentBody = make(map[schema.SchemaKey]*schema.BodySchema)
+		}
+	}
 	if mergedSchema.Blocks["data"].DependentBody == nil {
 		mergedSchema.Blocks["data"].DependentBody = make(map[schema.SchemaKey]*schema.BodySchema)
 	}
@@ -118,7 +124,14 @@ func (m *SchemaMerger) SchemaForModule(meta *tfmod.Meta) (*schema.BodySchema, er
 			}
 
 			for rName, rSchema := range pSchema.Resources {
-				m.mergeResourceSchema(mergedSchema, rName, rSchema, pAddr, providerAddr, localRef)
+				m.mergeResourceSchema(mergedSchema, rName, rSchema, pAddr, providerAddr, localRef, false)
+			}
+
+			// We should only assign the ephemeral resources if tofu version supports it (>= 1.11)
+			if m.tofuVersion.Core().GreaterThanOrEqual(v1_11) {
+				for rName, rSchema := range pSchema.EphemeralResources {
+					m.mergeResourceSchema(mergedSchema, rName, rSchema, pAddr, providerAddr, localRef, true)
+				}
 			}
 
 			for dsName, dsSchema := range pSchema.DataSources {

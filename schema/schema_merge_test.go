@@ -193,6 +193,8 @@ func TestSchemaMerger_SchemaForModule_providerNameMatch(t *testing.T) {
 		},
 	})
 
+	sm.SetTofuVersion(v1_6)
+
 	givenBodySchema, err := sm.SchemaForModule(&module.Meta{
 		ProviderReferences: map[module.ProviderRef]tfaddr.Provider{
 			{LocalName: "data"}: addr.NewDefaultProvider("data"),
@@ -412,6 +414,7 @@ func TestSchemaMerger_SchemaForModule_twiceMerged(t *testing.T) {
 
 	vc := version.MustConstraints(version.NewConstraint("0.0.0"))
 
+	sm.SetTofuVersion(v1_6)
 	mergedSchema, err := sm.SchemaForModule(&module.Meta{
 		Path: "testdata",
 		ProviderReferences: map[module.ProviderRef]tfaddr.Provider{

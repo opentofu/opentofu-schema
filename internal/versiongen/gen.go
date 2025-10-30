@@ -84,9 +84,9 @@ var (
 		LatestVersionWPrereleases *version.Version
 	}
 
-	// we keep this hard-coded to 0.12 since
-	// we don't have schema for older versions
-	oldestVersion := version.Must(version.NewVersion("0.12.0"))
+	// we keep this hard-coded to 1.6 since
+	// it is the first version of OpenTofu
+	oldestVersion := version.Must(version.NewVersion("1.6.0"))
 
 	latestVersion, err := latestStableVersion(releases)
 	if err != nil {

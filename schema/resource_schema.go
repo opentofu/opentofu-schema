@@ -14,7 +14,8 @@ import (
 	tfaddr "github.com/opentofu/registry-address"
 )
 
-func (bs *SchemaMerger) mergeResourceSchema(bSchema *schema.BodySchema, rName string, rSchema *schema.BodySchema, providerAddr tfaddr.Provider, localProviderAddr lang.Address, localRef tfmod.ProviderRef) {
+// mergeResourceSchema forEphemeral argument determines whether the ephemeral or regular resource will be assigned
+func (bs *SchemaMerger) mergeResourceSchema(bSchema *schema.BodySchema, rName string, rSchema *schema.BodySchema, providerAddr tfaddr.Provider, localProviderAddr lang.Address, localRef tfmod.ProviderRef, forEphemeral bool) {
 	depKeys := schema.DependencyKeys{
 		Labels: []schema.LabelDependent{
 			{Index: 0, Value: rName},
@@ -50,7 +51,11 @@ func (bs *SchemaMerger) mergeResourceSchema(bSchema *schema.BodySchema, rName st
 		rSchema.HoverURL = docsUrl
 	}
 
-	bSchema.Blocks["resource"].DependentBody[schema.NewSchemaKey(depKeys)] = rSchema
+	if forEphemeral {
+		bSchema.Blocks["ephemeral"].DependentBody[schema.NewSchemaKey(depKeys)] = rSchema
+	} else {
+		bSchema.Blocks["resource"].DependentBody[schema.NewSchemaKey(depKeys)] = rSchema
+	}
 
 	// No explicit association is required
 	// if the resource prefix matches provider name
@@ -60,6 +65,10 @@ func (bs *SchemaMerger) mergeResourceSchema(bSchema *schema.BodySchema, rName st
 				{Index: 0, Value: rName},
 			},
 		}
-		bSchema.Blocks["resource"].DependentBody[schema.NewSchemaKey(depKeys)] = rSchema
+		if forEphemeral {
+			bSchema.Blocks["ephemeral"].DependentBody[schema.NewSchemaKey(depKeys)] = rSchema
+		} else {
+			bSchema.Blocks["resource"].DependentBody[schema.NewSchemaKey(depKeys)] = rSchema
+		}
 	}
 }

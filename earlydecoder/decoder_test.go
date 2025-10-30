@@ -1648,6 +1648,27 @@ data "valid_bar" "name" {
 				},
 			},
 		},
+		{
+			"Implied provider from ephemeral resource",
+			`
+	ephemeral "ephemeral_resource" "test" {
+	}
+	`,
+			&module.Meta{
+				Path: path,
+				ProviderReferences: map[module.ProviderRef]tfaddr.Provider{
+					{LocalName: "ephemeral"}: addr.NewLegacyProvider("ephemeral"),
+				},
+				ProviderRequirements: map[tfaddr.Provider]version.Constraints{
+					addr.NewLegacyProvider("ephemeral"): {},
+				},
+				Variables:   map[string]module.Variable{},
+				Outputs:     map[string]module.Output{},
+				Filenames:   []string{"test.tf"},
+				ModuleCalls: map[string]module.DeclaredModuleCall{},
+			},
+			nil,
+		},
 	}
 
 	runTestCases(testCases, t, path)

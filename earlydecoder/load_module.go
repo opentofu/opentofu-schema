@@ -27,6 +27,7 @@ type decodedModule struct {
 	CloudBackend         *backend.Cloud
 	ProviderRequirements map[string]*providerRequirement
 	ProviderConfigs      map[string]*providerConfig
+	EphemeralResources   map[string]*ephemeralResource
 	Resources            map[string]*resource
 	DataSources          map[string]*dataSource
 	Variables            map[string]*module.Variable
@@ -41,6 +42,7 @@ func newDecodedModule() *decodedModule {
 		ProviderRequirements: make(map[string]*providerRequirement),
 		ProviderConfigs:      make(map[string]*providerConfig),
 		Resources:            make(map[string]*resource),
+		EphemeralResources:   make(map[string]*ephemeralResource),
 		DataSources:          make(map[string]*dataSource),
 		Variables:            make(map[string]*module.Variable),
 		Outputs:              make(map[string]*module.Output),
@@ -208,6 +210,30 @@ func loadModuleFromFile(file *hcl.File, mod *decodedModule) hcl.Diagnostics {
 				}
 			}
 
+		case "ephemeral":
+			content, _, contentDiags := block.Body.PartialContent(resourceSchema)
+			diags = append(diags, contentDiags...)
+
+			er := &ephemeralResource{
+				resource: resource{
+					Type: block.Labels[0],
+					Name: block.Labels[1],
+				},
+			}
+
+			mod.EphemeralResources[er.MapKey()] = er
+
+			if attr, defined := content.Attributes["provider"]; defined {
+				ref, aDiags := decodeProviderAttribute(attr)
+				diags = append(diags, aDiags...)
+				er.Provider = ref
+			} else {
+				// If provider _isn't_ set then we'll infer it from the
+				// resource type.
+				er.Provider = module.ProviderRef{
+					LocalName: inferProviderNameFromType(er.Type),
+				}
+			}
 		case "variable":
 			content, _, contentDiags := block.Body.PartialContent(variableSchema)
 			diags = append(diags, contentDiags...)

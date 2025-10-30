@@ -11,6 +11,7 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
+	"github.com/hashicorp/hcl-lang/lang"
 	"github.com/hashicorp/hcl-lang/schema"
 	tfjson "github.com/hashicorp/terraform-json"
 	"github.com/opentofu/opentofu-schema/internal/addr"
@@ -25,9 +26,10 @@ func TestProviderSchemaFromJson_empty(t *testing.T) {
 
 	ps := ProviderSchemaFromJson(jsonSchema, providerAddr)
 	expectedPs := &ProviderSchema{
-		Resources:   map[string]*schema.BodySchema{},
-		DataSources: map[string]*schema.BodySchema{},
-		Functions:   map[string]*schema.FunctionSignature{},
+		Resources:          map[string]*schema.BodySchema{},
+		DataSources:        map[string]*schema.BodySchema{},
+		EphemeralResources: map[string]*schema.BodySchema{},
+		Functions:          map[string]*schema.FunctionSignature{},
 	}
 
 	if diff := cmp.Diff(expectedPs, ps, ctydebug.CmpOptions); diff != "" {
@@ -295,8 +297,78 @@ func TestProviderSchemaFromJson_basic(t *testing.T) {
 				Detail: "hashicorp/aws",
 			},
 		},
+		DataSources:        map[string]*schema.BodySchema{},
+		Functions:          map[string]*schema.FunctionSignature{},
+		EphemeralResources: map[string]*schema.BodySchema{},
+	}
+
+	if diff := cmp.Diff(expectedPs, ps, ctydebug.CmpOptions); diff != "" {
+		t.Fatalf("provider schema mismatch: %s", diff)
+	}
+}
+
+func TestProviderSchemasFromJson_ephemeral_resource(t *testing.T) {
+	// Actual ephemeralSchema for random_password, attributes removed and descriptions shortened for simplification
+	ephemeralSchema := `
+	{
+	 "ephemeral_resource_schemas": {
+        "random_password": {
+          "version": 0,
+          "block": {
+            "attributes": {
+              "length": {
+                "type": "number",
+                "description": "The length of the string desired.",
+                "description_kind": "plain",
+                "required": true
+              },
+              "result": {
+                "type": "string",
+                "description": "The generated random string.",
+                "description_kind": "plain",
+                "computed": true,
+                "sensitive": true
+              }
+            },
+            "description": "Random password generator.",
+            "description_kind": "plain"
+          }
+        }
+      }
+	}
+	`
+	jsonSchema := &tfjson.ProviderSchema{}
+	err := json.Unmarshal([]byte(ephemeralSchema), jsonSchema)
+	if err != nil {
+		t.Fatal(err)
+	}
+	providerAddr := addr.NewDefaultProvider("random")
+
+	ps := ProviderSchemaFromJson(jsonSchema, providerAddr)
+	expectedPs := &ProviderSchema{
+		Resources:   map[string]*schema.BodySchema{},
 		DataSources: map[string]*schema.BodySchema{},
 		Functions:   map[string]*schema.FunctionSignature{},
+		EphemeralResources: map[string]*schema.BodySchema{
+			"random_password": {
+				Blocks: map[string]*schema.BlockSchema{},
+				Attributes: map[string]*schema.AttributeSchema{
+					"length": {
+						IsRequired:  true,
+						Constraint:  schema.AnyExpression{OfType: cty.Number},
+						Description: lang.PlainText("The length of the string desired."),
+					},
+					"result": {
+						IsComputed:  true,
+						IsSensitive: true,
+						Constraint:  schema.AnyExpression{OfType: cty.String},
+						Description: lang.PlainText("The generated random string."),
+					},
+				},
+				Description: lang.PlainText("Random password generator."),
+				Detail:      "hashicorp/random",
+			},
+		},
 	}
 
 	if diff := cmp.Diff(expectedPs, ps, ctydebug.CmpOptions); diff != "" {
@@ -503,8 +575,9 @@ func TestProviderSchemaFromJson_nested_set_list(t *testing.T) {
 				Detail: "hashicorp/aws",
 			},
 		},
-		DataSources: map[string]*schema.BodySchema{},
-		Functions:   map[string]*schema.FunctionSignature{},
+		DataSources:        map[string]*schema.BodySchema{},
+		Functions:          map[string]*schema.FunctionSignature{},
+		EphemeralResources: map[string]*schema.BodySchema{},
 	}
 
 	if diff := cmp.Diff(expectedPs, ps, ctydebug.CmpOptions); diff != "" {
@@ -537,8 +610,9 @@ func TestProviderSchemaFromJson_function(t *testing.T) {
 			  }
 		}`,
 			ProviderSchema{
-				Resources:   map[string]*schema.BodySchema{},
-				DataSources: map[string]*schema.BodySchema{},
+				Resources:          map[string]*schema.BodySchema{},
+				DataSources:        map[string]*schema.BodySchema{},
+				EphemeralResources: map[string]*schema.BodySchema{},
 				Functions: map[string]*schema.FunctionSignature{
 					"example": {
 						Description: "Echoes given argument as result",
@@ -569,8 +643,9 @@ func TestProviderSchemaFromJson_function(t *testing.T) {
 			  }
 		}`,
 			ProviderSchema{
-				Resources:   map[string]*schema.BodySchema{},
-				DataSources: map[string]*schema.BodySchema{},
+				Resources:          map[string]*schema.BodySchema{},
+				DataSources:        map[string]*schema.BodySchema{},
+				EphemeralResources: map[string]*schema.BodySchema{},
 				Functions: map[string]*schema.FunctionSignature{
 					"example": {
 						Description: "Returns a string",
@@ -606,8 +681,9 @@ func TestProviderSchemaFromJson_function(t *testing.T) {
 			  }
 		}`,
 			ProviderSchema{
-				Resources:   map[string]*schema.BodySchema{},
-				DataSources: map[string]*schema.BodySchema{},
+				Resources:          map[string]*schema.BodySchema{},
+				DataSources:        map[string]*schema.BodySchema{},
+				EphemeralResources: map[string]*schema.BodySchema{},
 				Functions: map[string]*schema.FunctionSignature{
 					"example": {
 						Description: "Echoes given argument as result",
