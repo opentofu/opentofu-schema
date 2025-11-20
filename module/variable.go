@@ -28,4 +28,8 @@ type Variable struct {
 	// Any relationships between DefaultValue & TypeDefaults are left
 	// for downstream to deal with using e.g. TypeDefaults.Apply().
 	TypeDefaults *typeexpr.Defaults
+
+	// Deprecated is a string to mark a variable as deprecated with instructions to end users
+	// of the module.
+	Deprecated string
 }

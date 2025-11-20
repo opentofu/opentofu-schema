@@ -98,6 +98,9 @@ var variableSchema = &hcl.BodySchema{
 		{
 			Name: "default",
 		},
+		{
+			Name: "deprecated",
+		},
 	},
 }
 
@@ -111,6 +114,9 @@ var outputSchema = &hcl.BodySchema{
 		},
 		{
 			Name: "value",
+		},
+		{
+			Name: "deprecated",
 		},
 	},
 }

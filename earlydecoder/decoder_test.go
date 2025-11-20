@@ -1006,6 +1006,56 @@ variable "name" {
 			nil,
 		},
 		{
+			"variables with deprecated",
+			`
+variable "old_var" {
+  type = string
+  description = "This variable is deprecated"
+  deprecated = "Use new_var instead"
+}`,
+			&module.Meta{
+				Path:                 path,
+				ProviderReferences:   map[module.ProviderRef]tfaddr.Provider{},
+				ProviderRequirements: map[tfaddr.Provider]version.Constraints{},
+				Variables: map[string]module.Variable{
+					"old_var": {
+						Type:        cty.String,
+						Description: "This variable is deprecated",
+						Deprecated:  "Use new_var instead",
+					},
+				},
+				Outputs:     map[string]module.Output{},
+				Filenames:   []string{"test.tf"},
+				ModuleCalls: map[string]module.DeclaredModuleCall{},
+			},
+			nil,
+		},
+		{
+			"outputs with deprecated",
+			`
+output "old_output" {
+  value = "some_value"
+  description = "This output is deprecated"
+  deprecated = "Use new_output instead"
+}`,
+			&module.Meta{
+				Path:                 path,
+				ProviderReferences:   map[module.ProviderRef]tfaddr.Provider{},
+				ProviderRequirements: map[tfaddr.Provider]version.Constraints{},
+				Variables:            map[string]module.Variable{},
+				Outputs: map[string]module.Output{
+					"old_output": {
+						Value:       cty.StringVal("some_value"),
+						Description: "This output is deprecated",
+						Deprecated:  "Use new_output instead",
+					},
+				},
+				Filenames:   []string{"test.tf"},
+				ModuleCalls: map[string]module.DeclaredModuleCall{},
+			},
+			nil,
+		},
+		{
 			"empty output",
 			`
 output "name" {

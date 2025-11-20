@@ -279,12 +279,18 @@ func loadModuleFromFile(file *hcl.File, mod *decodedModule) hcl.Diagnostics {
 					defaultValue = val
 				}
 			}
+			deprecated := ""
+			if attr, defined := content.Attributes["deprecated"]; defined {
+				valDiags = gohcl.DecodeExpression(attr.Expr, nil, &deprecated)
+				diags = append(diags, valDiags...)
+			}
 			mod.Variables[name] = &module.Variable{
 				Type:         varType,
 				Description:  description,
 				IsSensitive:  isSensitive,
 				DefaultValue: defaultValue,
 				TypeDefaults: defaults,
+				Deprecated:   deprecated,
 			}
 		case "output":
 			content, _, contentDiags := block.Body.PartialContent(outputSchema)
@@ -312,10 +318,16 @@ func loadModuleFromFile(file *hcl.File, mod *decodedModule) hcl.Diagnostics {
 					value = val
 				}
 			}
+			deprecated := ""
+			if attr, defined := content.Attributes["deprecated"]; defined {
+				valDiags = gohcl.DecodeExpression(attr.Expr, nil, &deprecated)
+				diags = append(diags, valDiags...)
+			}
 			mod.Outputs[name] = &module.Output{
 				Description: description,
 				IsSensitive: isSensitive,
 				Value:       value,
+				Deprecated:  deprecated,
 			}
 		case "module":
 			content, remainingBody, contentDiags := block.Body.PartialContent(moduleSchema)
@@ -369,7 +381,6 @@ func loadModuleFromFile(file *hcl.File, mod *decodedModule) hcl.Diagnostics {
 				RangePtr:      rng,
 			}
 		}
-
 	}
 
 	return diags
