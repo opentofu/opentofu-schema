@@ -27,5 +27,11 @@ func ModuleSchema(v *version.Version) *schema.BodySchema {
 	// Assign new set of identical contraints, including ephemeral resource as a viable dependency type to all block types
 	patchDependencyScopeConstraintsWithEphemeral(bs)
 
+	// Update lifecycle blocks to include "enabled" field for version 1.11
+	bs.Blocks["resource"].Body.Blocks["lifecycle"] = patchResourceLifecycleBlockV1_11(bs.Blocks["resource"].Body.Blocks["lifecycle"])
+	bs.Blocks["data"].Body.Blocks["lifecycle"] = patchDataLifecycleBlockV1_11(bs.Blocks["data"].Body.Blocks["lifecycle"])
+
+	bs.Blocks["module"].Body.Blocks["lifecycle"] = moduleLifecycleBlock()
+
 	return bs
 }
