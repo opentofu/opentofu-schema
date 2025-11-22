@@ -95,17 +95,10 @@ func ephemeralLifecycleBlock() *schema.BlockSchema {
 			DocsLink: &schema.DocsLink{
 				URL: "https://opentofu.org/docs/v1.11/language/expressions/custom-conditions/#preconditions-and-postconditions",
 			},
+			Attributes: map[string]*schema.AttributeSchema{
+				"enabled": enabledAttribute("ephemeral resource"),
+			},
 			Blocks: map[string]*schema.BlockSchema{
-				"enabled": {
-					Description: lang.Markdown("Whether the ephemeral resource is enabled. When set to `false`, the ephemeral resource will be skipped during plan and apply"),
-					Body: &schema.BodySchema{
-						Attributes: map[string]*schema.AttributeSchema{
-							"enabled": {
-								Constraint: schema.LiteralType{Type: cty.Bool},
-							},
-						},
-					},
-				},
 				"precondition": {
 					Description: lang.Markdown("Custom condition to check before opening the ephemeral resource"),
 					Body: &schema.BodySchema{

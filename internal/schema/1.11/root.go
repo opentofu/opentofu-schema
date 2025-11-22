@@ -31,7 +31,7 @@ func ModuleSchema(v *version.Version) *schema.BodySchema {
 	bs.Blocks["resource"].Body.Blocks["lifecycle"] = patchResourceLifecycleBlockV1_11(bs.Blocks["resource"].Body.Blocks["lifecycle"])
 	bs.Blocks["data"].Body.Blocks["lifecycle"] = patchDataLifecycleBlockV1_11(bs.Blocks["data"].Body.Blocks["lifecycle"])
 
-	bs.Blocks["module"].Body.Blocks["lifecycle"] = moduleLifecycleBlock()
+	bs.Blocks["module"].Body.Blocks = moduleBlocks()
 
 	return bs
 }
