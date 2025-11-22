@@ -22,6 +22,7 @@ func datasourceLifecycleBlock() *schema.BlockSchema {
 					Body: conditionBody(false),
 				},
 			},
+			Attributes: map[string]*schema.AttributeSchema{},
 		},
 	}
 }

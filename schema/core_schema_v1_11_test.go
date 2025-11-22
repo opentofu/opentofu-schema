@@ -12,6 +12,7 @@ import (
 	"github.com/opentofu/opentofu-schema/internal/schema/refscope"
 
 	"github.com/hashicorp/go-version"
+	"github.com/zclconf/go-cty/cty"
 )
 
 // Generic test scenarios to check if the ephemeral schema is setup correctly
@@ -170,4 +171,176 @@ func blockCanDependOnEphemeral(block *schema.BlockSchema) bool {
 		}
 	}
 	return false
+}
+
+// Test that lifecycle blocks have the enabled attribute in v1.11
+func TestCoreModuleSchemaForVersion_v1_11_lifecycle_enabled(t *testing.T) {
+	v := version.Must(version.NewVersion("1.11.0-beta1"))
+	schemaForVersion, err := CoreModuleSchemaForVersion(v)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	// Test resource lifecycle block has enabled attribute
+	resourceBlock, exists := schemaForVersion.Blocks["resource"]
+	if !exists {
+		t.Fatal("expected resource block in v1.11 schema")
+	}
+
+	resourceLifecycle, exists := resourceBlock.Body.Blocks["lifecycle"]
+	if !exists {
+		t.Fatal("expected resource block to have lifecycle block")
+	}
+
+	enabledAttr, exists := resourceLifecycle.Body.Attributes["enabled"]
+	if !exists {
+		t.Error("expected resource lifecycle block to have enabled attribute in v1.11")
+	} else {
+		if !enabledAttr.IsOptional {
+			t.Error("expected resource lifecycle enabled attribute to be optional")
+		}
+	}
+
+	// Test resource lifecycle block has enabled attribute
+	dataBlock, exists := schemaForVersion.Blocks["data"]
+	if !exists {
+		t.Fatal("expected resource block in v1.11 schema")
+	}
+
+	dataLifecycle, exists := dataBlock.Body.Blocks["lifecycle"]
+	if !exists {
+		t.Fatal("expected resource block to have lifecycle block")
+	}
+
+	enabledDataAttr, exists := dataLifecycle.Body.Attributes["enabled"]
+	if !exists {
+		t.Error("expected resource lifecycle block to have enabled attribute in v1.11")
+	} else {
+		if !enabledDataAttr.IsOptional {
+			t.Error("expected resource lifecycle enabled attribute to be optional")
+		}
+	}
+
+	// Test resource lifecycle block has enabled attribute
+	moduleBlock, exists := schemaForVersion.Blocks["module"]
+	if !exists {
+		t.Fatal("expected resource block in v1.11 schema")
+	}
+
+	moduleLifecycle, exists := moduleBlock.Body.Blocks["lifecycle"]
+	if !exists {
+		t.Fatal("expected resource block to have lifecycle block")
+	}
+
+	enabledModuleAttr, exists := moduleLifecycle.Body.Attributes["enabled"]
+	if !exists {
+		t.Error("expected resource lifecycle block to have enabled attribute in v1.11")
+	} else {
+		if !enabledModuleAttr.IsOptional {
+			t.Error("expected resource lifecycle enabled attribute to be optional")
+		}
+	}
+}
+
+// Test that ephemeral lifecycle block has the enabled block and proper structure
+func TestCoreModuleSchemaForVersion_v1_11_ephemeral_lifecycle(t *testing.T) {
+	v := version.Must(version.NewVersion("1.11.0-beta1"))
+	schemaForVersion, err := CoreModuleSchemaForVersion(v)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	ephemeralBlock, exists := schemaForVersion.Blocks["ephemeral"]
+	if !exists {
+		t.Fatal("expected ephemeral block in v1.11 schema")
+	}
+
+	ephemeralLifecycle, exists := ephemeralBlock.Body.Blocks["lifecycle"]
+	if !exists {
+		t.Fatal("expected ephemeral block to have lifecycle block")
+	}
+
+	enabledAttr, exists := ephemeralLifecycle.Body.Attributes["enabled"]
+	if !exists {
+		t.Error("expected ephemeral lifecycle block to have enabled block in v1.11")
+	} else {
+		if !enabledAttr.IsOptional {
+			t.Error("expected enabled block to be optional")
+		}
+	}
+
+	// Test ephemeral lifecycle has precondition block
+	preconditionBlock, exists := ephemeralLifecycle.Body.Blocks["precondition"]
+	if !exists {
+		t.Error("expected ephemeral lifecycle block to have precondition block")
+	} else {
+		conditionAttr, exists := preconditionBlock.Body.Attributes["condition"]
+		if !exists {
+			t.Error("expected precondition block to have condition attribute")
+		} else {
+			if !conditionAttr.IsRequired {
+				t.Error("expected precondition condition attribute to be required")
+			}
+		}
+
+		errorMessageAttr, exists := preconditionBlock.Body.Attributes["error_message"]
+		if !exists {
+			t.Error("expected precondition block to have error_message attribute")
+		} else {
+			if !errorMessageAttr.IsRequired {
+				t.Error("expected precondition error_message attribute to be required")
+			}
+		}
+	}
+
+	// Test ephemeral lifecycle has postcondition block
+	postconditionBlock, exists := ephemeralLifecycle.Body.Blocks["postcondition"]
+	if !exists {
+		t.Error("expected ephemeral lifecycle block to have postcondition block")
+	} else {
+		conditionAttr, exists := postconditionBlock.Body.Attributes["condition"]
+		if !exists {
+			t.Error("expected postcondition block to have condition attribute")
+		} else {
+			if !conditionAttr.IsRequired {
+				t.Error("expected postcondition condition attribute to be required")
+			}
+			// Postcondition condition should be boolean type
+			anyExpr, ok := conditionAttr.Constraint.(schema.AnyExpression)
+			if !ok {
+				t.Errorf("expected postcondition condition constraint to be AnyExpression, got %T", conditionAttr.Constraint)
+			} else {
+				if anyExpr.OfType != cty.Bool {
+					t.Errorf("expected postcondition condition to be boolean type, got %v", anyExpr.OfType)
+				}
+			}
+		}
+
+		errorMessageAttr, exists := postconditionBlock.Body.Attributes["error_message"]
+		if !exists {
+			t.Error("expected postcondition block to have error_message attribute")
+		} else {
+			if !errorMessageAttr.IsRequired {
+				t.Error("expected postcondition error_message attribute to be required")
+			}
+			// Postcondition error_message should be string type
+			anyExpr, ok := errorMessageAttr.Constraint.(schema.AnyExpression)
+			if !ok {
+				t.Errorf("expected postcondition error_message constraint to be AnyExpression, got %T", errorMessageAttr.Constraint)
+			} else {
+				if anyExpr.OfType != cty.String {
+					t.Errorf("expected postcondition error_message to be string type, got %v", anyExpr.OfType)
+				}
+			}
+		}
+
+		// Postcondition should support self references
+		if postconditionBlock.Body.Extensions == nil {
+			t.Error("expected postcondition block to have extensions")
+		} else {
+			if !postconditionBlock.Body.Extensions.SelfRefs {
+				t.Error("expected postcondition block to support self references")
+			}
+		}
+	}
 }
