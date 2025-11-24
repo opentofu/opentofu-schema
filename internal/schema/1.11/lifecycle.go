@@ -23,14 +23,12 @@ func patchDataLifecycleBlockV1_11(bs *schema.BlockSchema) *schema.BlockSchema {
 	return bs
 }
 
-func moduleBlocks() map[string]*schema.BlockSchema {
-	return map[string]*schema.BlockSchema{
-		"lifecycle": {
-			Description: lang.Markdown("Lifecycle customizations for module blocks"),
-			Body: &schema.BodySchema{
-				Attributes: map[string]*schema.AttributeSchema{
-					"enabled": enabledAttribute("module"),
-				},
+func moduleLifecycleBlock() *schema.BlockSchema {
+	return &schema.BlockSchema{
+		Description: lang.Markdown("Lifecycle customizations for module blocks"),
+		Body: &schema.BodySchema{
+			Attributes: map[string]*schema.AttributeSchema{
+				"enabled": enabledAttribute("module"),
 			},
 		},
 	}
