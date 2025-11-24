@@ -204,6 +204,9 @@ func addProviderReferences(localProviderName string, reqs map[tfaddr.Provider]ve
 	}
 	if _, exists := refs[localRef]; !exists && localProviderName != "" {
 		src := addr.NewLegacyProvider(localProviderName)
+		if localProviderName == "terraform" {
+			src = addr.NewBuiltInProvider("terraform")
+		}
 		if _, exists := reqs[src]; !exists {
 			reqs[src] = version.Constraints{}
 		}

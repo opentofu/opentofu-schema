@@ -36,19 +36,28 @@ func (bs *SchemaMerger) mergeResourceSchema(bSchema *schema.BodySchema, rName st
 		namespace = "hashicorp"
 	}
 
-	if namespace != "" {
+	// The only resource that is built-in is the terraform_data resource,
+	// so we are not going to add extra checks here.
+	if providerAddr.IsBuiltIn() {
+		docsURL := "https://opentofu.org/docs/language/resources/tf-data/"
+		rSchema.DocsLink = &schema.DocsLink{
+			URL:     docsURL,
+			Tooltip: fmt.Sprintf("%s Documentation", rName),
+		}
+		rSchema.HoverURL = docsURL
+	} else if namespace != "" {
 		// In OpenTofu's Search Registry, we don't save the resource prefix on the URL, example:
 		// random_uuid becomes uuid on the URL
 		registryResourceName := rName
 		if len(providerAddr.Type)+1 <= len(rName) {
 			registryResourceName = rName[len(providerAddr.Type)+1:]
 		}
-		docsUrl := fmt.Sprintf("https://search.opentofu.org/provider/%s/%s/latest/docs/resources/%s", namespace, providerAddr.Type, registryResourceName)
+		docsURL := fmt.Sprintf("https://search.opentofu.org/provider/%s/%s/latest/docs/resources/%s", namespace, providerAddr.Type, registryResourceName)
 		rSchema.DocsLink = &schema.DocsLink{
-			URL:     docsUrl,
+			URL:     docsURL,
 			Tooltip: fmt.Sprintf("%s/%s/%s Documentation", namespace, providerAddr.Type, rName),
 		}
-		rSchema.HoverURL = docsUrl
+		rSchema.HoverURL = docsURL
 	}
 
 	if forEphemeral {

@@ -29,6 +29,37 @@ func (sm *SchemaMerger) mergeDataSourceSchema(bSchema *schema.BodySchema, dsName
 		},
 	}
 
+	namespace := providerAddr.Namespace
+	if providerAddr.IsLegacy() {
+		// When namespaces are legacy, we assume their namespace is hashicorp
+		namespace = "hashicorp"
+	}
+
+	// The only data source that is built-in is the terraform_remote_state
+	// data source, so we are not going to add extra checks here.
+	if providerAddr.IsBuiltIn() {
+		docsURL := "https://opentofu.org/docs/language/state/remote-state-data/"
+		dsSchema.DocsLink = &schema.DocsLink{
+			URL:     docsURL,
+			Tooltip: fmt.Sprintf("%s Documentation", dsName),
+		}
+		dsSchema.HoverURL = docsURL
+	} else if namespace != "" {
+		// In OpenTofu's Search Registry, we don't save the data source prefix on the URL, example:
+		// random_uuid becomes uuid on the URL
+		registryDataSourceName := dsName
+		if len(providerAddr.Type)+1 <= len(dsName) {
+			registryDataSourceName = dsName[len(providerAddr.Type)+1:]
+		}
+
+		docsURL := fmt.Sprintf("https://search.opentofu.org/provider/%s/%s/latest/docs/datasources/%s", namespace, providerAddr.Type, registryDataSourceName)
+		dsSchema.DocsLink = &schema.DocsLink{
+			URL:     docsURL,
+			Tooltip: fmt.Sprintf("%s/%s/%s Documentation", namespace, providerAddr.Type, dsName),
+		}
+		dsSchema.HoverURL = docsURL
+	}
+
 	// Add backend-related core bits of schema
 	if isRemoteStateDataSource(providerAddr, dsName) {
 		remoteStateDs := dsSchema.Copy()
@@ -67,26 +98,5 @@ func (sm *SchemaMerger) mergeDataSourceSchema(bSchema *schema.BodySchema, dsName
 		if _, ok := bSchema.Blocks["check"]; ok {
 			bSchema.Blocks["check"].Body.Blocks["data"].DependentBody[schema.NewSchemaKey(depKeys)] = dsSchema
 		}
-	}
-
-	namespace := providerAddr.Namespace
-	if providerAddr.IsLegacy() {
-		// When namespaces are legacy, we assume their namespace is hashicorp
-		namespace = "hashicorp"
-	}
-	if namespace != "" {
-		// In OpenTofu's Search Registry, we don't save the data source prefix on the URL, example:
-		// random_uuid becomes uuid on the URL
-		registryDataSourceName := dsName
-		if len(providerAddr.Type)+1 <= len(dsName) {
-			registryDataSourceName = dsName[len(providerAddr.Type)+1:]
-		}
-
-		docsUrl := fmt.Sprintf("https://search.opentofu.org/provider/%s/%s/latest/docs/datasources/%s", namespace, providerAddr.Type, registryDataSourceName)
-		dsSchema.DocsLink = &schema.DocsLink{
-			URL:     docsUrl,
-			Tooltip: fmt.Sprintf("%s/%s/%s Documentation", namespace, providerAddr.Type, dsName),
-		}
-		dsSchema.HoverURL = docsUrl
 	}
 }
