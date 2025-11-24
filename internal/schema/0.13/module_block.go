@@ -39,6 +39,7 @@ func moduleBlockSchema() *schema.BlockSchema {
 				Count:   true,
 				ForEach: true,
 			},
+			Blocks: map[string]*schema.BlockSchema{},
 			Attributes: map[string]*schema.AttributeSchema{
 				"source": {
 					Constraint: schema.LiteralType{Type: cty.String},
