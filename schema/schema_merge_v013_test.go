@@ -1904,10 +1904,10 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 					Detail: "(builtin)",
 					Blocks: map[string]*schema.BlockSchema{},
 					DocsLink: &schema.DocsLink{
-						URL:     "https://search.opentofu.org/provider/hashicorp/terraform/latest/docs/datasources/remote_state",
-						Tooltip: "hashicorp/terraform/terraform_remote_state Documentation",
+						URL:     "https://opentofu.org/docs/language/state/remote-state-data/",
+						Tooltip: "terraform_remote_state Documentation",
 					},
-					HoverURL: "https://search.opentofu.org/provider/hashicorp/terraform/latest/docs/datasources/remote_state",
+					HoverURL: "https://opentofu.org/docs/language/state/remote-state-data/",
 					Attributes: map[string]*schema.AttributeSchema{
 						"backend": {
 							Constraint:             backends.BackendTypesAsOneOfConstraint(v0_13_0),
@@ -1933,10 +1933,10 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 					Detail: "(builtin)",
 					Blocks: map[string]*schema.BlockSchema{},
 					DocsLink: &schema.DocsLink{
-						URL:     "https://search.opentofu.org/provider/hashicorp/terraform/latest/docs/datasources/remote_state",
-						Tooltip: "hashicorp/terraform/terraform_remote_state Documentation",
+						URL:     "https://opentofu.org/docs/language/state/remote-state-data/",
+						Tooltip: "terraform_remote_state Documentation",
 					},
-					HoverURL: "https://search.opentofu.org/provider/hashicorp/terraform/latest/docs/datasources/remote_state",
+					HoverURL: "https://opentofu.org/docs/language/state/remote-state-data/",
 					Attributes: map[string]*schema.AttributeSchema{
 						"backend": {
 							Constraint:             backends.BackendTypesAsOneOfConstraint(v0_13_0),
@@ -1968,6 +1968,11 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 					},
 					Blocks: map[string]*schema.BlockSchema{},
 					Detail: "(builtin)",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://opentofu.org/docs/language/state/remote-state-data/",
+						Tooltip: "terraform_remote_state Documentation",
+					},
+					HoverURL: "https://opentofu.org/docs/language/state/remote-state-data/",
 				},
 				`{"labels":[{"index":0,"value":"terraform_remote_state"}],"attrs":[{"name":"backend","expr":{"static":"artifactory"}}]}`: {
 					Attributes: map[string]*schema.AttributeSchema{
@@ -1979,6 +1984,11 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 					},
 					Blocks: map[string]*schema.BlockSchema{},
 					Detail: "(builtin)",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://opentofu.org/docs/language/state/remote-state-data/",
+						Tooltip: "terraform_remote_state Documentation",
+					},
+					HoverURL: "https://opentofu.org/docs/language/state/remote-state-data/",
 				},
 				`{"labels":[{"index":0,"value":"terraform_remote_state"}],"attrs":[{"name":"backend","expr":{"static":"atlas"}},{"name":"provider","expr":{"addr":"terraform"}}]}`: {
 					Attributes: map[string]*schema.AttributeSchema{
@@ -1990,6 +2000,11 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 					},
 					Blocks: map[string]*schema.BlockSchema{},
 					Detail: "(builtin)",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://opentofu.org/docs/language/state/remote-state-data/",
+						Tooltip: "terraform_remote_state Documentation",
+					},
+					HoverURL: "https://opentofu.org/docs/language/state/remote-state-data/",
 				},
 				`{"labels":[{"index":0,"value":"terraform_remote_state"}],"attrs":[{"name":"backend","expr":{"static":"atlas"}}]}`: {
 					Attributes: map[string]*schema.AttributeSchema{
@@ -2001,6 +2016,11 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 					},
 					Blocks: map[string]*schema.BlockSchema{},
 					Detail: "(builtin)",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://opentofu.org/docs/language/state/remote-state-data/",
+						Tooltip: "terraform_remote_state Documentation",
+					},
+					HoverURL: "https://opentofu.org/docs/language/state/remote-state-data/",
 				},
 				`{"labels":[{"index":0,"value":"terraform_remote_state"}],"attrs":[{"name":"backend","expr":{"static":"azure"}},{"name":"provider","expr":{"addr":"terraform"}}]}`: {
 					Attributes: map[string]*schema.AttributeSchema{
@@ -2012,6 +2032,11 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 					},
 					Blocks: map[string]*schema.BlockSchema{},
 					Detail: "(builtin)",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://opentofu.org/docs/language/state/remote-state-data/",
+						Tooltip: "terraform_remote_state Documentation",
+					},
+					HoverURL: "https://opentofu.org/docs/language/state/remote-state-data/",
 				},
 				`{"labels":[{"index":0,"value":"terraform_remote_state"}],"attrs":[{"name":"backend","expr":{"static":"azure"}}]}`: {
 					Attributes: map[string]*schema.AttributeSchema{
@@ -2023,6 +2048,11 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 					},
 					Blocks: map[string]*schema.BlockSchema{},
 					Detail: "(builtin)",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://opentofu.org/docs/language/state/remote-state-data/",
+						Tooltip: "terraform_remote_state Documentation",
+					},
+					HoverURL: "https://opentofu.org/docs/language/state/remote-state-data/",
 				},
 				`{"labels":[{"index":0,"value":"terraform_remote_state"}],"attrs":[{"name":"backend","expr":{"static":"azurerm"}},{"name":"provider","expr":{"addr":"terraform"}}]}`: {
 					Attributes: map[string]*schema.AttributeSchema{
@@ -2034,6 +2064,11 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 					},
 					Blocks: map[string]*schema.BlockSchema{},
 					Detail: "(builtin)",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://opentofu.org/docs/language/state/remote-state-data/",
+						Tooltip: "terraform_remote_state Documentation",
+					},
+					HoverURL: "https://opentofu.org/docs/language/state/remote-state-data/",
 				},
 				`{"labels":[{"index":0,"value":"terraform_remote_state"}],"attrs":[{"name":"backend","expr":{"static":"azurerm"}}]}`: {
 					Attributes: map[string]*schema.AttributeSchema{
@@ -2045,6 +2080,11 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 					},
 					Blocks: map[string]*schema.BlockSchema{},
 					Detail: "(builtin)",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://opentofu.org/docs/language/state/remote-state-data/",
+						Tooltip: "terraform_remote_state Documentation",
+					},
+					HoverURL: "https://opentofu.org/docs/language/state/remote-state-data/",
 				},
 				`{"labels":[{"index":0,"value":"terraform_remote_state"}],"attrs":[{"name":"backend","expr":{"static":"consul"}},{"name":"provider","expr":{"addr":"terraform"}}]}`: {
 					Attributes: map[string]*schema.AttributeSchema{
@@ -2056,6 +2096,11 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 					},
 					Blocks: map[string]*schema.BlockSchema{},
 					Detail: "(builtin)",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://opentofu.org/docs/language/state/remote-state-data/",
+						Tooltip: "terraform_remote_state Documentation",
+					},
+					HoverURL: "https://opentofu.org/docs/language/state/remote-state-data/",
 				},
 				`{"labels":[{"index":0,"value":"terraform_remote_state"}],"attrs":[{"name":"backend","expr":{"static":"consul"}}]}`: {
 					Attributes: map[string]*schema.AttributeSchema{
@@ -2067,6 +2112,11 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 					},
 					Blocks: map[string]*schema.BlockSchema{},
 					Detail: "(builtin)",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://opentofu.org/docs/language/state/remote-state-data/",
+						Tooltip: "terraform_remote_state Documentation",
+					},
+					HoverURL: "https://opentofu.org/docs/language/state/remote-state-data/",
 				},
 				`{"labels":[{"index":0,"value":"terraform_remote_state"}],"attrs":[{"name":"backend","expr":{"static":"cos"}},{"name":"provider","expr":{"addr":"terraform"}}]}`: {
 					Attributes: map[string]*schema.AttributeSchema{
@@ -2078,6 +2128,11 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 					},
 					Blocks: map[string]*schema.BlockSchema{},
 					Detail: "(builtin)",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://opentofu.org/docs/language/state/remote-state-data/",
+						Tooltip: "terraform_remote_state Documentation",
+					},
+					HoverURL: "https://opentofu.org/docs/language/state/remote-state-data/",
 				},
 				`{"labels":[{"index":0,"value":"terraform_remote_state"}],"attrs":[{"name":"backend","expr":{"static":"cos"}}]}`: {
 					Attributes: map[string]*schema.AttributeSchema{
@@ -2089,6 +2144,11 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 					},
 					Blocks: map[string]*schema.BlockSchema{},
 					Detail: "(builtin)",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://opentofu.org/docs/language/state/remote-state-data/",
+						Tooltip: "terraform_remote_state Documentation",
+					},
+					HoverURL: "https://opentofu.org/docs/language/state/remote-state-data/",
 				},
 				`{"labels":[{"index":0,"value":"terraform_remote_state"}],"attrs":[{"name":"backend","expr":{"static":"etcd"}},{"name":"provider","expr":{"addr":"terraform"}}]}`: {
 					Attributes: map[string]*schema.AttributeSchema{
@@ -2100,6 +2160,11 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 					},
 					Blocks: map[string]*schema.BlockSchema{},
 					Detail: "(builtin)",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://opentofu.org/docs/language/state/remote-state-data/",
+						Tooltip: "terraform_remote_state Documentation",
+					},
+					HoverURL: "https://opentofu.org/docs/language/state/remote-state-data/",
 				},
 				`{"labels":[{"index":0,"value":"terraform_remote_state"}],"attrs":[{"name":"backend","expr":{"static":"etcd"}}]}`: {
 					Attributes: map[string]*schema.AttributeSchema{
@@ -2111,6 +2176,11 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 					},
 					Blocks: map[string]*schema.BlockSchema{},
 					Detail: "(builtin)",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://opentofu.org/docs/language/state/remote-state-data/",
+						Tooltip: "terraform_remote_state Documentation",
+					},
+					HoverURL: "https://opentofu.org/docs/language/state/remote-state-data/",
 				},
 				`{"labels":[{"index":0,"value":"terraform_remote_state"}],"attrs":[{"name":"backend","expr":{"static":"etcdv3"}},{"name":"provider","expr":{"addr":"terraform"}}]}`: {
 					Attributes: map[string]*schema.AttributeSchema{
@@ -2122,6 +2192,11 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 					},
 					Blocks: map[string]*schema.BlockSchema{},
 					Detail: "(builtin)",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://opentofu.org/docs/language/state/remote-state-data/",
+						Tooltip: "terraform_remote_state Documentation",
+					},
+					HoverURL: "https://opentofu.org/docs/language/state/remote-state-data/",
 				},
 				`{"labels":[{"index":0,"value":"terraform_remote_state"}],"attrs":[{"name":"backend","expr":{"static":"etcdv3"}}]}`: {
 					Attributes: map[string]*schema.AttributeSchema{
@@ -2133,6 +2208,11 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 					},
 					Blocks: map[string]*schema.BlockSchema{},
 					Detail: "(builtin)",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://opentofu.org/docs/language/state/remote-state-data/",
+						Tooltip: "terraform_remote_state Documentation",
+					},
+					HoverURL: "https://opentofu.org/docs/language/state/remote-state-data/",
 				},
 				`{"labels":[{"index":0,"value":"terraform_remote_state"}],"attrs":[{"name":"backend","expr":{"static":"gcs"}},{"name":"provider","expr":{"addr":"terraform"}}]}`: {
 					Attributes: map[string]*schema.AttributeSchema{
@@ -2144,6 +2224,11 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 					},
 					Blocks: map[string]*schema.BlockSchema{},
 					Detail: "(builtin)",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://opentofu.org/docs/language/state/remote-state-data/",
+						Tooltip: "terraform_remote_state Documentation",
+					},
+					HoverURL: "https://opentofu.org/docs/language/state/remote-state-data/",
 				},
 				`{"labels":[{"index":0,"value":"terraform_remote_state"}],"attrs":[{"name":"backend","expr":{"static":"gcs"}}]}`: {
 					Attributes: map[string]*schema.AttributeSchema{
@@ -2155,6 +2240,11 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 					},
 					Blocks: map[string]*schema.BlockSchema{},
 					Detail: "(builtin)",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://opentofu.org/docs/language/state/remote-state-data/",
+						Tooltip: "terraform_remote_state Documentation",
+					},
+					HoverURL: "https://opentofu.org/docs/language/state/remote-state-data/",
 				},
 				`{"labels":[{"index":0,"value":"terraform_remote_state"}],"attrs":[{"name":"backend","expr":{"static":"http"}},{"name":"provider","expr":{"addr":"terraform"}}]}`: {
 					Attributes: map[string]*schema.AttributeSchema{
@@ -2166,6 +2256,11 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 					},
 					Blocks: map[string]*schema.BlockSchema{},
 					Detail: "(builtin)",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://opentofu.org/docs/language/state/remote-state-data/",
+						Tooltip: "terraform_remote_state Documentation",
+					},
+					HoverURL: "https://opentofu.org/docs/language/state/remote-state-data/",
 				},
 				`{"labels":[{"index":0,"value":"terraform_remote_state"}],"attrs":[{"name":"backend","expr":{"static":"http"}}]}`: {
 					Attributes: map[string]*schema.AttributeSchema{
@@ -2177,6 +2272,11 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 					},
 					Blocks: map[string]*schema.BlockSchema{},
 					Detail: "(builtin)",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://opentofu.org/docs/language/state/remote-state-data/",
+						Tooltip: "terraform_remote_state Documentation",
+					},
+					HoverURL: "https://opentofu.org/docs/language/state/remote-state-data/",
 				},
 				`{"labels":[{"index":0,"value":"terraform_remote_state"}],"attrs":[{"name":"backend","expr":{"static":"kubernetes"}},{"name":"provider","expr":{"addr":"terraform"}}]}`: {
 					Attributes: map[string]*schema.AttributeSchema{
@@ -2188,6 +2288,11 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 					},
 					Blocks: map[string]*schema.BlockSchema{},
 					Detail: "(builtin)",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://opentofu.org/docs/language/state/remote-state-data/",
+						Tooltip: "terraform_remote_state Documentation",
+					},
+					HoverURL: "https://opentofu.org/docs/language/state/remote-state-data/",
 				},
 				`{"labels":[{"index":0,"value":"terraform_remote_state"}],"attrs":[{"name":"backend","expr":{"static":"kubernetes"}}]}`: {
 					Attributes: map[string]*schema.AttributeSchema{
@@ -2199,6 +2304,11 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 					},
 					Blocks: map[string]*schema.BlockSchema{},
 					Detail: "(builtin)",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://opentofu.org/docs/language/state/remote-state-data/",
+						Tooltip: "terraform_remote_state Documentation",
+					},
+					HoverURL: "https://opentofu.org/docs/language/state/remote-state-data/",
 				},
 				`{"labels":[{"index":0,"value":"terraform_remote_state"}],"attrs":[{"name":"backend","expr":{"static":"local"}},{"name":"provider","expr":{"addr":"terraform"}}]}`: {
 					Attributes: map[string]*schema.AttributeSchema{
@@ -2210,6 +2320,11 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 					},
 					Blocks: map[string]*schema.BlockSchema{},
 					Detail: "(builtin)",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://opentofu.org/docs/language/state/remote-state-data/",
+						Tooltip: "terraform_remote_state Documentation",
+					},
+					HoverURL: "https://opentofu.org/docs/language/state/remote-state-data/",
 				},
 				`{"labels":[{"index":0,"value":"terraform_remote_state"}],"attrs":[{"name":"backend","expr":{"static":"local"}}]}`: {
 					Attributes: map[string]*schema.AttributeSchema{
@@ -2221,6 +2336,11 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 					},
 					Blocks: map[string]*schema.BlockSchema{},
 					Detail: "(builtin)",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://opentofu.org/docs/language/state/remote-state-data/",
+						Tooltip: "terraform_remote_state Documentation",
+					},
+					HoverURL: "https://opentofu.org/docs/language/state/remote-state-data/",
 				},
 				`{"labels":[{"index":0,"value":"terraform_remote_state"}],"attrs":[{"name":"backend","expr":{"static":"manta"}},{"name":"provider","expr":{"addr":"terraform"}}]}`: {
 					Attributes: map[string]*schema.AttributeSchema{
@@ -2232,6 +2352,11 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 					},
 					Blocks: map[string]*schema.BlockSchema{},
 					Detail: "(builtin)",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://opentofu.org/docs/language/state/remote-state-data/",
+						Tooltip: "terraform_remote_state Documentation",
+					},
+					HoverURL: "https://opentofu.org/docs/language/state/remote-state-data/",
 				},
 				`{"labels":[{"index":0,"value":"terraform_remote_state"}],"attrs":[{"name":"backend","expr":{"static":"manta"}}]}`: {
 					Attributes: map[string]*schema.AttributeSchema{
@@ -2243,6 +2368,11 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 					},
 					Blocks: map[string]*schema.BlockSchema{},
 					Detail: "(builtin)",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://opentofu.org/docs/language/state/remote-state-data/",
+						Tooltip: "terraform_remote_state Documentation",
+					},
+					HoverURL: "https://opentofu.org/docs/language/state/remote-state-data/",
 				},
 				`{"labels":[{"index":0,"value":"terraform_remote_state"}],"attrs":[{"name":"backend","expr":{"static":"oss"}},{"name":"provider","expr":{"addr":"terraform"}}]}`: {
 					Attributes: map[string]*schema.AttributeSchema{
@@ -2254,6 +2384,11 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 					},
 					Blocks: map[string]*schema.BlockSchema{},
 					Detail: "(builtin)",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://opentofu.org/docs/language/state/remote-state-data/",
+						Tooltip: "terraform_remote_state Documentation",
+					},
+					HoverURL: "https://opentofu.org/docs/language/state/remote-state-data/",
 				},
 				`{"labels":[{"index":0,"value":"terraform_remote_state"}],"attrs":[{"name":"backend","expr":{"static":"oss"}}]}`: {
 					Attributes: map[string]*schema.AttributeSchema{
@@ -2265,6 +2400,11 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 					},
 					Blocks: map[string]*schema.BlockSchema{},
 					Detail: "(builtin)",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://opentofu.org/docs/language/state/remote-state-data/",
+						Tooltip: "terraform_remote_state Documentation",
+					},
+					HoverURL: "https://opentofu.org/docs/language/state/remote-state-data/",
 				},
 				`{"labels":[{"index":0,"value":"terraform_remote_state"}],"attrs":[{"name":"backend","expr":{"static":"pg"}},{"name":"provider","expr":{"addr":"terraform"}}]}`: {
 					Attributes: map[string]*schema.AttributeSchema{
@@ -2276,6 +2416,11 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 					},
 					Blocks: map[string]*schema.BlockSchema{},
 					Detail: "(builtin)",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://opentofu.org/docs/language/state/remote-state-data/",
+						Tooltip: "terraform_remote_state Documentation",
+					},
+					HoverURL: "https://opentofu.org/docs/language/state/remote-state-data/",
 				},
 				`{"labels":[{"index":0,"value":"terraform_remote_state"}],"attrs":[{"name":"backend","expr":{"static":"pg"}}]}`: {
 					Attributes: map[string]*schema.AttributeSchema{
@@ -2287,6 +2432,11 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 					},
 					Blocks: map[string]*schema.BlockSchema{},
 					Detail: "(builtin)",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://opentofu.org/docs/language/state/remote-state-data/",
+						Tooltip: "terraform_remote_state Documentation",
+					},
+					HoverURL: "https://opentofu.org/docs/language/state/remote-state-data/",
 				},
 				`{"labels":[{"index":0,"value":"terraform_remote_state"}],"attrs":[{"name":"backend","expr":{"static":"remote"}},{"name":"provider","expr":{"addr":"terraform"}}]}`: {
 					Attributes: map[string]*schema.AttributeSchema{
@@ -2298,6 +2448,11 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 					},
 					Blocks: map[string]*schema.BlockSchema{},
 					Detail: "(builtin)",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://opentofu.org/docs/language/state/remote-state-data/",
+						Tooltip: "terraform_remote_state Documentation",
+					},
+					HoverURL: "https://opentofu.org/docs/language/state/remote-state-data/",
 				},
 				`{"labels":[{"index":0,"value":"terraform_remote_state"}],"attrs":[{"name":"backend","expr":{"static":"remote"}}]}`: {
 					Attributes: map[string]*schema.AttributeSchema{
@@ -2309,6 +2464,11 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 					},
 					Blocks: map[string]*schema.BlockSchema{},
 					Detail: "(builtin)",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://opentofu.org/docs/language/state/remote-state-data/",
+						Tooltip: "terraform_remote_state Documentation",
+					},
+					HoverURL: "https://opentofu.org/docs/language/state/remote-state-data/",
 				},
 				`{"labels":[{"index":0,"value":"terraform_remote_state"}],"attrs":[{"name":"backend","expr":{"static":"s3"}},{"name":"provider","expr":{"addr":"terraform"}}]}`: {
 					Attributes: map[string]*schema.AttributeSchema{
@@ -2320,6 +2480,11 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 					},
 					Blocks: map[string]*schema.BlockSchema{},
 					Detail: "(builtin)",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://opentofu.org/docs/language/state/remote-state-data/",
+						Tooltip: "terraform_remote_state Documentation",
+					},
+					HoverURL: "https://opentofu.org/docs/language/state/remote-state-data/",
 				},
 				`{"labels":[{"index":0,"value":"terraform_remote_state"}],"attrs":[{"name":"backend","expr":{"static":"s3"}}]}`: {
 					Attributes: map[string]*schema.AttributeSchema{
@@ -2331,6 +2496,11 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 					},
 					Blocks: map[string]*schema.BlockSchema{},
 					Detail: "(builtin)",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://opentofu.org/docs/language/state/remote-state-data/",
+						Tooltip: "terraform_remote_state Documentation",
+					},
+					HoverURL: "https://opentofu.org/docs/language/state/remote-state-data/",
 				},
 				`{"labels":[{"index":0,"value":"terraform_remote_state"}],"attrs":[{"name":"backend","expr":{"static":"swift"}},{"name":"provider","expr":{"addr":"terraform"}}]}`: {
 					Attributes: map[string]*schema.AttributeSchema{
@@ -2342,6 +2512,11 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 					},
 					Blocks: map[string]*schema.BlockSchema{},
 					Detail: "(builtin)",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://opentofu.org/docs/language/state/remote-state-data/",
+						Tooltip: "terraform_remote_state Documentation",
+					},
+					HoverURL: "https://opentofu.org/docs/language/state/remote-state-data/",
 				},
 				`{"labels":[{"index":0,"value":"terraform_remote_state"}],"attrs":[{"name":"backend","expr":{"static":"swift"}}]}`: {
 					Attributes: map[string]*schema.AttributeSchema{
@@ -2353,6 +2528,11 @@ var expectedMergedSchema_v013 = &schema.BodySchema{
 					},
 					Blocks: map[string]*schema.BlockSchema{},
 					Detail: "(builtin)",
+					DocsLink: &schema.DocsLink{
+						URL:     "https://opentofu.org/docs/language/state/remote-state-data/",
+						Tooltip: "terraform_remote_state Documentation",
+					},
+					HoverURL: "https://opentofu.org/docs/language/state/remote-state-data/",
 				},
 			},
 		},
