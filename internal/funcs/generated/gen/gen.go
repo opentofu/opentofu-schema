@@ -29,7 +29,7 @@ import (
 var (
 	// If no new functions were released in later versions, the last version file will be
 	// the version that introduced a new function last
-	tofuVersion = version.Must(version.NewVersion("1.11.0-beta1"))
+	tofuVersion = version.Must(version.NewVersion("1.11.0"))
 )
 
 const (
