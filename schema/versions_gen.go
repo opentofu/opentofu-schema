@@ -7,11 +7,19 @@ import (
 
 var (
 	OldestAvailableVersion                     = version.Must(version.NewVersion("1.6.0"))
-	LatestAvailableVersion                     = version.Must(version.NewVersion("1.10.6"))
-	LatestAvailableVersionIncludingPrereleases = version.Must(version.NewVersion("1.11.0-beta1"))
+	LatestAvailableVersion                     = version.Must(version.NewVersion("1.11.1"))
+	LatestAvailableVersionIncludingPrereleases = version.Must(version.NewVersion("1.11.1"))
 
 	tofuVersions = version.Collection{
+		version.Must(version.NewVersion("1.11.1")),
+		version.Must(version.NewVersion("1.11.0")),
+		version.Must(version.NewVersion("1.11.0-rc4")),
+		version.Must(version.NewVersion("1.11.0-rc3")),
+		version.Must(version.NewVersion("1.11.0-rc2")),
+		version.Must(version.NewVersion("1.11.0-rc1")),
 		version.Must(version.NewVersion("1.11.0-beta1")),
+		version.Must(version.NewVersion("1.10.8")),
+		version.Must(version.NewVersion("1.10.7")),
 		version.Must(version.NewVersion("1.10.6")),
 		version.Must(version.NewVersion("1.10.5")),
 		version.Must(version.NewVersion("1.10.4")),
