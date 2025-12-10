@@ -26,13 +26,11 @@ func ResolveVersion(tfVersion *version.Version, tfCons version.Constraints) *ver
 			// since it is greater than any on those. And iteration over the known versions happens below otherwise.
 			// Hence, we need to return one of the latest versions known to us.
 
-			// User is asking for a stable release
-			if tfVersion.Prerelease() == "" {
-				return LatestAvailableVersion
-			}
-
-			// User provided version with prerelease label in it, we can assume higher risk tolerance and return the latest non-stable version
-			// although the prerelease part inside the patch release won't matter to us
+			// Even though the user specified a version greater than what we have, we still need to return the latest we have including prereleases.
+			// This might happen if the user uses a newer OpenTofu version. They probably have not updated the LS yet.
+			// Or we might have mistimed the release of the LS with the OpenTofu release, which would cause features from the new version to be unavailable in the LS.
+			// This is a small step to mitigate that.
+			// This is safer than returning LatestAvailableVersion which might be a stable release without some features the user expects from the newer version.
 			return LatestAvailableVersionIncludingPrereleases.Core()
 		}
 		if tfCons.Check(coreVersion) {
