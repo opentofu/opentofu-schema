@@ -2,7 +2,7 @@ module github.com/opentofu/opentofu-schema
 
 go 1.24.0
 
-replace github.com/hashicorp/hcl-lang => github.com/opentofu/hcl-lang v0.0.0-20260522124527-7bace23dc756
+toolchain go1.24.5
 
 require (
 	github.com/google/go-cmp v0.7.0
@@ -38,3 +38,5 @@ require (
 	golang.org/x/text v0.31.0 // indirect
 	golang.org/x/tools v0.39.0 // indirect
 )
+
+replace github.com/hashicorp/hcl-lang => github.com/opentofu/hcl-lang v0.0.0-20251211111922-21077dbf3fe8

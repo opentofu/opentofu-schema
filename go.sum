@@ -38,8 +38,8 @@ github.com/mh-cbon/go-fmt-fail v0.0.0-20160815164508-67765b3fbcb5 h1:shw+DWUaHIy
 github.com/mh-cbon/go-fmt-fail v0.0.0-20160815164508-67765b3fbcb5/go.mod h1:nHPoxaBUc5CDAMIv0MNmn5PBjWbTs9BI/eh30/n0U6g=
 github.com/mitchellh/go-wordwrap v0.0.0-20150314170334-ad45545899c7 h1:DpOJ2HYzCv8LZP15IdmG+YdwD2luVPHITV96TkirNBM=
 github.com/mitchellh/go-wordwrap v0.0.0-20150314170334-ad45545899c7/go.mod h1:ZXFpozHsX6DPmq2I0TCekCxypsnAUbP2oI0UX1GXzOo=
-github.com/opentofu/hcl-lang v0.0.0-20260522124527-7bace23dc756 h1:alPcefSsgdtB5GllRwualGteRoMmIkx85f+J2Xyxa20=
-github.com/opentofu/hcl-lang v0.0.0-20260522124527-7bace23dc756/go.mod h1:OzQ7mQih+IZoKbhDmtBsWvWo78ir0D1us8Co298EF8E=
+github.com/opentofu/hcl-lang v0.0.0-20251211111922-21077dbf3fe8 h1:ZvUGw2u8/W4y/pFGUSg0uxYaaxmYzEk58E/wNlDzFo4=
+github.com/opentofu/hcl-lang v0.0.0-20251211111922-21077dbf3fe8/go.mod h1:OzQ7mQih+IZoKbhDmtBsWvWo78ir0D1us8Co298EF8E=
 github.com/opentofu/registry-address v0.0.0-20230922120653-901b9ae4061a h1:NyM/PPbc+kxxv2d4OKfE32C5fLtVTLceyg4YKKCYO9Y=
 github.com/opentofu/registry-address v0.0.0-20230922120653-901b9ae4061a/go.mod h1:HzQhpVo/NJnGmN+7FPECCVCA5ijU7AUcvf39enBKYOc=
 github.com/opentofu/tofudl v0.0.0-20250129123822-d4254f2a6147 h1:FRrWXOEB5P/rmDbXNON3erWlAxe8NtxEeAfYqMk0oRY=
