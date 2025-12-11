@@ -55,6 +55,7 @@ func ephemeralBlockSchema(_ *version.Version) *schema.BlockSchema {
 				Count:         true,
 				ForEach:       true,
 				DynamicBlocks: true,
+				UnknownRefs:   true,
 			},
 			Attributes: map[string]*schema.AttributeSchema{
 				"provider": {
@@ -129,7 +130,8 @@ func ephemeralLifecycleBlock() *schema.BlockSchema {
 							},
 						},
 						Extensions: &schema.BodyExtensions{
-							SelfRefs: true,
+							SelfRefs:    true,
+							UnknownRefs: true,
 						},
 					},
 				},
