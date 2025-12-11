@@ -42,6 +42,7 @@ func providerBlockSchema() *schema.BlockSchema {
 		Body: &schema.BodySchema{
 			Extensions: &schema.BodyExtensions{
 				DynamicBlocks: true,
+				UnknownRefs:   true,
 			},
 			Attributes: map[string]*schema.AttributeSchema{
 				"alias": {

@@ -30,6 +30,7 @@ func ProvisionerBlock(v *version.Version) *schema.BlockSchema {
 			Extensions: &schema.BodyExtensions{
 				DynamicBlocks: true,
 				SelfRefs:      true,
+				UnknownRefs:   true,
 			},
 			HoverURL: "https://opentofu.org/docs/language/resources/provisioners/syntax/",
 			Attributes: map[string]*schema.AttributeSchema{
