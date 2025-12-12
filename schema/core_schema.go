@@ -15,6 +15,7 @@ import (
 	mod_v1_1 "github.com/opentofu/opentofu-schema/internal/schema/1.1"
 	mod_v1_10 "github.com/opentofu/opentofu-schema/internal/schema/1.10"
 	mod_v1_11 "github.com/opentofu/opentofu-schema/internal/schema/1.11"
+	mod_v1_12 "github.com/opentofu/opentofu-schema/internal/schema/1.12"
 	mod_v1_2 "github.com/opentofu/opentofu-schema/internal/schema/1.2"
 	mod_v1_4 "github.com/opentofu/opentofu-schema/internal/schema/1.4"
 	mod_v1_5 "github.com/opentofu/opentofu-schema/internal/schema/1.5"
@@ -40,6 +41,7 @@ var (
 	v1_9  = version.Must(version.NewVersion("1.9"))
 	v1_10 = version.Must(version.NewVersion("1.10"))
 	v1_11 = version.Must(version.NewVersion("1.11"))
+	v1_12 = version.Must(version.NewVersion("1.12"))
 )
 
 // CoreModuleSchemaForVersion finds a module schema which is relevant
@@ -48,6 +50,9 @@ var (
 func CoreModuleSchemaForVersion(v *version.Version) (*schema.BodySchema, error) {
 	ver := v.Core()
 
+	if ver.GreaterThanOrEqual(v1_12) {
+		return mod_v1_12.ModuleSchema(ver), nil
+	}
 	if ver.GreaterThanOrEqual(v1_11) {
 		return mod_v1_11.ModuleSchema(ver), nil
 	}
