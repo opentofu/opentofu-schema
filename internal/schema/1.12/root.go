@@ -30,7 +30,7 @@ func patchResourceLifecycleBlockWithDestroy(bs *schema.BlockSchema) *schema.Bloc
 		Constraint:   schema.LiteralType{Type: cty.Bool},
 		DefaultValue: schema.DefaultValue{Value: cty.True},
 		IsOptional:   true,
-		Description:  lang.Markdown(fmt.Sprintf("Setting `destroy` to `false` changes the OpenTofu's default behavior when destroying or replacing the resource. \n OpenTofu will 'forget' the resource instance, removing it from the state without destroying the actual infrastructure object. \n Read more about the `destroy` lifecycle argument in the [documentation](https://opentofu.org/docs/language/resources/behavior/#lifecycle-customizations).")),
+		Description:  lang.Markdown("Setting `destroy` to `false` changes the OpenTofu's default behavior when destroying or replacing the resource. \n OpenTofu will 'forget' the resource instance, removing it from the state without destroying the actual infrastructure object. \n Read more about the `destroy` lifecycle argument in the [documentation](https://opentofu.org/docs/language/resources/behavior/#lifecycle-customizations)."),
 	}
 	return bs
 }
