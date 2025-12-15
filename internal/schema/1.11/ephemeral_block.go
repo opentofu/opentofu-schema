@@ -49,7 +49,7 @@ func ephemeralBlockSchema(_ *version.Version) *schema.BlockSchema {
 			"transient and confidential information during OpenTofu execution."),
 		Body: &schema.BodySchema{
 			DocsLink: &schema.DocsLink{
-				URL: "https://opentofu.org/docs/v1.11/language/ephemerality/ephemeral-resources/",
+				URL: "https://opentofu.org/docs/language/ephemerality/ephemeral-resources/",
 			},
 			Extensions: &schema.BodyExtensions{
 				Count:         true,
