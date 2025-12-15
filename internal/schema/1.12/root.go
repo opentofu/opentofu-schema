@@ -6,8 +6,6 @@
 package schema
 
 import (
-	"fmt"
-
 	"github.com/hashicorp/go-version"
 	"github.com/hashicorp/hcl-lang/lang"
 	"github.com/hashicorp/hcl-lang/schema"
