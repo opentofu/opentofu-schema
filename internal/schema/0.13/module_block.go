@@ -75,8 +75,7 @@ func moduleBlockSchema() *schema.BlockSchema {
 						Name: "map of provider references",
 						Elem: schema.Reference{OfScopeId: refscope.ProviderScope},
 					},
-					IsDepKey:    true,
-					IsOptional:  true,
+					IsOptional: true,
 					Description: lang.Markdown("Explicit mapping of providers which the module uses"),
 				},
 				"depends_on": {
