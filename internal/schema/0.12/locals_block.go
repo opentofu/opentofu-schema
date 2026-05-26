@@ -19,6 +19,9 @@ func localsBlockSchema() *schema.BlockSchema {
 		Description: lang.Markdown("Local values assigning names to expressions, so you can use these multiple times without repetition\n" +
 			"e.g. `service_name = \"forum\"`"),
 		Body: &schema.BodySchema{
+			Extensions: &schema.BodyExtensions{
+				SameBodyRefs: true,
+			},
 			AnyAttribute: &schema.AttributeSchema{
 				Address: &schema.AttributeAddrSchema{
 					Steps: []schema.AddrStep{
