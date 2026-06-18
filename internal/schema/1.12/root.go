@@ -20,6 +20,10 @@ func ModuleSchema(v *version.Version) *schema.BodySchema {
 	// Update the lifecycle block to include the "destroy" attribute for version 1.12 retaining resources on destruction
 	bs.Blocks["resource"].Body.Blocks["lifecycle"] = patchResourceLifecycleBlockWithDestroy(bs.Blocks["resource"].Body.Blocks["lifecycle"])
 
+	bs.Blocks["terraform"].Body.Blocks["encryption"] = patchEncryptionBlockSchema(
+		bs.Blocks["terraform"].Body.Blocks["encryption"],
+	)
+
 	return bs
 }
 
