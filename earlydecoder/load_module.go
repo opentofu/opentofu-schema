@@ -68,6 +68,30 @@ func loadModuleFromFile(file *hcl.File, mod *decodedModule) hcl.Diagnostics {
 	for _, block := range content.Blocks {
 		switch block.Type {
 
+		case "language":
+			content, _, contentDiags := block.Body.PartialContent(languageBlockSchema)
+			diags = append(diags, contentDiags...)
+
+			for _, innerBlock := range content.Blocks {
+				if innerBlock.Type != "compatible_with" {
+					continue
+				}
+
+				cwContent, _, cwDiags := innerBlock.Body.PartialContent(languageCompatibleWithSchema)
+				diags = append(diags, cwDiags...)
+
+				// similar logic to the "terraform.required_version" validation below
+				// we want to use the same validation logic for this.
+				if attr, defined := cwContent.Attributes["opentofu"]; defined {
+					var version string
+					valDiags := gohcl.DecodeExpression(attr.Expr, nil, &version)
+					diags = append(diags, valDiags...)
+					if !valDiags.HasErrors() {
+						mod.RequiredCore = append(mod.RequiredCore, version)
+					}
+				}
+			}
+
 		case "terraform":
 			content, _, contentDiags := block.Body.PartialContent(terraformBlockSchema)
 			diags = append(diags, contentDiags...)

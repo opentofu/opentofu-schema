@@ -71,6 +71,50 @@ terraform {
 			nil,
 		},
 		{
+			"core requirements via language block compatible_with",
+			`
+language {
+  compatible_with {
+    opentofu = ">= 1.12"
+  }
+}`,
+			&module.Meta{
+				Path:                 path,
+				CoreRequirements:     version.MustConstraints(version.NewConstraint(">= 1.12")),
+				ProviderReferences:   map[module.ProviderRef]tfaddr.Provider{},
+				ProviderRequirements: map[tfaddr.Provider]version.Constraints{},
+				Variables:            map[string]module.Variable{},
+				Outputs:              map[string]module.Output{},
+				Filenames:            []string{"test.tf"},
+				ModuleCalls:          map[string]module.DeclaredModuleCall{},
+			},
+			nil,
+		},
+		{
+			"core requirements from both terraform and language blocks",
+			`
+terraform {
+  required_version = "~> 1.12"
+}
+
+language {
+  compatible_with {
+    opentofu = ">= 1.12"
+  }
+}`,
+			&module.Meta{
+				Path:                 path,
+				CoreRequirements:     version.MustConstraints(version.NewConstraint("~> 1.12, >= 1.12")),
+				ProviderReferences:   map[module.ProviderRef]tfaddr.Provider{},
+				ProviderRequirements: map[tfaddr.Provider]version.Constraints{},
+				Variables:            map[string]module.Variable{},
+				Outputs:              map[string]module.Output{},
+				Filenames:            []string{"test.tf"},
+				ModuleCalls:          map[string]module.DeclaredModuleCall{},
+			},
+			nil,
+		},
+		{
 			"legacy inferred provider requirements",
 			`
 provider "aws" {
