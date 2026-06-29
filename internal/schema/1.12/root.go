@@ -20,6 +20,9 @@ func ModuleSchema(v *version.Version) *schema.BodySchema {
 	// Update the lifecycle block to include the "destroy" attribute for version 1.12 retaining resources on destruction
 	bs.Blocks["resource"].Body.Blocks["lifecycle"] = patchResourceLifecycleBlockWithDestroy(bs.Blocks["resource"].Body.Blocks["lifecycle"])
 
+	// Add the new top-level "language" block introduced in version 1.12
+	bs.Blocks["language"] = languageBlockSchema()
+
 	return bs
 }
 
