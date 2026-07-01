@@ -1795,3 +1795,137 @@ func runTestCases(testCases []testCase, t *testing.T, path string) {
 func compareVersionConstraint(x, y *version.Constraint) bool {
 	return x.Equals(y)
 }
+
+func TestLoadModule_staticModuleSources(t *testing.T) {
+	path := t.TempDir()
+
+	tests := []struct {
+		name string
+		cfg  string
+
+		expectedSource  string
+		expectedAddr    module.ModuleSourceAddr
+		expectedVersion string
+	}{
+		{
+			name: "source from literal local",
+			cfg: `
+locals {
+  source = "./m"
+}
+module "m" {
+  source = local.source
+}`,
+			expectedSource: "./m",
+			expectedAddr:   module.LocalSourceAddr("./m"),
+		},
+		{
+			name: "source from variable default",
+			cfg: `
+variable "source" {
+  type    = string
+  default = "./m"
+}
+module "m" {
+  source = var.source
+}`,
+			expectedSource: "./m",
+			expectedAddr:   module.LocalSourceAddr("./m"),
+		},
+		{
+			name: "source from chained locals referencing a variable",
+			cfg: `
+variable "base" {
+  default = "./modules"
+}
+locals {
+  dir    = "vpc"
+  source = "${var.base}/${local.dir}"
+}
+module "m" {
+  source = local.source
+}`,
+			expectedSource: "./modules/vpc",
+			expectedAddr:   module.LocalSourceAddr("./modules/vpc"),
+		},
+		{
+			name: "source resolving to a registry address",
+			cfg: `
+locals {
+  source = "terraform-aws-modules/vpc/aws"
+}
+module "m" {
+  source = local.source
+}`,
+			expectedSource: "terraform-aws-modules/vpc/aws",
+			expectedAddr: tfaddr.Module{
+				Package: tfaddr.ModulePackage{
+					Host:         tfaddr.DefaultModuleRegistryHost,
+					Namespace:    "terraform-aws-modules",
+					Name:         "vpc",
+					TargetSystem: "aws",
+				},
+			},
+		},
+		{
+			name: "version from literal local",
+			cfg: `
+locals {
+  version = "1.2.0"
+}
+module "m" {
+  source  = "terraform-aws-modules/vpc/aws"
+  version = local.version
+}`,
+			expectedSource:  "terraform-aws-modules/vpc/aws",
+			expectedVersion: "1.2.0",
+		},
+		{
+			name: "unresolvable source left untouched",
+			cfg: `
+variable "source" {
+  type = string
+}
+module "m" {
+  source = var.source
+}`,
+			expectedSource: "",
+		},
+	}
+
+	for _, tc := range tests {
+		t.Run(tc.name, func(t *testing.T) {
+			f, diags := hclsyntax.ParseConfig([]byte(tc.cfg), "test.tf", hcl.InitialPos)
+			if len(diags) > 0 {
+				t.Fatal(diags)
+			}
+
+			meta, diags := LoadModule(path, map[string]*hcl.File{"test.tf": f})
+			if diags.HasErrors() {
+				t.Fatalf("unexpected diagnostics: %s", diags)
+			}
+
+			mc, ok := meta.ModuleCalls["m"]
+			if !ok {
+				t.Fatalf("module call %q not found", "m")
+			}
+
+			if mc.RawSourceAddr != tc.expectedSource {
+				t.Fatalf("expected source %q, got %q", tc.expectedSource, mc.RawSourceAddr)
+			}
+
+			if tc.expectedAddr != nil {
+				if diff := cmp.Diff(tc.expectedAddr, mc.SourceAddr, customComparer...); diff != "" {
+					t.Fatalf("source address mismatch: %s", diff)
+				}
+			}
+
+			if tc.expectedVersion != "" {
+				expected := version.MustConstraints(version.NewConstraint(tc.expectedVersion))
+				if diff := cmp.Diff(expected, mc.Version, customComparer...); diff != "" {
+					t.Fatalf("version mismatch: %s", diff)
+				}
+			}
+		})
+	}
+}

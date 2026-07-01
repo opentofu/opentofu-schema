@@ -166,6 +166,10 @@ func LoadModule(path string, files map[string]*hcl.File) (*module.Meta, hcl.Diag
 		outputs[key] = *output
 	}
 
+	// Resolve module calls whose source or version reference variables or
+	// locals that are known
+	resolveStaticModuleCalls(mod)
+
 	modulesCalls := make(map[string]module.DeclaredModuleCall)
 	for key, moduleCall := range mod.ModuleCalls {
 		modulesCalls[key] = *moduleCall
