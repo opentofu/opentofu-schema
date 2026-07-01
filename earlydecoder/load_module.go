@@ -33,6 +33,11 @@ type decodedModule struct {
 	Variables            map[string]*module.Variable
 	Outputs              map[string]*module.Output
 	ModuleCalls          map[string]*module.DeclaredModuleCall
+
+	// Expressions for us to handle and evaluate for module source/version
+	localExprs         map[string]hcl.Expression
+	moduleSourceExprs  map[string]hcl.Expression
+	moduleVersionExprs map[string]hcl.Expression
 }
 
 func newDecodedModule() *decodedModule {
@@ -47,6 +52,10 @@ func newDecodedModule() *decodedModule {
 		Variables:            make(map[string]*module.Variable),
 		Outputs:              make(map[string]*module.Output),
 		ModuleCalls:          make(map[string]*module.DeclaredModuleCall),
+
+		localExprs:         make(map[string]hcl.Expression),
+		moduleSourceExprs:  make(map[string]hcl.Expression),
+		moduleVersionExprs: make(map[string]hcl.Expression),
 	}
 }
 
@@ -361,21 +370,35 @@ func loadModuleFromFile(file *hcl.File, mod *decodedModule) hcl.Diagnostics {
 			}
 			name := block.Labels[0]
 			source := ""
+			var sourceExpr hcl.Expression
 			var versionCons version.Constraints
 
-			var valDiags hcl.Diagnostics
 			if attr, defined := content.Attributes["source"]; defined {
-				valDiags = gohcl.DecodeExpression(attr.Expr, nil, &source)
-				diags = append(diags, valDiags...)
+				// If the source is defined then we should attempt to decode this now, or later
+				// in a second pass
+				var s string
+				sDiags := gohcl.DecodeExpression(attr.Expr, nil, &s)
+				if sDiags.HasErrors() {
+					// The source references variables or locals; keep the
+					// expression so it can be resolved in a second pass and
+					// matched against its dependent schema.
+					sourceExpr = attr.Expr
+					mod.moduleSourceExprs[name] = attr.Expr
+				} else {
+					source = s
+				}
 			}
 			if attr, defined := content.Attributes["version"]; defined {
+				// similar to the source attribute, let's handle the expression later if we need to.
 				var versionStr string
-				valDiags = gohcl.DecodeExpression(attr.Expr, nil, &versionStr)
-				diags = append(diags, valDiags...)
-				if versionStr != "" {
-					vc, err := version.NewConstraint(versionStr)
-					if err == nil {
-						versionCons = vc
+				vDiags := gohcl.DecodeExpression(attr.Expr, nil, &versionStr)
+				if vDiags.HasErrors() {
+					mod.moduleVersionExprs[name] = attr.Expr
+				} else {
+					if versionStr != "" {
+						if vc, err := version.NewConstraint(versionStr); err == nil {
+							versionCons = vc
+						}
 					}
 				}
 			}
@@ -397,12 +420,20 @@ func loadModuleFromFile(file *hcl.File, mod *decodedModule) hcl.Diagnostics {
 			}
 
 			mod.ModuleCalls[name] = &module.DeclaredModuleCall{
-				LocalName:     name,
-				RawSourceAddr: source,
-				SourceAddr:    module.ParseModuleSourceAddr(source),
-				Version:       versionCons,
-				InputNames:    inputNames,
-				RangePtr:      rng,
+				LocalName:      name,
+				RawSourceAddr:  source,
+				SourceAddr:     module.ParseModuleSourceAddr(source),
+				Version:        versionCons,
+				InputNames:     inputNames,
+				RangePtr:       rng,
+				SourceAddrExpr: sourceExpr,
+			}
+
+		case "locals":
+			// We need the local expressions here to evaluate later
+			attrs, _ := block.Body.JustAttributes()
+			for localName, attr := range attrs {
+				mod.localExprs[localName] = attr.Expr
 			}
 		}
 	}

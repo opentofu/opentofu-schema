@@ -40,6 +40,10 @@ type DeclaredModuleCall struct {
 	Version       version.Constraints
 	InputNames    []string
 	RangePtr      *hcl.Range
+
+	// Store the source address so that we can match against it later
+	// it's not always static!
+	SourceAddrExpr hcl.Expression
 }
 
 func (mc DeclaredModuleCall) Copy() DeclaredModuleCall {
@@ -47,11 +51,12 @@ func (mc DeclaredModuleCall) Copy() DeclaredModuleCall {
 	copy(inputNames, mc.InputNames)
 
 	newModuleCall := DeclaredModuleCall{
-		LocalName:     mc.LocalName,
-		RawSourceAddr: mc.RawSourceAddr,
-		SourceAddr:    mc.SourceAddr,
-		Version:       mc.Version,
-		InputNames:    inputNames,
+		LocalName:      mc.LocalName,
+		RawSourceAddr:  mc.RawSourceAddr,
+		SourceAddr:     mc.SourceAddr,
+		Version:        mc.Version,
+		InputNames:     inputNames,
+		SourceAddrExpr: mc.SourceAddrExpr,
 	}
 
 	if mc.RangePtr != nil {
