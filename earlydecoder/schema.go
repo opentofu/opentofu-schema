@@ -15,6 +15,9 @@ var rootSchema = &hcl.BodySchema{
 			Type: "terraform",
 		},
 		{
+			Type: "language",
+		},
+		{
 			Type:       "provider",
 			LabelNames: []string{"name"},
 		},
@@ -42,6 +45,9 @@ var rootSchema = &hcl.BodySchema{
 			Type:       "module",
 			LabelNames: []string{"name"},
 		},
+		{
+			Type: "locals",
+		},
 	},
 }
 
@@ -61,6 +67,24 @@ var terraformBlockSchema = &hcl.BodySchema{
 		{
 			Type:       "backend",
 			LabelNames: []string{"type"},
+		},
+	},
+}
+
+// languageBlockSchema describes the `language` block introduced in OpenTofu
+// v1.12.
+var languageBlockSchema = &hcl.BodySchema{
+	Blocks: []hcl.BlockHeaderSchema{
+		{
+			Type: "compatible_with",
+		},
+	},
+}
+
+var languageCompatibleWithSchema = &hcl.BodySchema{
+	Attributes: []hcl.AttributeSchema{
+		{
+			Name: "opentofu",
 		},
 	},
 }

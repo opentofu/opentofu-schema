@@ -12,6 +12,7 @@ import (
 	"github.com/hashicorp/go-version"
 	"github.com/hashicorp/hcl-lang/lang"
 	"github.com/hashicorp/hcl-lang/schema"
+	"github.com/hashicorp/hcl/v2/hclsyntax"
 	tfmod "github.com/opentofu/opentofu-schema/module"
 	"github.com/opentofu/opentofu-schema/registry"
 	tfaddr "github.com/opentofu/registry-address"
@@ -157,19 +158,7 @@ func (m *SchemaMerger) SchemaForModule(meta *tfmod.Meta) (*schema.BodySchema, er
 	}
 
 	for _, module := range declared {
-		depKeys := schema.DependencyKeys{
-			// Fetching based only on the source can cause conflicts for multiple versions of the same module
-			// specially if they have different versions or the source of those modules have been modified
-			// inside the .terraform folder. This is a compromise that we made in this moment since it would impact only auto completion
-			Attributes: []schema.AttributeDependent{
-				{
-					Name: "source",
-					Expr: schema.ExpressionValue{
-						Static: cty.StringVal(module.RawSourceAddr),
-					},
-				},
-			},
-		}
+		depKeys := moduleSourceDependencyKeys(module)
 
 		switch sourceAddr := module.SourceAddr.(type) {
 		case tfaddr.Module:
@@ -230,6 +219,34 @@ func (m *SchemaMerger) SchemaForModule(meta *tfmod.Meta) (*schema.BodySchema, er
 	}
 
 	return mergedSchema, nil
+}
+
+// moduleSourceDependencyKeys helps build a set of dependency keys for module sources.
+// When the source is static, we match on it's value { "static" : "./value" }.
+// When the source is a reference to a variable or local, then the LS needs to build
+// a depdendency key to allow us to match on the addresses.
+func moduleSourceDependencyKeys(mc tfmod.DeclaredModuleCall) schema.DependencyKeys {
+	if st, ok := mc.SourceAddrExpr.(*hclsyntax.ScopeTraversalExpr); ok {
+		if addr, err := lang.TraversalToAddress(st.AsTraversal()); err == nil {
+			return schema.DependencyKeys{
+				Attributes: []schema.AttributeDependent{
+					{
+						Name: "source",
+						Expr: schema.ExpressionValue{Address: addr},
+					},
+				},
+			}
+		}
+	}
+
+	return schema.DependencyKeys{
+		Attributes: []schema.AttributeDependent{
+			{
+				Name: "source",
+				Expr: schema.ExpressionValue{Static: cty.StringVal(mc.RawSourceAddr)},
+			},
+		},
+	}
 }
 
 // typeBelongsToProvider returns true if the given type

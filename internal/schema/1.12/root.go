@@ -14,15 +14,22 @@ import (
 	v1_11_mod "github.com/opentofu/opentofu-schema/internal/schema/1.11"
 )
 
+var v1_12_4 = version.Must(version.NewVersion("1.12.4"))
+
 func ModuleSchema(v *version.Version) *schema.BodySchema {
 	bs := v1_11_mod.ModuleSchema(v)
 
 	// Update the lifecycle block to include the "destroy" attribute for version 1.12 retaining resources on destruction
 	bs.Blocks["resource"].Body.Blocks["lifecycle"] = patchResourceLifecycleBlockWithDestroy(bs.Blocks["resource"].Body.Blocks["lifecycle"])
 
-	bs.Blocks["terraform"].Body.Blocks["encryption"] = patchEncryptionBlockSchema(
-		bs.Blocks["terraform"].Body.Blocks["encryption"],
-	)
+	if v.GreaterThanOrEqual(v1_12_4) {
+		bs.Blocks["terraform"].Body.Blocks["encryption"] = patchEncryptionBlockSchema(
+			bs.Blocks["terraform"].Body.Blocks["encryption"],
+		)
+	}
+
+	// Add the new top-level "language" block introduced in version 1.12
+	bs.Blocks["language"] = languageBlockSchema()
 
 	return bs
 }
