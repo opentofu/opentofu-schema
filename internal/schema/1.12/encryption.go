@@ -27,5 +27,12 @@ func patchEncryptionBlockSchema(b *schema.BlockSchema) *schema.BlockSchema {
 		}
 	}
 
+	if awsKmsSchema, exists := keyProviderBlock.DependentBody[labelKey("aws_kms")]; exists {
+		awsKmsSchema.Attributes["encryption_context"] = &schema.AttributeSchema{
+			Constraint:  schema.LiteralType{Type: cty.Map(cty.String)},
+			Description: lang.Markdown("Optional map of key-value string pairs sent to AWS KMS as [Encryption Context](https://docs.aws.amazon.com/kms/latest/developerguide/encrypt_context.html) with every `GenerateDataKey` and `Decrypt` call."),
+		}
+	}
+
 	return b
 }
