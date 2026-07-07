@@ -39,4 +39,4 @@ require (
 	golang.org/x/tools v0.39.0 // indirect
 )
 
-replace github.com/hashicorp/hcl-lang => github.com/opentofu/hcl-lang v0.0.0-20251211111922-21077dbf3fe8
+replace github.com/hashicorp/hcl-lang => github.com/opentofu/hcl-lang v0.0.0-20260707084237-1d4085a34474
