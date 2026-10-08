@@ -156,8 +156,8 @@ func schemaForDependentModuleBlock(module module.DeclaredModuleCall, modMeta *mo
 			lang.AttrStep{Name: name},
 		}
 
-		typ := cty.DynamicPseudoType
-		if !output.Value.IsNull() {
+		typ := output.Type
+		if typ == cty.NilType && !output.Value.IsNull() {
 			typ = output.Value.Type()
 		}
 

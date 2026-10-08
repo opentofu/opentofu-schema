@@ -13,6 +13,7 @@ type Output struct {
 	Description string
 	IsSensitive bool
 	Value       cty.Value
+	Type        cty.Type
 
 	// Deprecated is a string to mark an output as deprecated with instructions to end users
 	// of the module.
