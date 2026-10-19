@@ -142,6 +142,9 @@ var outputSchema = &hcl.BodySchema{
 		{
 			Name: "deprecated",
 		},
+		{
+			Name: "type",
+		},
 	},
 }
 

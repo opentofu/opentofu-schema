@@ -356,11 +356,17 @@ func loadModuleFromFile(file *hcl.File, mod *decodedModule) hcl.Diagnostics {
 				valDiags = gohcl.DecodeExpression(attr.Expr, nil, &deprecated)
 				diags = append(diags, valDiags...)
 			}
+			valType := cty.DynamicPseudoType
+			if attr, defined := content.Attributes["type"]; defined {
+				valType, valDiags = typeexpr.TypeConstraint(attr.Expr)
+				diags = append(diags, valDiags...)
+			}
 			mod.Outputs[name] = &module.Output{
 				Description: description,
 				IsSensitive: isSensitive,
 				Value:       value,
 				Deprecated:  deprecated,
+				Type:        valType,
 			}
 		case "module":
 			content, remainingBody, contentDiags := block.Body.PartialContent(moduleSchema)

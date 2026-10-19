@@ -1092,6 +1092,7 @@ output "old_output" {
 						Value:       cty.StringVal("some_value"),
 						Description: "This output is deprecated",
 						Deprecated:  "Use new_output instead",
+						Type:        cty.DynamicPseudoType,
 					},
 				},
 				Filenames:   []string{"test.tf"},
@@ -1111,7 +1112,31 @@ output "name" {
 				ProviderRequirements: map[tfaddr.Provider]version.Constraints{},
 				Variables:            map[string]module.Variable{},
 				Outputs: map[string]module.Output{
-					"name": {Value: cty.NilVal},
+					"name": {Value: cty.NilVal, Type: cty.DynamicPseudoType},
+				},
+				Filenames:   []string{"test.tf"},
+				ModuleCalls: map[string]module.DeclaredModuleCall{},
+			},
+			nil,
+		},
+		{
+			"typed output",
+			`
+output "name" {
+  value = 10
+  type = number
+}
+`,
+			&module.Meta{
+				Path:                 path,
+				ProviderReferences:   map[module.ProviderRef]tfaddr.Provider{},
+				ProviderRequirements: map[tfaddr.Provider]version.Constraints{},
+				Variables:            map[string]module.Variable{},
+				Outputs: map[string]module.Output{
+					"name": {
+						Value: cty.NumberIntVal(10),
+						Type:  cty.Number,
+					},
 				},
 				Filenames:   []string{"test.tf"},
 				ModuleCalls: map[string]module.DeclaredModuleCall{},
