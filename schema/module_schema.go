@@ -156,9 +156,13 @@ func schemaForDependentModuleBlock(module module.DeclaredModuleCall, modMeta *mo
 			lang.AttrStep{Name: name},
 		}
 
-		typ := output.Type
-		if typ == cty.NilType && !output.Value.IsNull() {
+		typ := cty.DynamicPseudoType
+		if !output.Value.IsNull() {
 			typ = output.Value.Type()
+		}
+
+		if output.Type != cty.NilType && output.Type != cty.DynamicPseudoType {
+			typ = output.Type
 		}
 
 		targetable := &schema.Targetable{
