@@ -23,6 +23,8 @@ func ModuleSchema(v *version.Version) *schema.BodySchema {
 	// Add the new top-level "language" block introduced in version 1.12
 	bs.Blocks["language"] = languageBlockSchema()
 
+	bs.Blocks["terraform"].Body.Blocks["encryption"] = patchAzureVaultEncryption(bs.Blocks["terraform"].Body.Blocks["encryption"])
+
 	return bs
 }
 
