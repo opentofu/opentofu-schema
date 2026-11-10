@@ -8,6 +8,7 @@ package schema
 import (
 	"fmt"
 	"sort"
+	"strings"
 
 	"github.com/hashicorp/hcl-lang/lang"
 	"github.com/hashicorp/hcl-lang/schema"
@@ -96,11 +97,7 @@ func schemaForDependentRegistryModuleBlock(module module.DeclaredModuleCall, mod
 		}
 
 		bodySchema.DocsLink = &schema.DocsLink{
-			URL: fmt.Sprintf(
-				`https://search.opentofu.org/module/%s/%s`,
-				sourceAddr.Package.ForRegistryProtocol(),
-				versionStr,
-			),
+			URL: registryModuleDocsURL(sourceAddr, versionStr),
 		}
 	}
 
@@ -247,11 +244,7 @@ func schemaForDependentModuleBlock(module module.DeclaredModuleCall, modMeta *mo
 		}
 
 		bodySchema.DocsLink = &schema.DocsLink{
-			URL: fmt.Sprintf(
-				`https://search.opentofu.org/module/%s/%s`,
-				registryAddr.Package.ForRegistryProtocol(),
-				versionStr,
-			),
+			URL: registryModuleDocsURL(registryAddr, versionStr),
 		}
 	}
 
@@ -265,4 +258,13 @@ func sliceContains(slice []string, value string) bool {
 		}
 	}
 	return false
+}
+
+func registryModuleDocsURL(addr tfaddr.Module, versionStr string) string {
+	u := fmt.Sprintf(`https://search.opentofu.org/module/%s/%s`,
+		addr.Package.ForRegistryProtocol(), versionStr)
+	if name, ok := strings.CutPrefix(addr.Subdir, "modules/"); ok && name != "" {
+		u += "/submodule/" + name
+	}
+	return u
 }

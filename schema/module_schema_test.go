@@ -427,6 +427,38 @@ func TestSchemaForDependentModuleBlock_DocsLink(t *testing.T) {
 			},
 		},
 		{
+			"remote submodule with version",
+			&module.Meta{
+				Path:      "registry.opentofu.org/terraform-aws-modules/eks/aws",
+				Variables: map[string]module.Variable{},
+				Outputs:   map[string]module.Output{},
+				Filenames: nil,
+			},
+			module.DeclaredModuleCall{
+				LocalName:  "karpenter",
+				SourceAddr: tfaddr.MustParseModuleSource("registry.opentofu.org/terraform-aws-modules/eks/aws//modules/karpenter"),
+				Version:    version.MustConstraints(version.NewConstraint("21.3.1")),
+			},
+			&schema.BodySchema{
+				Attributes: map[string]*schema.AttributeSchema{},
+				TargetableAs: []*schema.Targetable{
+					{
+						Address: lang.Address{
+							lang.RootStep{Name: "module"},
+							lang.AttrStep{Name: "karpenter"},
+						},
+						ScopeId:           refscope.ModuleScope,
+						AsType:            cty.Object(map[string]cty.Type{}),
+						NestedTargetables: []*schema.Targetable{},
+					},
+				},
+				ImpliedOrigins: schema.ImpliedOrigins{},
+				DocsLink: &schema.DocsLink{
+					URL: "https://search.opentofu.org/module/terraform-aws-modules/eks/aws/v21.3.1/submodule/karpenter",
+				},
+			},
+		},
+		{
 			"remote module on unknown registry",
 			&module.Meta{
 				Path:      "example.com/terraform-aws-modules/vpc/aws",
