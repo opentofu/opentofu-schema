@@ -31,6 +31,8 @@ func ModuleSchema(v *version.Version) *schema.BodySchema {
 	// Add the new top-level "language" block introduced in version 1.12
 	bs.Blocks["language"] = languageBlockSchema()
 
+	bs.Blocks["import"] = importIdentitySchema(bs.Blocks["import"])
+
 	return bs
 }
 
